@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-06T08:33:24.843Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="ZeiU__4q8z8i4NhGtbm6" version="22.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-06T09:07:01.739Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="3dEfF0UDCrZJaozMo5ol" version="22.0.2" type="github">
   <diagram name="Page-1" id="EwJzgOxm_G4XAECukwM9">
     <mxGraphModel dx="1502" dy="1769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -137,6 +137,11 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="X8dY0_izw5UKXWrUzNRc-22" value="NON" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="cjrAuWvBvFFg3mzQt87p-67">
+          <mxGeometry x="-0.7817" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="X8dY0_izw5UKXWrUzNRc-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#008a00;strokeColor=#005700;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="710" y="185" as="sourcePoint" />
@@ -145,6 +150,11 @@
               <mxPoint x="710" y="260" />
               <mxPoint x="765" y="260" />
             </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="X8dY0_izw5UKXWrUzNRc-21" value="OUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="X8dY0_izw5UKXWrUzNRc-1">
+          <mxGeometry x="-0.64" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-52" value="Proposition covoiturage" style="shape=lineEllipse;perimeter=ellipsePerimeter;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
