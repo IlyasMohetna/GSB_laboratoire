@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-10-06T07:43:48.762Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="zHUHHrnCvFw9ONYGdwoZ" version="22.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-06T08:33:24.843Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="ZeiU__4q8z8i4NhGtbm6" version="22.0.2" type="github">
   <diagram name="Page-1" id="EwJzgOxm_G4XAECukwM9">
-    <mxGraphModel dx="1050" dy="1735" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1502" dy="1769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -27,7 +27,7 @@
         <mxCell id="X8dY0_izw5UKXWrUzNRc-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cjrAuWvBvFFg3mzQt87p-3" target="cjrAuWvBvFFg3mzQt87p-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="cjrAuWvBvFFg3mzQt87p-3" value="Module gestion de visiter" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+        <mxCell id="cjrAuWvBvFFg3mzQt87p-3" value="Module gestion de visite" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
           <mxGeometry x="200" y="80" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-4" value="Module gestion de visiter" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
