@@ -23,6 +23,8 @@ return new class extends Migration
             $table->year('appartenance_annee');
             $table->foreignId('id_nature')->nullable();
             $table->foreignId('code_situation');
+            $table->foreignId('code_employee_comptable')->nullable();
+            $table->foreignId('id_visite');
             $table->timestamps();
         });
     }

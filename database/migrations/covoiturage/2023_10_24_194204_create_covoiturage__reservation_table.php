@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_reservation');
             $table->dateTime('date_de_reservation');
             $table->foreignId('code_employe');
-            $table->foreignId('id_etape');
             $table->foreignId('id_trajet');
+            $table->foreignId('id_etape');
             $table->timestamps();
         });
     }

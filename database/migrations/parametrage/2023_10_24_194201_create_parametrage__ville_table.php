@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('parametrage__ville', function (Blueprint $table) {
             $table->id('ville_id');
-            $table->string('ville_nom');
-            $table->char('ville_cpostal', 5);
+            $table->string('nom');
+            $table->char('code_postal', 5);
             $table->decimal('ville_longitude', 9 , 6);
             $table->decimal('ville_latitude', 8 , 6);
             $table->foreignId('departement_id');

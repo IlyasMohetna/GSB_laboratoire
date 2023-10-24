@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dateTime('nombre_de_personnes');
             $table->foreignId('code_employee');
             $table->foreignId('id_salle');
-            $table->foreignId('id_extra');
+            $table->foreignId('id_extra')->nullable();
             $table->timestamps();
         });
     }

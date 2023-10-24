@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('model', 15);
             $table->year('annee_model');
             $table->enum('tpye_vehicule', ['perso', 'service']);
+            $table->foreignId('id_agence')->nullable();
+            $table->foreignId('code_employee')->nullable();
             $table->timestamps();
         });
     }

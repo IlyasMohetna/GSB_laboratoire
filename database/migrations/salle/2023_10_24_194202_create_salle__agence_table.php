@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('salle__agence', function (Blueprint $table) {
             $table->id('id_agence');
             $table->string('nom_agence', 50);
+            $table->foreignId('ville_id');
             $table->timestamps();
         });
     }

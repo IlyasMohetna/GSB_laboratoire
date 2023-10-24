@@ -21,8 +21,8 @@ return new class extends Migration
             $table->date('date_naissance');
             $table->date('date_embauche');
             $table->dateTime('derniere_connexion', $precision = 0)->nullable();
-            $table->foreignId('code_fonction');
             $table->foreignId('id_agence');
+            $table->foreignId('code_fonction');
             $table->timestamps();
         });
     }

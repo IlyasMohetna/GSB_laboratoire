@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('covoiturage__trajet', function (Blueprint $table) {
             $table->id('id_trajet');
             $table->integer('nombre_place_maximum');
+            $table->foreignId('id_vehicule');
+            $table->foreignId('code_employee');
             $table->timestamps();
         });
     }

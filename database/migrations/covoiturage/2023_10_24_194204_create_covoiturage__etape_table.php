@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('id_etape');
             $table->integer('ordre_etape');
             $table->dateTime('date_passage');
+            $date->foreignId('id_trajet');
+            $date->foreignId('id_ville');
             $table->timestamps();
         });
     }
