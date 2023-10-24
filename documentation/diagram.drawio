@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-24T13:44:18.685Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="PdATlaN6_IyRGehLfIuL" version="22.0.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-24T13:44:28.553Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="xsm6PWPckT06qFwdyR11" version="22.0.6" type="github">
   <diagram name="Page-1" id="EwJzgOxm_G4XAECukwM9">
     <mxGraphModel dx="3354" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -80,7 +80,7 @@
           <mxGeometry x="200" y="810" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-10" value="Module de reservation de &lt;br&gt;salles" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
-          <mxGeometry x="70" y="1000" width="120" height="80" as="geometry" />
+          <mxGeometry x="200" y="1110" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
