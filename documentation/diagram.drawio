@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-10-24T13:35:46.356Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="8G2Rdr_T91hFzXejz-j9" version="22.0.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-24T13:39:30.981Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="wPnXCXWUqBrBmzEBk8cG" version="22.0.6" type="github">
   <diagram name="Page-1" id="EwJzgOxm_G4XAECukwM9">
-    <mxGraphModel dx="3354" dy="1951" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3354" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -20,9 +20,6 @@
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-3" value="Module gestion de visite" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
           <mxGeometry x="200" y="80" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="cjrAuWvBvFFg3mzQt87p-4" value="Module gestion de visiter" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
-          <mxGeometry x="910" y="-190" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="cjrAuWvBvFFg3mzQt87p-5" target="cjrAuWvBvFFg3mzQt87p-52" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -52,10 +49,12 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="360" y="372" />
-              <mxPoint x="360" y="580" />
-              <mxPoint x="400" y="580" />
+              <mxPoint x="360" y="570" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="TIspPs3cSa9JJA6Hel0X-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="cjrAuWvBvFFg3mzQt87p-8" target="TIspPs3cSa9JJA6Hel0X-7">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-8" value="Module de covoiturage" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
           <mxGeometry x="200" y="331.5" width="120" height="80" as="geometry" />
@@ -116,7 +115,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-43" value="Mes annonces trajets" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="400" y="560" width="200" height="40" as="geometry" />
+          <mxGeometry x="400" y="550" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="cjrAuWvBvFFg3mzQt87p-46" target="cjrAuWvBvFFg3mzQt87p-35" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -190,6 +189,9 @@
         </mxCell>
         <mxCell id="X8dY0_izw5UKXWrUzNRc-10" value="Employé" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="60" y="336.5" width="40" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="TIspPs3cSa9JJA6Hel0X-7" value="Mes véhicules" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="620" width="200" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
