@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-24T13:33:01.887Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="nmhVRxMFgUCfWaKlvov2" version="22.0.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-24T13:35:24.685Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="dJEbNFwIrNPsHS7_cB72" version="22.0.6" type="github">
   <diagram name="Page-1" id="EwJzgOxm_G4XAECukwM9">
     <mxGraphModel dx="3354" dy="1951" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -103,7 +103,10 @@
         <mxCell id="cjrAuWvBvFFg3mzQt87p-36" value="Page de consultation de reservation" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1280" y="340" width="200" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="cjrAuWvBvFFg3mzQt87p-37" value="Publier un trajet" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="TIspPs3cSa9JJA6Hel0X-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="cjrAuWvBvFFg3mzQt87p-37" target="cjrAuWvBvFFg3mzQt87p-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cjrAuWvBvFFg3mzQt87p-37" value="Mes reservations" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="400" y="390" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="cjrAuWvBvFFg3mzQt87p-37" target="cjrAuWvBvFFg3mzQt87p-37" edge="1">
@@ -115,13 +118,13 @@
         <mxCell id="cjrAuWvBvFFg3mzQt87p-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="cjrAuWvBvFFg3mzQt87p-40" target="cjrAuWvBvFFg3mzQt87p-39" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="cjrAuWvBvFFg3mzQt87p-40" value="Page récap de mes propositions" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="cjrAuWvBvFFg3mzQt87p-40" value="Publier un trajet" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="400" y="470" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.59;entryY=1.088;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="cjrAuWvBvFFg3mzQt87p-43" target="cjrAuWvBvFFg3mzQt87p-39" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="cjrAuWvBvFFg3mzQt87p-43" value="Page de création de proposition" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="cjrAuWvBvFFg3mzQt87p-43" value="Mes annonces trajets" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="400" y="560" width="200" height="40" as="geometry" />
         </mxCell>
         <mxCell id="cjrAuWvBvFFg3mzQt87p-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="cjrAuWvBvFFg3mzQt87p-46" target="cjrAuWvBvFFg3mzQt87p-35" edge="1">
