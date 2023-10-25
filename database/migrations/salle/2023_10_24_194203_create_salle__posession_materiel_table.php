@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('salle__posession_materiel', function (Blueprint $table) {
-            $table->foreignId('id_salle');
-            $table->foreignId('id_materiel');
+            $table->foreignId('id_salle')->index()->foreign()->references('id_salle')->on('salle__salle');
+            $table->foreignId('id_materiel')->index()->foreign()->references('id_materiel')->on('salle__materiel_type');
             $table->primary(['id_salle', 'id_materiel']);
             $table->timestamps();
         });

@@ -18,18 +18,18 @@ class MigrateAll extends Command
     public function handle()
     {
         // Clear the database from the root directory
-        $processClear = new Process(['php', 'artisan', 'migrate:refresh']);
-        $processClear->setWorkingDirectory(base_path()); // Set the working directory to the root of the Laravel project
-        $processClear->run();
+        // $processClear = new Process(['php', 'artisan', 'migrate:refresh']);
+        // $processClear->setWorkingDirectory(base_path()); // Set the working directory to the root of the Laravel project
+        // $processClear->run();
 
-        $this->info("Running: " . $processClear->getCommandLine()); // Display the command line
-        $this->info($processClear->getOutput()); // Display the output
+        // $this->info("Running: " . $processClear->getCommandLine()); // Display the command line
+        // $this->info($processClear->getOutput()); // Display the output
 
-        if (!$processClear->isSuccessful()) {
-            $this->error('Error clearing the database.');
-        } else {
-            $this->info('Database cleared.');
-        }
+        // if (!$processClear->isSuccessful()) {
+        //     $this->error('Error clearing the database.');
+        // } else {
+        //     $this->info('Database cleared.');
+        // }
 
         // Run the migrations in subfolders
         $migrationFolders = glob('database/migrations/*', GLOB_ONLYDIR);

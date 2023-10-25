@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('parametrage__departement', function (Blueprint $table) {
-            $table->id('departement_id');
+            $table->id('departement_id')->index();
             $table->string('nom_departement', 50);
-            $table->foreignId('region_id');
+            $table->foreignId('region_id')->index()->foreign()->references('region_id')->on('parametrage__region');
             $table->timestamps();
         });
     }

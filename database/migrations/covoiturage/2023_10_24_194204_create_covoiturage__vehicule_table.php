@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('covoiturage__vehicule', function (Blueprint $table) {
-            $table->id('id_vehicule');
-            $table->string('immatriculation', 20);
+            $table->id('id_vehicule')->index();
+            $table->string('immatriculation', 15);
             $table->string('marque', 15);
             $table->string('model', 15);
             $table->year('annee_model');
-            $table->enum('tpye_vehicule', ['perso', 'service']);
-            $table->foreignId('id_agence')->nullable();
-            $table->foreignId('code_employee')->nullable();
+            $table->enum('type_vehicule', ['perso', 'service']);
+            $table->foreignId('id_agence')->index()->nullable()->foreign()->references('id_agence')->on('salle__agence');
+            $table->foreignId('code_employe')->index()->nullable()->foreign()->references('code_employe')->on('employe__employe');
             $table->timestamps();
         });
     }

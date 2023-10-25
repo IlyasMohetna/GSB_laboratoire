@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('parametrage__region', function (Blueprint $table) {
-            $table->id('region_id');
+            $table->id('region_id')->index();
             $table->string('nom_region', 50);
             $table->timestamps();
         });

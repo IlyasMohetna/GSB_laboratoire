@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('salle__agence', function (Blueprint $table) {
-            $table->id('id_agence');
+            $table->id('id_agence')->index();
             $table->string('nom_agence', 50);
-            $table->foreignId('ville_id');
+            $table->foreignId('id_ville')->index()->foreign()->references('id_ville')->on('parametrage__ville');
             $table->timestamps();
         });
     }

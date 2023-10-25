@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('visite__visite', function (Blueprint $table) {
-            $table->id('id_visite');
+            $table->id('id_visite')->index();
             $table->date('date_debut_visite');
             $table->date('date_fin_visite');
             $table->longText('rapport');
-            $table->foreignId('id_praticien');
-            $table->foreignId('code_employe');
+            $table->foreignId('id_praticien')->index()->foreign()->references('id_praticien')->on('visite__praticien');
+            $table->foreignId('code_employe')->index()->foreign()->references('code_employe')->on('employe__employe');
             $table->timestamps();
         });
     }

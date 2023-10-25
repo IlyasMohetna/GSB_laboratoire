@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('salle__reservation', function (Blueprint $table) {
-            $table->id('id_reservation');
+            $table->id('id_reservation')->index();
             $table->dateTime('date_debut_reservation');
             $table->dateTime('date_fin_reservation');
-            $table->dateTime('nombre_de_personnes');
-            $table->foreignId('code_employee');
-            $table->foreignId('id_salle');
-            $table->foreignId('id_extra')->nullable();
+            $table->integer('nombre_de_personnes');
+            $table->foreignId('code_employe')->index()->foreign()->references('code_employe')->on('employe__employe');
+            $table->foreignId('id_salle')->index()->foreign()->references('id_salle')->on('salle__salle');
+            $table->foreignId('id_extra')->index()->nullable()->foreign()->references('id_extra')->on('salle__extra');
             $table->timestamps();
         });
     }

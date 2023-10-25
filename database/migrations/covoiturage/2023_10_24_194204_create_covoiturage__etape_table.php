@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('covoiturage__etape', function (Blueprint $table) {
-            $table->id('id_etape');
-            $table->integer('ordre_etape');
+            $table->id('id_etape')->index();
+            $table->integer('ordre_etape')->index();
             $table->dateTime('date_passage');
-            $date->foreignId('id_trajet');
-            $date->foreignId('id_ville');
+            $table->foreignId('id_trajet')->index()->foreign()->references('id_trajet')->on('covoiturage__trajet');
+            $table->foreignId('id_ville')->index()->foreign()->references('id_ville')->on('parametrage__ville');
             $table->timestamps();
         });
     }

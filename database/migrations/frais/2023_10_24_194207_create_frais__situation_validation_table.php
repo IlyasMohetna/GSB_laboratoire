@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('frais__situation_validation', function (Blueprint $table) {
-            $table->id('code_situation');
-            $table->string('libelle_situation');
+            $table->id('code_situation')->index();
+            $table->string('libelle_situation', 50);
             $table->timestamps();
         });
     }
