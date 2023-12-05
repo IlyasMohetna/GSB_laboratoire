@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\MedicamentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +13,8 @@ use \App\Http\Controllers\MedicamentController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function(){
     return view('welcome');
 });
 
-
-Route::get('/medicaments', [MedicamentController::class, 'all_medicament']);
+include __DIR__.'/auth.php';
