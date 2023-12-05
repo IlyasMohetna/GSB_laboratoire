@@ -6,6 +6,7 @@
       <meta name="keywords" content="html dashboard,tailwind css,tailwind admin dashboard,template dashboard,html and css template,tailwind dashboard,tailwind css templates,admin dashboard html template,tailwind admin,html panel,template tailwind,html admin template,admin panel html">
       <!-- Favicon --> 
       <link rel="shortcut icon" href="assets/images/brand-logos/favicon.ico">
+      <script src="https://cdn.tailwindcss.com"></script>
       <!-- Main JS --> <script src="assets/js/main.js"></script> <!-- Style Css --> 
       <link rel="stylesheet" href="assets/css/style.css">
       <!-- Simplebar Css --> 
@@ -207,10 +208,12 @@
                      </div>
                      <!-- End Full screen --> <!-- Header Profile --> 
                      <div class="header-element md:!px-[0.65rem] px-2 hs-dropdown !items-center ti-dropdown [--placement:bottom-left]">
-                        <button id="dropdown-profile" type="button" class="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent "> <img class="inline-block rounded-full " src="assets/images/faces/9.jpg" width="32" height="32" alt="Image Description"> </button> 
+                        <button id="dropdown-profile" type="button" class="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent "> 
+                           <div class="inline-flex items-center justify-center w-10 h-10 text-md font-bold text-white bg-indigo-500 rounded-full">{{ substr(auth()->user()->prenom, 0, 1).''.substr(auth()->user()->nom, 0, 1)}}</div> 
+                        </button> 
                         <div class="md:block hidden dropdown-profile">
-                           <p class="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">Json Taylor</p>
-                           <span class="opacity-[0.7] font-normal text-[#536485] block text-[0.6875rem] ">Web Designer</span> 
+                           <p class="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">{{ auth()->user()->prenom.' '.auth()->user()->nom }}</p>
+                           <span class="opacity-[0.7] font-normal text-[#536485] block text-[0.6875rem] ">{{ auth()->user()->Fonction->nom_fonction }}</span> 
                         </div>
                         <div class="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="dropdown-profile">
                            <ul class="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">

@@ -24,4 +24,11 @@ class User extends Authenticatable
     {
         $this->mot_de_passe = bcrypt($value);
     }
+
+    //--- Jointure
+
+    public function Fonction()
+    {
+        return $this->hasOne(\App\Models\EMPLOYE\Fonction::class, 'code_fonction', 'code_fonction');
+    }
 }
