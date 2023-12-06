@@ -216,13 +216,24 @@
                         </div>
                         <div class="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="dropdown-profile">
                            <ul class="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
-                              <li> <a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex" href="profile.html"> <i class="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>Profile </a> </li>
-                              <li> <a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex" href="mail.html"><i class="ti ti-inbox text-[1.125rem] me-2 opacity-[0.7]"></i>Inbox <span class="!py-1 !px-[0.45rem] !font-semibold !rounded-sm text-success text-[0.75em] bg-success/10 ms-auto">25</span> </a> </li>
-                              <li><a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex" href="todo.html"><i class="ti ti-clipboard-check text-[1.125rem] me-2 opacity-[0.7]"></i>Task Manager</a></li>
-                              <li><a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex" href="mail-settings.html"><i class="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>Settings</a></li>
-                              <li><a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex " href="javascript:void(0);"><i class="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>Bal: $7,12,950</a></li>
-                              <li><a class="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="chat.html"><i class="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>Support</a></li>
-                              <li><a class="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="sign-in-cover.html"><i class="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>Log Out</a></li>
+                              <li>
+                                 <a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex" href="profile.html">
+                                    <i class="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>
+                                    Profile 
+                                 </a> 
+                              </li>
+                              <li>
+                                 <a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex" href="mail-settings.html">
+                                    <i class="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
+                                    Settings
+                                 </a>
+                              </li>
+                              <li>
+                                 <a class="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="{{ Route('auth.logout') }}">
+                                    <i class="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
+                                    Se déconnecter
+                                 </a>
+                              </li>
                            </ul>
                         </div>
                      </div>
