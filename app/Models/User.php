@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasRoles;
 
     protected $table = 'employe__employe';
-    protected $fillable = ['utilisateur', 'mot_de_passe'];
+    // protected $fillable = ['utilisateur', 'mot_de_passe'];
     protected $primaryKey = 'code_employe';
     public $timestamps = true;
 

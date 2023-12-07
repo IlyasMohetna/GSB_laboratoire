@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/welcome', function(){
-    return view('welcome');
+Route::get('/accueil', function(){
+    return view('accueil');
+})->name('accueil.show');
+
+Route::get('/import', function(){
+    return view('import');
 });
+
+Route::post('/import', [ImportController::class, 'ville_import']);
 
 include __DIR__.'/auth.php';

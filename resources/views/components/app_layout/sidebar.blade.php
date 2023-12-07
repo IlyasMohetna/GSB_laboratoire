@@ -16,7 +16,7 @@
                      </div>
                      <ul class="main-menu">
                         <li class="slide">
-                           <a href="javascript:void(0);" class="side-menu__item"> 
+                           <a href="javascript:void(0);" id="sidebar-accueil" class="side-menu__item"> 
                               <i class="bx bx-home side-menu__icon"></i> 
                               <span class="side-menu__label">
                                  Accueil
@@ -33,19 +33,13 @@
                               <i class="fe fe-chevron-right side-menu__angle"></i> 
                            </a> 
                            <ul class="slide-menu child1">
-                              <li><a href="javascript:void(0)" class="side-menu__item active">Covoiturage</a></li>
+                              <li><a href="javascript:void(0)" class="side-menu__item">Covoiturage</a></li>
                               <li><a href="about-us.html" class="side-menu__item">Mes annonces</a></li>
                               <li> <a href="chat.html" class="side-menu__item">Mes réservations</a> </li>
                               <li> <a href="chat.html" class="side-menu__item">Déposer une annonce</a> </li>
                               <li> <a href="chat.html" class="side-menu__item">Parc automobile</a> </li>
                            </ul>
                         </li>
-
-                        <script>
-                           $(document).load(function(){
-                              console.log($('a .active'));
-                           })
-                        </script>
 
                         <li class="slide has-sub open">
                            <a href="javascript:void(0);" class="side-menu__item"> 
@@ -102,6 +96,9 @@
                         </svg>
                      </div>
                   </nav>
+                  <script>
+                     ($('.side-menu__item.active')).parent().parent().prev('a').addClass('active');
+                  </script>
                   <!-- End::nav --> 
                </div>
             </div>
