@@ -64,11 +64,15 @@ class VilleImport implements ToModel,WithHeadingRow,WithEvents
 
     public function registerEvents(): array
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        Ville::truncate();
-        Departement::truncate();
-        Region::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        return [];
+        return [
+            BeforeImport::class => function(BeforeImport $event) {
+                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+                Ville::truncate();
+                Departement::truncate();
+                Region::truncate();
+                DB::statement('SET FOREIGN_KEY_CHECKS=1');
+            },
+        ];
     }
+
 }
