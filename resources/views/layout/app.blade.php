@@ -3,16 +3,12 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>YNEX - Tailwind Admin Template</title>
       <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-      <!-- Favicon --> 
       <link rel="shortcut icon" href="assets/images/brand-logos/favicon.ico">
       <script src="https://cdn.tailwindcss.com"></script>
-      <!-- Main JS --> <script src="assets/js/main.js"></script> <!-- Style Css --> 
-      <link rel="stylesheet" href="assets/css/style.css">
-      <!-- Simplebar Css --> 
-      <link rel="stylesheet" href="assets/libs/simplebar/simplebar.min.css">
-      <!-- Color Picker Css --> 
-      <link rel="stylesheet" href="assets/libs/@simonwep/pickr/themes/nano.min.css">
-      <meta http-equiv="imagetoolbar" content="no">
+      <script src="assets/js/main.js"></script>
+      <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
    </head>
    <body>
       <div id="hs-overlay-switcher" class="hs-overlay hidden ti-offcanvas ti-offcanvas-right" tabindex="-1">
@@ -273,19 +269,19 @@
          </footer> -->
          <!-- Footer End --> 
       </div>
-      <script src="assets/libs/preline/preline.js"></script>
-      <script src="assets/libs/@popperjs/core/umd/popper.min.js"></script>
-      <script src="assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
-      <script src="assets/js/defaultmenu.js"></script>
-      <script src="assets/js/sticky.js"></script>
-      <script src="assets/js/switch.js"></script>
-      <script src="assets/libs/simplebar/simplebar.min.js"></script>
-      <script src="..\assets\libs\jsvectormap\js\jsvectormap.min.js"></script>
-      <script src="..\assets\libs\jsvectormap\maps\world-merc.js"></script>
-      <script src="..\assets\libs\apexcharts\apexcharts.min.js"></script>
-      <script src="..\assets\libs\chart.js\chart.min.js"></script>
-      <script src="assets/js/crm-dashboard.js"></script>
-      <script src="assets/js/custom-switcher.js"></script>
-      <script src="assets/js/custom.js"></script>
+      <script src="{{ asset('assets/libs/preline/preline.js') }}"></script>
+      <script src="{{ asset('assets/libs/@popperjs/core/umd/popper.min.js') }}"></script>
+      <script src="{{ asset('assets/libs/@simonwep/pickr/pickr.es5.min.js') }}"></script>
+      <script src="{{ asset('assets/js/defaultmenu.js') }}"></script>
+      <script src="{{ asset('assets/js/sticky.js') }}"></script>
+      <script src="{{ asset('assets/js/switch.js') }}"></script>
+      <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+      <!-- <script src="..\assets\libs\jsvectormap\js\jsvectormap.min.js') }}"></script> -->
+      <!-- <script src="..\assets\libs\jsvectormap\maps\world-merc.js') }}"></script> -->
+      <!-- <script src="..\assets\libs\apexcharts\apexcharts.min.js') }}"></script> -->
+      <!-- <script src="..\assets\libs\chart.js\chart.min.js') }}"></script> -->
+      <script src="{{ asset('assets/js/crm-dashboard.js') }}"></script>
+      <script src="{{ asset('assets/js/custom-switcher.js') }}"></script>
+      <script src="{{ asset('assets/js/custom.js') }}"></script>
    </body>
 </html>
