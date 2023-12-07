@@ -264,9 +264,7 @@
          <!-- End::app-sidebar --> 
          <div class="content main-index">
             <!-- Start::main-content --> 
-            <div class="main-content">
-                @yield('content')
-            </div>
+            @yield('content')
             <!-- end::main-content --> 
          </div>
          <!-- ========== END Search Modal ========== --> <!-- Footer Start --> 
