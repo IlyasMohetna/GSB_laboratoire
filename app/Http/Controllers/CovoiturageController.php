@@ -14,8 +14,25 @@ class CovoiturageController extends Controller
 
     public function ville_lookup()
     {
-        $query = request()->search;
-        $search = Ville::where('nom', 'LIKE', '%'.$query ?? ''.'%')->limit(10)->get();
-        dd($search);
+        $query = empty(request()->q) ? '' : request()->q;
+        $search = Ville::select(['id_ville', 'nom', 'ville_longitude', 'ville_latitude'])
+                        ->where('nom', 'LIKE', '%'.$query.'%')
+                        ->orWhere('nom', 'LIKE', '%'.$query.'%') // Using the same condition for case-insensitive search with collation
+                        ->orderByRaw("CASE WHEN `nom` = ? THEN 1 WHEN `nom` LIKE ? THEN 2 ELSE 3 END", [$query, $query.'%'])
+                        ->limit(10)
+                        ->get();
+        $result = [];
+        $result['results'] = [];
+
+        foreach($search as $ville){
+            $result['results'][] = [
+                'id' => $ville->id_ville,
+                'text' => $ville->nom,
+                'longitude' => $ville->ville_longitude,
+                'latitude' => $ville->ville_latitude
+            ];
+        }
+
+        return json_encode($result);
     }
 }
