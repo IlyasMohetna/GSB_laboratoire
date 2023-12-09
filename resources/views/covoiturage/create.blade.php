@@ -17,7 +17,7 @@
    <!-- End:: row-4 --> <!-- Start:: row-5 --> 
    <div class="grid grid-cols-12 gap-6">
         <div class="md:col-span-6 col-span-12">
-            <div class="box">
+            <div class="box" id="step1">
             <div class="box-header justify-between">
                <div class="box-title">Mon trajet</div>
             </div>
@@ -42,7 +42,7 @@
                 <hr>
             </div>
             </div>
-            <div class="box">
+            <div class="box !hidden" id="step2">
                 <div class="box-header justify-between">
                     <div class="box-title">Selectionner un véhicule</div>
                 </div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="box">
+            <div class="box !hidden" id="step3">
                 <div class="box-header justify-between">
                     <div class="box-title">Details de mon annonce</div>
                 </div>
@@ -105,13 +105,61 @@
                     </div>
                 </div>
             </div>
+            <div class="grid grid-cols-2">
+                <div>
+                    <button id="prevBtn" type="button" aria-label="button" class="!hidden float-left ti-btn ti-btn-icon text-md bg-danger text-white !rounded-full ti-btn-wave me-5">
+                        <i class='bx bx-left-arrow-alt' ></i>
+                    </button>                
+                </div>
+                <div>
+                    <button id="nextBtn" type="button" aria-label="button" class="float-right  ti-btn ti-btn-icon text-md bg-success text-white !rounded-full ti-btn-wave">
+                        <i class='bx bx-right-arrow-alt' ></i>
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="md:col-span-6 col-span-12 h-full" id="traject_map_row">
             <div id="map" class="w-full" style="height:80vh!important"></div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+      var currentStep = 1;
 
+      $('#nextBtn').on('click', function() {
+        if (currentStep < 3) {
+          $('#step' + currentStep).addClass('!hidden');
+          currentStep++;
+          $('#step' + currentStep).removeClass('!hidden');
+          $('#prevBtn').removeClass('!hidden');
+        }
+
+        // Toggle NEXT and PREVIOUS button visibility based on the current step
+        if (currentStep === 3) {
+          $('#nextBtn').addClass('!hidden');
+        } else {
+          $('#nextBtn').removeClass('!hidden');
+        }
+      });
+
+      $('#prevBtn').on('click', function() {
+        if (currentStep > 1) {
+          $('#step' + currentStep).addClass('!hidden');
+          currentStep--;
+          $('#step' + currentStep).removeClass('!hidden');
+          $('#nextBtn').removeClass('!hidden');
+        }
+
+        // Toggle NEXT and PREVIOUS button visibility based on the current step
+        if (currentStep === 1) {
+          $('#prevBtn').addClass('!hidden');
+        } else {
+          $('#prevBtn').removeClass('!hidden');
+        }
+      });
+    });
+  </script>
 <script>
     $(document).ready(function() {
       // Initialize car-select select2 with preloaded data and custom template
