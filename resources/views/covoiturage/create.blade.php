@@ -87,12 +87,10 @@
 function addNewStep() {
     var newSelectId = 'step_select_' + uniqueIdCounter;
     uniqueIdCounter++;
-    var newSelectHtml = '<div class="col-span-12 mb-4 sm:mb-0 flex items-center space-x-2" id="' + newSelectId + '_container"><select id="' + newSelectId + '" name="' + newSelectId + '" class="step-select w-80"></select><button type="button" aria-label="button" class="ti-btn ti-btn-icon bg-danger/10 text-danger hover:bg-danger hover:text-white !rounded-full ti-btn-wave w-20" onclick="removeStep(\'' + newSelectId + '_container\')"><i class="ri-delete-bin-line"></i></button></div>';
+    var newSelectHtml = '<div class="col-span-12 mb-4 sm:mb-0 flex items-center space-x-2" id="' + newSelectId + '_container"><select id="' + newSelectId + '" name="' + newSelectId + '" class="select2watch w-80"></select><button type="button" aria-label="button" class="ti-btn ti-btn-icon bg-danger/10 text-danger hover:bg-danger hover:text-white !rounded-full ti-btn-wave w-20" onclick="removeStep(\'' + newSelectId + '_container\')"><i class="ri-delete-bin-line"></i></button></div>';
     
-    // Append the new select element to the steps_list container
     $('#steps_list').append(newSelectHtml);
 
-    // Apply Select2 to the new select element
     $('#' + newSelectId).select2({
         placeholder: "Sélectionner une étape",
         allowClear: true,
@@ -128,8 +126,8 @@ $('#steps_add_btn').on('click', function(){
 })
   
 function removeStep(containerId) {
-    // Remove the corresponding container when the remove button is clicked
     $('#' + containerId).remove();
+    updateSelect2Watch();
 }
 </script>
 <script>
@@ -180,23 +178,24 @@ function removeStep(containerId) {
                     };
                 }
             }
-        });
+        });   
+    });
+    function updateSelect2Watch() {
+    var trajectory_coordinates = [];
+    
+    $('.select2watch').each(function () {
+        var element = $(this).select2('data')[0];
+        if (element && element.longitude && element.latitude) {
+            trajectory_coordinates.push(element.longitude + ',' + element.latitude);
+        }
+    });
 
-
-
-
-        $('#startLocation,#endLocation').on('select2:select', function (e) {
-            var startLocationData = $('#startLocation').select2('data')[0];
-            var endLocationData = $('#endLocation').select2('data')[0];
-            generateRoute(
-                [
-                    startLocationData.longitude+','+startLocationData.latitude
-                ],
-                [
-                    endLocationData.longitude+','+endLocationData.latitude
-                ]
-                );
-            });    
-        });
+    if (trajectory_coordinates.length >= 2) {
+        generateRoute(trajectory_coordinates.join(';'));
+    }
+}
+$(document).on('select2:select', '.select2watch', function (e) {
+    updateSelect2Watch();
+});
 </script>
 @stop
