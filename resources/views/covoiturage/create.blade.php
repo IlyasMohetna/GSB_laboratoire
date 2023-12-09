@@ -6,6 +6,7 @@
 <script src="{{ asset('assets/js/Polyline.encoded.js') }}"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <div class="main-content">
    <!-- Page Header --> 
    <div class="block justify-between page-header md:flex">
@@ -24,16 +25,21 @@
                <form class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
                     <div class="col-span-12 mb-4 sm:mb-0"> 
                        <label class="hidden" for="autoSizingInput">Ville de départ</label> 
-                       <select id="startLocation" name="startLocation"></select>
+                       <select id="startLocation" class="select2watch" name="startLocation"></select>
                     </div>
-                    <div id="steps_container"></div>
-                    <div class="col-span-12 mb-4 sm:mb-0"> 
+                    <div id="steps_container" class="col-span-12 mb-4 sm:mb-0 mb-2">
+                        <div id="steps_list" class="space-y-2"></div>
+                        <div id="steps_add" class="flex items-center space-x-2">
+                            <button type="button" id="steps_add_btn" class="ti-btn ti-btn-icon bg-success/10 text-success hover:bg-success hover:text-white !rounded-full ti-btn-wave">
+                                <i class="ri-add-line"></i>
+                            </button>
+                            <span class="justify-center align-center">Ajouté une étape et augmenter vos possibilités</span>
+                        </div>
+                    </div>
+                    <div class="col-span-12 mb-4 sm:mb-0 mt-2"> 
                        <label class="hidden" for="autoSizingInput">Ville d'arrivée</label> 
-                       <select id="endLocation" name="endLocation"></select>
+                       <select id="endLocation" class="select2watch" name="endLocation"></select>
                     </div>
-                  <div class="col-span-12">
-                    <button type="button" id="generate_route">Generate</button> 
-                </div>
                </form>
             </div>
          </div>
@@ -75,6 +81,57 @@
 </style>
 <script>$('#sidebar-accueil').addClass('active');</script>
 <script src="{{ asset('assets/js/map/trajectory.js') }}"></script>
+<script>
+ var uniqueIdCounter = 1; // Initialize a counter
+
+function addNewStep() {
+    var newSelectId = 'step_select_' + uniqueIdCounter;
+    uniqueIdCounter++;
+    var newSelectHtml = '<div class="col-span-12 mb-4 sm:mb-0 flex items-center space-x-2" id="' + newSelectId + '_container"><select id="' + newSelectId + '" name="' + newSelectId + '" class="step-select w-80"></select><button type="button" aria-label="button" class="ti-btn ti-btn-icon bg-danger/10 text-danger hover:bg-danger hover:text-white !rounded-full ti-btn-wave w-20" onclick="removeStep(\'' + newSelectId + '_container\')"><i class="ri-delete-bin-line"></i></button></div>';
+    
+    // Append the new select element to the steps_list container
+    $('#steps_list').append(newSelectHtml);
+
+    // Apply Select2 to the new select element
+    $('#' + newSelectId).select2({
+        placeholder: "Sélectionner une étape",
+        allowClear: true,
+        ajax: {
+            url: '/ville',
+            delay: 0,
+            dataType: 'json',
+            data: function (params) {
+                return {
+                    q: params.term
+                };
+            },
+            processResults: function (data) {
+                var formattedResults = data.results.map(function (result) {
+                    return {
+                        id: result.id,
+                        text: result.text,
+                        longitude: result.longitude,
+                        latitude: result.latitude
+                    };
+                });
+                return {
+                    results: formattedResults
+                };
+            }
+        }
+    });
+}
+
+        
+$('#steps_add_btn').on('click', function(){
+    addNewStep();
+})
+  
+function removeStep(containerId) {
+    // Remove the corresponding container when the remove button is clicked
+    $('#' + containerId).remove();
+}
+</script>
 <script>
     $(document).ready(function() {
         $('#startLocation').select2({
@@ -124,7 +181,10 @@
                 }
             }
         });
-            
+
+
+
+
         $('#startLocation,#endLocation').on('select2:select', function (e) {
             var startLocationData = $('#startLocation').select2('data')[0];
             var endLocationData = $('#endLocation').select2('data')[0];

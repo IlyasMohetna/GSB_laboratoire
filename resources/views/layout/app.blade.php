@@ -2,9 +2,9 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>YNEX - Tailwind Admin Template</title>
+      <!-- <script src="https://cdn.tailwindcss.com"></script> -->
       <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
       <link rel="shortcut icon" href="assets/images/brand-logos/favicon.ico">
-      <script src="https://cdn.tailwindcss.com"></script>
       <script src="assets/js/main.js"></script>
       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}">
