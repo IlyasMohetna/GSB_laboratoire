@@ -16,39 +16,131 @@
    </div>
    <!-- End:: row-4 --> <!-- Start:: row-5 --> 
    <div class="grid grid-cols-12 gap-6">
-      <div class="md:col-span-6 col-span-12" id="traject_details_row">
-         <div class="box">
+        <div class="md:col-span-6 col-span-12">
+            <div class="box">
             <div class="box-header justify-between">
-               <div class="box-title">Details de mon annonce</div>
+               <div class="box-title">Mon trajet</div>
             </div>
-            <div class="box-body">
-               <form class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
-                    <div class="col-span-12 mb-4 sm:mb-0"> 
-                       <label class="hidden" for="autoSizingInput">Ville de départ</label> 
-                       <select id="startLocation" class="select2watch" name="startLocation"></select>
+            <div class="box-body sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center">
+                <div class="col-span-12 mb-4 sm:mb-0"> 
+                    <label class="hidden" for="autoSizingInput">Ville de départ</label> 
+                    <select id="startLocation" class="select2watch" name="startLocation"></select>
+                </div>
+                <div id="steps_container" class="col-span-12 mb-4 mt-4 sm:mb-0 mb-2">
+                    <div id="steps_list" class="space-y-2"></div>
+                    <div id="steps_add" class="flex items-center space-x-2">
+                        <button type="button" id="steps_add_btn" class="ti-btn ti-btn-icon bg-success/10 text-success hover:bg-success hover:text-white !rounded-full ti-btn-wave">
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <span class="justify-center align-center">Ajouté une étape et augmenter vos possibilités</span>
                     </div>
-                    <div id="steps_container" class="col-span-12 mb-4 sm:mb-0 mb-2">
-                        <div id="steps_list" class="space-y-2"></div>
-                        <div id="steps_add" class="flex items-center space-x-2">
-                            <button type="button" id="steps_add_btn" class="ti-btn ti-btn-icon bg-success/10 text-success hover:bg-success hover:text-white !rounded-full ti-btn-wave">
-                                <i class="ri-add-line"></i>
+                </div>
+                <div class="col-span-12 sm:mb-0 mt-2"> 
+                    <label class="hidden" for="autoSizingInput">Ville d'arrivée</label> 
+                    <select id="endLocation" class="select2watch" name="endLocation"></select>
+                </div>
+                <hr>
+            </div>
+            </div>
+            <div class="box">
+                <div class="box-header justify-between">
+                    <div class="box-title">Selectionner un véhicule</div>
+                </div>
+                <div class="box-body block items-center space-y-3">
+                    <div class="grid grid-cols-2">
+                        <div class="mx-auto">
+                            <button type="button" class="px-4 py-4 text-md border border-1 font-medium text-center bg-white hover:text-white items-center text-black rounded-lg hover:bg-blue-800">
+                                <i class='bx bx-car'></i>
+                                Véhicules personneles
                             </button>
-                            <span class="justify-center align-center">Ajouté une étape et augmenter vos possibilités</span>
+                        </div>
+                        <div class="mx-auto">
+                            <button type="button" class="px-4 py-4 text-md border border-1 font-medium text-center bg-white hover:text-white items-center text-black rounded-lg hover:bg-blue-800">
+                                <i class='bx bxs-buildings' ></i>   
+                                Véhicules de service
+                            </button>
                         </div>
                     </div>
-                    <div class="col-span-12 mb-4 sm:mb-0 mt-2"> 
-                       <label class="hidden" for="autoSizingInput">Ville d'arrivée</label> 
-                       <select id="endLocation" class="select2watch" name="endLocation"></select>
+                    <div id="vehicule_perso_list">
+                        @if($vehicules_perso->isEmpty())
+                        <div class="mx-auto text-center">Vous n'avez aucun véhicule personnel disponible pour le moment</div>
+                        @else 
+                        <select id="car-select" name="color_select">
+                            @foreach($vehicules_perso as $vehicule_perso)
+                            <option value="{{ $vehicule_perso->id_vehicule }}" data-marque="{{ $vehicule_perso->marque }}" data-immatriculation="{{ $vehicule_perso->immatriculation }}" data-model="{{ $vehicule_perso->model }}" data-annee_model="{{ $vehicule_perso->annee_model }}">{{ $vehicule_perso->marque }} - {{ $vehicule_perso->immatriculation }}</option>
+                            @endforeach
+                        </select>
+                        @endif
                     </div>
-               </form>
+                </div>
             </div>
-         </div>
-      </div>
-      <div class="md:col-span-6 col-span-12 h-full" id="traject_map_row">
-        <div id="map" class="w-full" style="height:80vh!important"></div>
-      </div>
-   </div>
+            <div class="box">
+                <div class="box-header justify-between">
+                    <div class="box-title">Details de mon annonce</div>
+                </div>
+                <div class="box-body block items-center space-y-3">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <div class="relative">
+                                <input type="text" id="hs-trailing-icon" name="hs-trailing-icon" class="ti-form-input rounded-sm pe-11 focus:z-10" placeholder="Date de départ"> 
+                                <div class="absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 pe-4"> 
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="relative">
+                                <input type="text" id="hs-trailing-icon" name="hs-trailing-icon" class="ti-form-input rounded-sm pe-11 focus:z-10" placeholder="Nombre de place"> 
+                                <div class="absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 pe-4"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="float-right py-2 px-3 inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-e-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary transition-all text-sm">
+                            <span class="hidden animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading">
+                            </span>
+                            <i class='bx bx-car' ></i>
+                            Créer 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md:col-span-6 col-span-12 h-full" id="traject_map_row">
+            <div id="map" class="w-full" style="height:80vh!important"></div>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+      // Initialize car-select select2 with preloaded data and custom template
+      $("#car-select").select2({
+        templateResult: formatCarState,
+      });
+    });
+
+    // Custom template for car-select
+    function formatCarState(car) {
+      var marque = $(car.element).data('marque');
+      var immatriculation = $(car.element).data('immatriculation');
+      var model = $(car.element).data('model');
+      var annee_model = $(car.element).data('annee_model');
+
+      var $state = $(
+        '<div style="display: flex; justify-content: space-between; align-items: center;">' +
+          '<div style="flex-grow: 1;">' +
+            '<strong>' + marque + '</strong> - '+ model +'<br>' +
+            'Immatriculation: ' + immatriculation +
+          '</div>' +
+          '<div style="float: right;">' +
+            'Annee Model: ' + annee_model +
+          '</div>' +
+        '</div>'
+      );
+      return $state;
+    }
+  </script>
 <style>
     .popup-container {
   font-family: Arial, sans-serif;
@@ -181,17 +273,27 @@ function removeStep(containerId) {
         });   
     });
     function updateSelect2Watch() {
-    var trajectory_coordinates = [];
+    var trajectory_data = [];
     
     $('.select2watch').each(function () {
         var element = $(this).select2('data')[0];
         if (element && element.longitude && element.latitude) {
-            trajectory_coordinates.push(element.longitude + ',' + element.latitude);
+            trajectory_data.push({
+                cityName: element.text,
+                coordinates: element.longitude + ',' + element.latitude
+            });
         }
     });
 
-    if (trajectory_coordinates.length >= 2) {
-        generateRoute(trajectory_coordinates.join(';'));
+    if (trajectory_data.length >= 2) {
+        // console.log(trajectory_data);
+        // const traject_coordinates = trajectory_data.map(data => data.coordinates).join(';');
+        // trajectory_data.forEach((step, index) => {
+        //     console.log(step['coordinates'].split(','));
+        //     // console.log(step,index);
+        // });
+        // return false;
+        generateRoute(trajectory_data);
     }
 }
 $(document).on('select2:select', '.select2watch', function (e) {

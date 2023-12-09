@@ -8,7 +8,7 @@ function initMap() {
 }
 initMap();
 
-function generateRoute(traject_coordinates) {
+function generateRoute(trajectory_data) {
     if (!map) {
         initMap();
     }
@@ -20,6 +20,7 @@ function generateRoute(traject_coordinates) {
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
 
+    const traject_coordinates = trajectory_data.map(data => data.coordinates).join(';');
     const osrmApiUrl = `https://router.project-osrm.org/route/v1/driving/${traject_coordinates}?steps=true`;
 
     fetch(osrmApiUrl)
@@ -39,30 +40,53 @@ function generateRoute(traject_coordinates) {
                     dashArray: '10, 10'
                 }).addTo(map);
 
-                const steps = traject_coordinates.split(';');
-
-                steps.forEach((step, index) => {
-                    const [longitude, latitude] = step.split(',');
-
-                    const markerColor = index === 0 ? 'green' : (index === steps.length - 1 ? 'red' : 'blue');
+                trajectory_data.forEach((step, index) => {
+                    const [longitude, latitude] = step['coordinates'].split(',');
+                
+                    let popupTitle = '';
+                    let markerColor = '';
+                
+                    if (index === 0) {
+                        popupTitle = 'Départ';
+                        markerColor = 'green';
+                    } else if (index === trajectory_data.length - 1) {
+                        popupTitle = 'Arrivé';
+                        markerColor = 'red';
+                    } else {
+                        popupTitle = `Etape ${index}`;
+                        markerColor = 'blue';
+                    }
+                
                     const marker = L.marker([latitude, longitude], { icon: getMarkerIcon(markerColor) }).addTo(map);
-
+                
                     markers.push(marker);
-
-                    // Bind a popup to each marker
+                
+                    // Create a popup with the customized content
                     const popupContent = `
                         <div class="popup-container">
-                            <div class="popup-title">Step ${index + 1}</div>
+                            <div class="popup-title">${popupTitle}</div>
                             <div class="popup-content">
                                 <div class="popup-row">
-                                    <span class="popup-label">Coordinates:</span>
-                                    <span class="popup-value">${latitude}, ${longitude}</span>
+                                    <span class="popup-label">Ville:</span>
+                                    <span class="popup-value">${step.cityName}</span>
                                 </div>
                             </div>
                         </div>
                     `;
+                
+                    // Bind the popup to the marker and show on hover
                     marker.bindPopup(popupContent);
+                
+                    marker.on('mouseover', function () {
+                        this.openPopup();
+                    });
+                
+                    marker.on('mouseout', function () {
+                        this.closePopup();
+                    });
                 });
+                
+                
 
                 // Set the routeLayer to the new polyline
                 routeLayer = polyline;
