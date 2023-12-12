@@ -12,8 +12,9 @@ function calculateEndDate(startDateString, durationInSeconds) {
     var parts = startDateString.split(' ');
     var dateParts = parts[0].split('/');
     var timeParts = parts[1].split(':');
+
     var day = parseInt(dateParts[0], 10);
-    var month = parseInt(dateParts[1], 10) - 1;
+    var month = parseInt(dateParts[1], 10) - 1; // JavaScript months are 0-indexed
     var year = parseInt(dateParts[2], 10);
     var hours = parseInt(timeParts[0], 10);
     var minutes = parseInt(timeParts[1], 10);
@@ -78,9 +79,12 @@ function generateRoute(trajectory_data) {
                 // Legs
                 $('#arriving_dates').html('');
                 const legs = data.routes[0].legs;
-                
+
+                var currentStartTime = $('#DateTimeDepart').val();
                 legs.forEach(leg => {
-                    $('#arriving_dates').append('<input type="hidden" name="arriving_dates[]" value="'+calculateEndDate($('#DateTimeDepart').val(),leg.duration).toLocaleString()+'">');
+                    var endDate = calculateEndDate(currentStartTime, leg.duration);
+                    $('#arriving_dates').append('<input type="hidden" name="arriving_dates[]" value="'+endDate.toLocaleString()+'">');
+                    currentStartTime = endDate.toLocaleString();
                 });
 
                 // Recap

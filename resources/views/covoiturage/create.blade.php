@@ -13,7 +13,7 @@
       </div>
    </div>
    <!-- End:: row-4 --> <!-- Start:: row-5 --> 
-   <form action="" method="POST">
+   <form action="{{ route('covoiturage.annonce_create_action') }}" method="POST">
     @csrf
    <div class="grid grid-cols-12 gap-6">
       <div class="md:col-span-6 col-span-12" id="wizzard_container">
@@ -271,10 +271,13 @@
          </button>
       </div>
    </div>
-        </form>
+    </form>
 </div>
 </div>
 <script>
+    $('#create-trajectory').on('click', function(){
+        $('form').submit();
+    })
    $('#confirm-trajectory').on('click', function(){
        if(1){                    
            $('#wizzard_container,#traject_map_row').addClass('!hidden');
@@ -424,7 +427,7 @@
    function addNewStep() {
       var newSelectId = 'step_select_' + uniqueIdCounter;
       uniqueIdCounter++;
-      var newSelectHtml = '<div class="col-span-12 mb-4 sm:mb-0 flex items-center space-x-2" id="' + newSelectId + '_container"><select id="' + newSelectId + '" name="' + newSelectId + '" class="select2watch w-80"></select><button type="button" aria-label="button" class="ti-btn ti-btn-icon bg-danger/10 text-danger hover:bg-danger hover:text-white !rounded-full ti-btn-wave w-20" onclick="removeStep(\'' + newSelectId + '_container\')"><i class="ri-delete-bin-line"></i></button></div>';
+      var newSelectHtml = '<div class="col-span-12 mb-4 sm:mb-0 flex items-center space-x-2" id="' + newSelectId + '_container"><select id="' + newSelectId + '" name="steps[]" class="select2watch w-80"></select><button type="button" aria-label="button" class="ti-btn ti-btn-icon bg-danger/10 text-danger hover:bg-danger hover:text-white !rounded-full ti-btn-wave w-20" onclick="removeStep(\'' + newSelectId + '_container\')"><i class="ri-delete-bin-line"></i></button></div>';
       
       $('#steps_list').append(newSelectHtml);
    
