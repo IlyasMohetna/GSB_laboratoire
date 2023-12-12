@@ -24,6 +24,25 @@ function calculateEndDate(startDateString, durationInSeconds) {
     return end;
 }
 
+function formatDuration(seconds) {
+    var hours = Math.floor(seconds / 3600);
+    var minutes = Math.floor((seconds % 3600) / 60);
+    
+    if (hours > 0) {
+        console.log(hours + " h " + (minutes > 0 ? minutes + " min" : ""));
+        return hours + " h " + (minutes > 0 ? minutes + " min" : "");
+    } else {
+        console.log(minutes + " min");
+        return minutes + " min";
+    }
+}
+
+function formatDistance(meters) {
+    var kilometers = (meters / 1000).toFixed(2);
+    console.log(kilometers+' km');
+    return kilometers + " km";
+}
+
 function generateRoute(trajectory_data) {
     if (!map) {
         initMap();
@@ -63,6 +82,11 @@ function generateRoute(trajectory_data) {
                 legs.forEach(leg => {
                     $('#arriving_dates').append('<input type="hidden" name="arriving_dates[]" value="'+calculateEndDate($('#DateTimeDepart').val(),leg.duration).toLocaleString()+'">');
                 });
+
+                // Recap
+
+                $('#recap_distance').text(formatDistance(data.routes[0].distance));
+                $('#recap_duree').text(formatDuration(data.routes[0].duration));
 
                 // Markers
 
