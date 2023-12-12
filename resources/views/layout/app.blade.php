@@ -10,6 +10,9 @@
       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/css/flatpickr.min.css') }}">
+
+      <script src="{{ asset('assets/js/flatpickr.min.js') }}"></script>
    </head>
    <body>
       <div id="hs-overlay-switcher" class="hs-overlay hidden ti-offcanvas ti-offcanvas-right" tabindex="-1">

@@ -51675,10 +51675,10 @@ button.gridjs-sort {
   opacity: 0.5 !important;
 }
 .flatpickr-day.today {
-  border-color: rgb(var(--primary)) !important;
-  background-color: rgb(var(--primary)) !important;
+  /* border-color: rgb(var(--primary),50) !important;
+  background-color: rgb(var(--primary), 50) !important;
   --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important; */
 }
 :is(.dark .flatpickr-day.today) {
   color: rgb(var(--default-text-color) / 0.7) !important;
@@ -53151,11 +53151,11 @@ pre[class*=language-] > code {
 .flatpickr-months .flatpickr-next-month {
   fill: rgb(var(--primary)) !important;
 }
-.flatpickr-day.today {
+/* .flatpickr-day.today {
   border-color: rgb(var(--primary)) !important;
   background-color: rgb(var(--primary)) !important;
   color: rgb(var(--warning)) !important;
-}
+} */
 .flatpickr-calendar {
   border-inline-start-width: 1px !important;
   border-style: solid !important;
@@ -53180,10 +53180,10 @@ pre[class*=language-] > code {
 span.flatpickr-weekday {
   color: rgb(var(--primary)) !important;
 }
-.flatpickr-day.today {
+/* .flatpickr-day.today {
   --tw-text-opacity: 1 !important;
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
-}
+} */
 .flatpickr-day {
   border-radius: 0.5rem !important;
 }
