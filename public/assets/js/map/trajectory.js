@@ -8,6 +8,22 @@ function initMap() {
 }
 initMap();
 
+function calculateEndDate(startDateString, durationInSeconds) {
+    var parts = startDateString.split(' ');
+    var dateParts = parts[0].split('/');
+    var timeParts = parts[1].split(':');
+    var day = parseInt(dateParts[0], 10);
+    var month = parseInt(dateParts[1], 10) - 1;
+    var year = parseInt(dateParts[2], 10);
+    var hours = parseInt(timeParts[0], 10);
+    var minutes = parseInt(timeParts[1], 10);
+    var start = new Date(year, month, day, hours, minutes);
+
+    var end = new Date(start.getTime() + durationInSeconds * 1000);
+
+    return end;
+}
+
 function generateRoute(trajectory_data) {
     if (!map) {
         initMap();
@@ -21,7 +37,7 @@ function generateRoute(trajectory_data) {
     markers = [];
 
     const traject_coordinates = trajectory_data.map(data => data.coordinates).join(';');
-    const osrmApiUrl = `https://router.project-osrm.org/route/v1/driving/${traject_coordinates}?steps=true`;
+    const osrmApiUrl = `https://router.project-osrm.org/route/v1/driving/${traject_coordinates}?steps=false`;
 
     fetch(osrmApiUrl)
         .then(response => {
@@ -39,6 +55,16 @@ function generateRoute(trajectory_data) {
                     weight: 5,
                     dashArray: '10, 10'
                 }).addTo(map);
+
+                // Legs
+                $('#arriving_dates').html('');
+                const legs = data.routes[0].legs;
+                
+                legs.forEach(leg => {
+                    $('#arriving_dates').append('<input type="hidden" name="arriving_dates[]" value="'+calculateEndDate($('#DateTimeDepart').val(),leg.duration).toLocaleString()+'">');
+                });
+
+                // Markers
 
                 trajectory_data.forEach((step, index) => {
                     const [longitude, latitude] = step['coordinates'].split(',');
