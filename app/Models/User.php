@@ -27,8 +27,13 @@ class User extends Authenticatable
 
     //--- Jointure
 
-    public function Fonction()
+    public function fonction()
     {
         return $this->hasOne(\App\Models\EMPLOYE\Fonction::class, 'code_fonction', 'code_fonction');
+    }
+
+    public function agence()
+    {
+        return $this->hasOne(\App\Models\SALLE\Agence::class, 'id_agence', 'id_agence');
     }
 }

@@ -12,4 +12,9 @@ class Agence extends Model
     protected $table = 'salle__agence';
     protected $primaryKey = 'id_agence';
     protected $guarded = [];
+
+    public function ville()
+    {
+        return $this->hasOne(\App\Models\PARAMETRAGE\Ville::class, 'id_ville', 'id_ville');
+    }
 }

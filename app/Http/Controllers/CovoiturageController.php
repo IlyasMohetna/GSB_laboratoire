@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\PARAMETRAGE\Ville;
+use Illuminate\Support\Facades\DB;
 use App\Models\COVOITURAGE\Vehicule;
 use App\Models\COVOITURAGE\Trajet;
 use App\Models\COVOITURAGE\Etape;
 use Carbon\Carbon;
+use Illuminate\Support\Sleep;
 
 class CovoiturageController extends Controller
 {
@@ -20,6 +21,11 @@ class CovoiturageController extends Controller
             'vehicules_perso' => $vehicules_perso,
             'vehicules_service' => $vehicules_service
         ]);
+    }
+
+    public function annonce_search_show()
+    {
+        return view('covoiturage.search');
     }
 
     public function annonce_create_action()
@@ -50,27 +56,66 @@ class CovoiturageController extends Controller
         }
     }
 
-    public function ville_lookup()
+    public function annonce_search_action()
     {
-        $query = empty(request()->q) ? '' : request()->q;
-        $search = Ville::select(['id_ville', 'nom', 'ville_longitude', 'ville_latitude'])
-                        ->where('nom', 'LIKE', '%'.$query.'%')
-                        ->orWhere('nom', 'LIKE', '%'.$query.'%')
-                        ->orderByRaw("CASE WHEN `nom` = ? THEN 1 WHEN `nom` LIKE ? THEN 2 ELSE 3 END", [$query, $query.'%'])
-                        ->limit(10)
-                        ->get();
-        $result = [];
-        $result['results'] = [];
+        $id_ville_depart = request()->depart;
+        $id_ville_arrive = request()->arrive;
+        $departDate = Carbon::createFromFormat('d/m/Y', request()->datedepart);
+        DB::enableQueryLog();
+        $trajets = Trajet::query()
+        ->join('covoiturage__etape as depart', 'depart.id_trajet', '=', 'covoiturage__trajet.id_trajet')
+        ->where('depart.id_ville', $id_ville_depart)
+        ->whereDate('depart.date_passage', $departDate)
+        ->whereExists(function ($query) use ($id_ville_arrive) {
+            $query->select(DB::raw(1))
+                  ->from('covoiturage__etape as arrive')
+                  ->whereColumn('arrive.id_trajet', 'depart.id_trajet')
+                  ->where('arrive.id_ville', $id_ville_arrive)
+                  ->whereRaw('arrive.ordre_etape > depart.ordre_etape');
+        })
+        ->with([
+            'etapes.ville', 
+            'automobiliste.agence.ville', 
+            'automobiliste.fonction'
+        ])
+        ->select('covoiturage__trajet.*')
+        ->selectSub(function($query) {
+            $query->from('covoiturage__reservation')
+                  ->selectRaw('COUNT(*)')
+                  ->whereColumn('covoiturage__reservation.id_trajet', 'covoiturage__trajet.id_trajet');
+        }, 'reservation_count')
+        ->distinct()
+        ->get();
 
-        foreach($search as $ville){
-            $result['results'][] = [
-                'id' => $ville->id_ville,
-                'text' => $ville->nom,
-                'longitude' => $ville->ville_longitude,
-                'latitude' => $ville->ville_latitude
+        // foreach(DB::getQueryLog() as $query){
+        //     echo $query['query'];
+        // }
+
+        $data = [];
+        foreach($trajets as $trajet){
+            $data[] = [
+                'places_restantes' => $trajet->reservation_count,
+                'automobiliste' => [
+                    'initials' => $trajet->automobiliste->prenom[0].$trajet->automobiliste->nom[0],
+                    'name' => $trajet->automobiliste->prenom.' '.$trajet->automobiliste->nom,
+                    'fonction' => $trajet->automobiliste->fonction->nom_fonction,
+                    'agence' => $trajet->automobiliste->agence->nom_agence,
+                    'agence_ville' => $trajet->automobiliste->agence->ville->nom
+                ],
+                'point_depart' => [
+                    'ville' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->ville->nom,
+                    'date_passage' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->date_passage
+                ],
+                'point_arrive' => [
+                    'ville' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->ville->nom,
+                    'date_passage' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->date_passage
+                ]
             ];
         }
 
-        return json_encode($result);
+        // Sleep::for(2)->seconds();
+
+        return response()->json($data);
     }
+
 }
