@@ -17,10 +17,9 @@ return new class extends Migration
             $table->dateTime('date_de_reservation');
             $table->foreignId('code_employe')->index()->foreign()->references('code_employe')->on('employe__employe');
             $table->foreignId('id_trajet')->index()->foreign()->references('id_trajet')->on('covoiturage__trajet');
-            $table->foreignId('id_etape')->index()->foreign()->references('id_etape')->on('covoiturage__etape');
+            $table->foreignId('id_etape_depart')->index()->foreign()->references('id_etape')->on('covoiturage__etape');
+            $table->foreignId('id_etape_arrive')->index()->foreign()->references('id_etape')->on('covoiturage__etape');
             $table->timestamps();
-
-
         });
     }
 

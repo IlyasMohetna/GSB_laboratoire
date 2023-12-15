@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\COVOITURAGE\Vehicule;
 use App\Models\COVOITURAGE\Trajet;
 use App\Models\COVOITURAGE\Etape;
+use App\Models\COVOITURAGE\Reservation;
 use Carbon\Carbon;
 use Illuminate\Support\Sleep;
 
@@ -94,7 +95,10 @@ class CovoiturageController extends Controller
         $data = [];
         foreach($trajets as $trajet){
             $data[] = [
-                'places_restantes' => $trajet->reservation_count,
+                'id_trajet' => $trajet->id_trajet,
+                'reservation_count' => $trajet->reservation_count,
+                'nombre_place_maximum' => $trajet->nombre_place_maximum,
+                'full' => ($trajet->reservation_count >= $trajet->nombre_place_maximum),
                 'automobiliste' => [
                     'initials' => $trajet->automobiliste->prenom[0].$trajet->automobiliste->nom[0],
                     'name' => $trajet->automobiliste->prenom.' '.$trajet->automobiliste->nom,
@@ -103,10 +107,12 @@ class CovoiturageController extends Controller
                     'agence_ville' => $trajet->automobiliste->agence->ville->nom
                 ],
                 'point_depart' => [
+                    'id_etape' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->id_etape,
                     'ville' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->ville->nom,
                     'date_passage' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->date_passage
                 ],
                 'point_arrive' => [
+                    'id_etape' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->id_etape,
                     'ville' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->ville->nom,
                     'date_passage' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->date_passage
                 ]
@@ -116,6 +122,24 @@ class CovoiturageController extends Controller
         // Sleep::for(2)->seconds();
 
         return response()->json($data);
+    }
+
+    public function annonce_reserver()
+    {
+        $trajet = Trajet::find(request()->modal_id_trajet);
+        if(!$trajet){
+            dd('Impossible de retrouver le trajet');
+        }else{
+            Reservation::create([
+                'date_de_reservation' => Carbon::now(),
+                'code_employe' => auth()->user()->code_employe,
+                'id_trajet' => $trajet->id_trajet,
+                'id_etape_depart' => request()->modal_etape_depart,
+                'id_etape_arrive' => request()->modal_etape_arrive
+            ]);
+            session(['reservation_success' => true]);
+            return redirect()->route('covoiturage.reservation_confirmed_show');
+        }
     }
 
 }
