@@ -17,6 +17,11 @@ class Trajet extends Model
 
     public function etapes()
     {
-        return $this->hasMany(Etape::class, 'id_trajet');
+        return $this->hasMany(Etape::class, 'id_trajet', 'id_trajet');
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'id_trajet', 'id_trajet');
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\ParametrageController;
 
 Route::get('/covoiturage/create', [CovoiturageController::class, 'annonce_create_show'])->name('covoiturage.annonce_create_show');
 Route::post('/covoiturage/create', [CovoiturageController::class, 'annonce_create_action'])->name('covoiturage.annonce_create_action');
+Route::get('/covoiturage/annonces', [CovoiturageController::class, 'annonces_show'])->name('covoiturage.annonces_show');
+Route::get('/covoiturage/reservations', [CovoiturageController::class, 'reservations_show'])->name('covoiturage.reservations_show');
 Route::get('/covoiturage/search', [CovoiturageController::class, 'annonce_search_show'])->name('covoiturage.annonce_search_show');
 Route::get('/api/covoiturage/search', [CovoiturageController::class, 'annonce_search_action'])->name('covoiturage.annonce_search_action');
 Route::post('/covoiturage/reserver', [CovoiturageController::class, 'annonce_reserver'])->name('covoiturage.annonce_reserver_action');

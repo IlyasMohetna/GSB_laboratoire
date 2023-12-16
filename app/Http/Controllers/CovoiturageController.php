@@ -29,6 +29,22 @@ class CovoiturageController extends Controller
         return view('covoiturage.search');
     }
 
+    public function annonces_show()
+    {
+        $trajets = Trajet::where('code_employe', auth()->user()->code_employe)->with('etapes.ville','reservations.covoitureur')->latest()->get();
+        return view('covoiturage.annonces', [
+            'trajets' => $trajets
+        ]);
+    }
+
+    public function reservations_show()
+    {
+        $reservations = Reservation::where('code_employe', auth()->user()->code_employe)->with('etape_depart.ville','etape_arrive.ville','trajet.etapes')->latest()->get();
+        return view('covoiturage.reservations', [
+            'reservations' => $reservations
+        ]);
+    }
+
     public function annonce_create_action()
     {
         $trajet = Trajet::create([
@@ -140,6 +156,30 @@ class CovoiturageController extends Controller
             session(['reservation_success' => true]);
             return redirect()->route('covoiturage.reservation_confirmed_show');
         }
+    }
+
+    public function calculateTimeDifference($time1, $time2)
+    {        
+        // Calculate the difference in total minutes
+        $diffInMinutes = $time1->diffInMinutes($time2);
+        
+        // Calculate hours and minutes
+        $hours = intdiv($diffInMinutes, 60);
+        $minutes = $diffInMinutes % 60;
+        
+        // Format the string
+        $result = '';
+        if ($hours > 0) {
+            if ($minutes > 0) {
+                $result .= $hours . ' heure' . ($hours > 1 ? 's' : '');
+            }
+            if (!empty($result)) {
+                $result .= ' ';
+            }
+            $result .= $minutes . ' minute' . ($minutes > 1 ? 's' : '');
+        }
+            
+        return $result ?: '0 minute';
     }
 
 }

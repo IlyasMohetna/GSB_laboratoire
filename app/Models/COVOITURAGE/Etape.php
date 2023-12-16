@@ -9,6 +9,9 @@ class Etape extends Model
     protected $table = 'covoiturage__etape';
     protected $primaryKey = 'id_etape';
     protected $guarded = [];
+    protected $casts = [
+        'date_passage' => 'datetime',
+    ];
 
     public function trajet()
     {
