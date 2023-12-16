@@ -76,4 +76,5 @@ use Carbon\Carbon;
 		</div>
 	</div>
 </div>
+<script>$('#sidebar-annonces').addClass('active');</script>
 @stop

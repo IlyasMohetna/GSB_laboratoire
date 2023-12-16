@@ -252,4 +252,5 @@
 	});   
 	});
 </script>
+<script>$('#sidebar-covoiturer').addClass('active');</script>
 @stop

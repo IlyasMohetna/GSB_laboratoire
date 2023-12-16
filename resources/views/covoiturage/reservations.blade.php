@@ -54,4 +54,5 @@ use Carbon\Carbon;
 		</div>
 	</div>
 </div>
+<script>$('#sidebar-reservations').addClass('active');</script>
 @stop

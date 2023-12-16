@@ -548,4 +548,5 @@
    updateSelect2Watch();
    });
 </script>
+<script>$('#sidebar-annonce-create').addClass('active');</script>
 @stop
