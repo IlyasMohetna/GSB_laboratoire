@@ -1,11 +1,11 @@
-<html lang="en" dir="ltr" data-nav-layout="vertical" class="light" data-header-styles="light" data-menu-styles="dark" loader="disable" data-vertical-style="overlay" data-lt-installed="true" data-toggled="icon-overlay-close">   <head>
+<html lang="en" dir="ltr" data-nav-layout="vertical" class="light" data-header-styles="light" data-menu-styles="dark" loader="enable" data-vertical-style="overlay" data-lt-installed="true" data-toggled="icon-overlay-close">   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>YNEX - Tailwind Admin Template</title>
       <!-- <script src="https://cdn.tailwindcss.com"></script> -->
       <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-      <link rel="shortcut icon" href="assets/images/brand-logos/favicon.ico">
-      <script src="assets/js/main.js"></script>
+      <!-- <link rel="shortcut icon" href="assets/images/brand-logos/favicon.ico"> -->
+      <!-- <script src="assets/js/main.js"></script> -->
       <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -180,7 +180,7 @@
          <div class="ti-offcanvas-footer sm:flex justify-between"> <a href="https://themeforest.net/item/ynex-tailwind-css-dashboard-template/49062874?s_rank=3" target="_blank" class="w-full ti-btn ti-btn-primary-full m-1">Buy Now</a> <a href="https://themeforest.net/user/spruko/portfolio" target="_blank" class="w-full ti-btn ti-btn-secondary-full m-1">Our Portfolio</a> <a href="javascript:void(0);" id="reset-all" class="w-full ti-btn ti-btn-danger-full m-1">Reset</a> </div>
       </div>
       <!-- ========== END Switcher  ========== --> <!-- Loader --> 
-      <div id="loader" class="!hidden"> <img src="assets/images/media/loader.svg" alt=""> </div>
+      <div id="loader" class=""> <img src="{{ asset('assets/img/loader.svg') }}" alt=""> </div>
       <!-- Loader --> 
       <div class="page">
          <!-- Start::Header --> 
@@ -190,7 +190,16 @@
                   <div class="header-content-left">
                      <!-- Start::header-element --> 
                      <div class="header-element">
-                        <div class="horizontal-logo"> <a href="index.html" class="header-logo"> <img src="assets/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo"> <img src="assets/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo"> <img src="assets/images/brand-logos/desktop-dark.png" alt="logo" class="desktop-dark"> <img src="assets/images/brand-logos/toggle-dark.png" alt="logo" class="toggle-dark"> <img src="assets/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white"> <img src="assets/images/brand-logos/toggle-white.png" alt="logo" class="toggle-white"> </a> </div>
+                        <div class="horizontal-logo"> 
+                           <a href="index.html" class="header-logo">
+                              <img src="#" alt="logo" class="desktop-logo">
+                              <img src="#" alt="logo" class="toggle-logo">
+                              <img src="#" alt="logo" class="desktop-dark">
+                              <img src="#" alt="logo" class="toggle-dark">
+                              <img src="#" alt="logo" class="desktop-white">
+                              <img src="#" alt="logo" class="toggle-white">
+                           </a>
+                        </div>
                      </div>
                      <!-- End::header-element --> <!-- Start::header-element --> 
                      <div class="header-element md:px-[0.325rem] !items-center">
@@ -285,7 +294,7 @@
       <!-- <script src="..\assets\libs\jsvectormap\maps\world-merc.js') }}"></script> -->
       <!-- <script src="..\assets\libs\apexcharts\apexcharts.min.js') }}"></script> -->
       <!-- <script src="..\assets\libs\chart.js\chart.min.js') }}"></script> -->
-      <script src="{{ asset('assets/js/crm-dashboard.js') }}"></script>
+      <!-- <script src="{{ asset('assets/js/crm-dashboard.js') }}"></script> -->
       <script src="{{ asset('assets/js/custom-switcher.js') }}"></script>
       <script src="{{ asset('assets/js/custom.js') }}"></script>
    </body>
