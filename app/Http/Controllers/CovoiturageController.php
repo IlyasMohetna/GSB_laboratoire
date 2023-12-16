@@ -45,6 +45,17 @@ class CovoiturageController extends Controller
         ]);
     }
 
+    public function parc_show()
+    {
+        $vehicules_perso = Vehicule::where('code_employe', auth()->user()->code_employe)->get();
+        $vehicules_service = Vehicule::where('id_agence', auth()->user()->id_agence)->get();
+
+        return view('covoiturage.parc', [
+            'vehicules_perso' => $vehicules_perso,
+            'vehicules_service' => $vehicules_service
+        ]);
+    }
+
     public function annonce_create_action()
     {
         $trajet = Trajet::create([

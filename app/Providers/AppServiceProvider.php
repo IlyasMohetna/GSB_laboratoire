@@ -21,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->loadMigrationsFrom([
+            database_path('migrations/covoiturage'),
+            database_path('migrations/employe'),
+            database_path('migrations/frais'),
+            database_path('migrations/parametrage'),
+            database_path('migrations/salle'),
+            database_path('migrations/visite'),
+        ]);
         Pulse::users(function ($ids) {
             return User::findMany($ids)->map(fn ($user) => [
                 'id' => $user->code_employe,

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('model', 15);
             $table->year('annee_model');
             $table->enum('type_vehicule', ['perso', 'service']);
+            $table->string('photo');
             $table->foreignId('id_agence')->index()->nullable()->foreign()->references('id_agence')->on('salle__agence');
             $table->foreignId('code_employe')->index()->nullable()->foreign()->references('code_employe')->on('employe__employe');
             $table->timestamps();

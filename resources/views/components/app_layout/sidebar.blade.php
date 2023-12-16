@@ -37,7 +37,7 @@
                               <li><a href="{{ route('covoiturage.annonces_show') }}" id="sidebar-annonces" class="side-menu__item">Mes annonces</a></li>
                               <li><a href="{{ route('covoiturage.reservations_show') }}" id="sidebar-reservations" class="side-menu__item">Mes réservations</a> </li>
                               <li><a href="{{ route('covoiturage.annonce_create_show') }}" id="sidebar-annonce-create" class="side-menu__item">Déposer une annonce</a> </li>
-                              <li><a href="chat.html" class="side-menu__item">Parc automobile</a> </li>
+                              <li><a href="{{ route('covoiturage.parc_show') }}" id="sidebar-parc" class="side-menu__item">Parc automobile</a> </li>
                            </ul>
                         </li>
 
