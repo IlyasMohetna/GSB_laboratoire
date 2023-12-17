@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('visite__praticien', function (Blueprint $table) {
             $table->id('id_praticien')->index();
-            $table->string('raison_sociale', 50);
+            $table->string('raison_sociale', 50)->unique();
             $table->string('prenom', 30);
             $table->string('nom', 30);
             $table->string('adresse', 100);
