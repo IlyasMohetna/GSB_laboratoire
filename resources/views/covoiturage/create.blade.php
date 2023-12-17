@@ -84,7 +84,7 @@
                   <select id="vehicule_perso_select" name="vehicule_perso">
                      <option></option>
                      @foreach($vehicules_perso as $vehicule_perso)
-                     <option value="{{ $vehicule_perso->id_vehicule }}" data-marque="{{ $vehicule_perso->marque }}" data-immatriculation="{{ $vehicule_perso->immatriculation }}" data-model="{{ $vehicule_perso->model }}" data-annee_model="{{ $vehicule_perso->annee_model }}">{{ $vehicule_perso->marque }} - {{ $vehicule_perso->immatriculation }}</option>
+                     <option value="{{ $vehicule_perso->id_vehicule }}" data-photo="{{ $vehicule_perso->photo }}" data-marque="{{ $vehicule_perso->marque }}" data-immatriculation="{{ $vehicule_perso->immatriculation }}" data-model="{{ $vehicule_perso->model }}" data-annee_model="{{ $vehicule_perso->annee_model }}">{{ $vehicule_perso->marque }} - {{ $vehicule_perso->immatriculation }}</option>
                      @endforeach
                   </select>
                   @endif
@@ -96,7 +96,7 @@
                   <select id="vehicule_service_select" name="vehicule_service">
                      <option></option>
                      @foreach($vehicules_service as $vehicule_service)
-                     <option value="{{ $vehicule_service->id_vehicule }}" data-marque="{{ $vehicule_service->marque }}" data-immatriculation="{{ $vehicule_service->immatriculation }}" data-model="{{ $vehicule_service->model }}" data-annee_model="{{ $vehicule_service->annee_model }}">{{ $vehicule_service->marque }} - {{ $vehicule_service->immatriculation }}</option>
+                     <option value="{{ $vehicule_service->id_vehicule }}" data-photo="{{ $vehicule_service->photo }}" data-marque="{{ $vehicule_service->marque }}" data-immatriculation="{{ $vehicule_service->immatriculation }}" data-model="{{ $vehicule_service->model }}" data-annee_model="{{ $vehicule_service->annee_model }}">{{ $vehicule_service->marque }} - {{ $vehicule_service->immatriculation }}</option>
                      @endforeach
                   </select>
                   @endif
@@ -376,24 +376,31 @@
    
    // Custom template for car-select
    function formatCarState(car) {
+      var photo = $(car.element).data('photo');
      var marque = $(car.element).data('marque');
      var immatriculation = $(car.element).data('immatriculation');
      var model = $(car.element).data('model');
      var annee_model = $(car.element).data('annee_model');
    
      var $state = $(
-       '<div style="display: flex; justify-content: space-between; align-items: center;">' +
-         '<div style="flex-grow: 1;">' +
-           '<strong>' + marque + '</strong> - '+ model +'<br>' +
-           'Immatriculation: ' + immatriculation +
-         '</div>' +
-         '<div style="float: right;">' +
-           'Annee Model: ' + annee_model +
-         '</div>' +
-       '</div>'
-     );
+   '<div style="display: flex; align-items: center;">' +
+     '<div>' +
+       '<img src="'+photo+'" style="max-width:100px!important;"/>' +
+     '</div>' +
+     '<div style="flex-grow: 1;">' +
+       '<strong>' + marque + '</strong> - '+ model +'<br>' +
+       'Immatriculation: ' + immatriculation +
+     '</div>' +
+     '<div style="margin-left: auto;">' +
+       'Annee Model: ' + annee_model +
+     '</div>' +
+   '</div>'
+);
+
      return $state;
    }
+
+   
 </script>
 <style>
    .popup-container {
