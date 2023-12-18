@@ -59,6 +59,32 @@
                   </div>
                </div>
             </div>
+         </div>
+         <div class="box !hidden" id="step2">
+            <div class="box-header justify-between">
+               <div class="box-title">Mon trajet</div>
+            </div>
+            <div class="box-body sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center">
+               <div class="col-span-12 mb-4 sm:mb-0"> 
+                  <label class="hidden" for="autoSizingInput">Ville de départ</label> 
+                  <select id="startLocation" class="select2watch" name="startLocation"></select>
+               </div>
+               <div id="steps_container" class="col-span-12 mb-4 mt-4 sm:mb-0 mb-2">
+                  <div id="steps_list" class="space-y-2"></div>
+                  <div id="steps_add" class="flex items-center space-x-2">
+                     <button type="button" id="steps_add_btn" class="ti-btn ti-btn-icon bg-success/10 text-success hover:bg-success hover:text-white !rounded-full ti-btn-wave">
+                     <i class="ri-add-line"></i>
+                     </button>
+                     <span class="justify-center align-center">Ajouté une étape et augmenter vos possibilités</span>
+                  </div>
+               </div>
+               <div class="col-span-12 sm:mb-0 mt-2"> 
+                  <label class="hidden" for="autoSizingInput">Ville d'arrivée</label> 
+                  <select id="endLocation" class="select2watch" name="endLocation"></select>
+               </div>
+            </div>
+         </div>
+         <div class="box !hidden" id="step3">
             <div class="box-header justify-between">
                <div class="box-title">Selectionner un véhicule</div>
             </div>
@@ -101,39 +127,6 @@
                   </select>
                   @endif
                </div>
-               <script>
-                  $('.vehicule_select').on('click',function(){
-                      $('#vehicule_perso_list').toggle();
-                      $('#vehicule_service_list').toggle();
-                      $('.vehicule_select').not($(this)).removeClass('text-white').addClass('!bg-white text-black');
-                      $(this).removeClass('!bg-white text-black').addClass('text-white').css({"background-color":"rgb(30, 64, 175)"});
-                  });
-               </script>
-            </div>
-         </div>
-         <div class="box !hidden" id="step2">
-            <div class="box-header justify-between">
-               <div class="box-title">Mon trajet</div>
-            </div>
-            <div class="box-body sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center">
-               <div class="col-span-12 mb-4 sm:mb-0"> 
-                  <label class="hidden" for="autoSizingInput">Ville de départ</label> 
-                  <select id="startLocation" class="select2watch" name="startLocation"></select>
-               </div>
-               <div id="steps_container" class="col-span-12 mb-4 mt-4 sm:mb-0 mb-2">
-                  <div id="steps_list" class="space-y-2"></div>
-                  <div id="steps_add" class="flex items-center space-x-2">
-                     <button type="button" id="steps_add_btn" class="ti-btn ti-btn-icon bg-success/10 text-success hover:bg-success hover:text-white !rounded-full ti-btn-wave">
-                     <i class="ri-add-line"></i>
-                     </button>
-                     <span class="justify-center align-center">Ajouté une étape et augmenter vos possibilités</span>
-                  </div>
-               </div>
-               <div class="col-span-12 sm:mb-0 mt-2"> 
-                  <label class="hidden" for="autoSizingInput">Ville d'arrivée</label> 
-                  <select id="endLocation" class="select2watch" name="endLocation"></select>
-               </div>
-               <hr>
                <div class="col-span-12">
                   <button type="button" id="confirm-trajectory" class="float-right py-2 px-3 inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-e-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary transition-all text-sm">
                   <span class="hidden animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading">
@@ -142,6 +135,14 @@
                   Confirmer 
                   </button>
                </div>
+               <script>
+                  $('.vehicule_select').on('click',function(){
+                      $('#vehicule_perso_list').toggle();
+                      $('#vehicule_service_list').toggle();
+                      $('.vehicule_select').not($(this)).removeClass('text-white').addClass('!bg-white text-black');
+                      $(this).removeClass('!bg-white text-black').addClass('text-white').css({"background-color":"rgb(30, 64, 175)"});
+                  });
+               </script>
             </div>
          </div>
       </div>
@@ -295,7 +296,7 @@
      var currentStep = 1;
    
      $('#nextBtn').on('click', function() {
-       if (currentStep < 2 && (CheckDateTimeDepart() && CheckNbPlace() && CheckSelectedVehicule())) {
+       if (currentStep < 3 && (CheckDateTimeDepart() && CheckNbPlace())) {
            CheckDateTimeDepart();
          $('#step' + currentStep).addClass('!hidden');
          currentStep++;
@@ -304,7 +305,7 @@
        }
    
        // Toggle NEXT and PREVIOUS button visibility based on the current step
-       if (currentStep === 2) {
+       if (currentStep === 3) {
          $('#nextBtn').addClass('!hidden');
        } else {
          $('#nextBtn').removeClass('!hidden');
@@ -345,17 +346,6 @@
        }else{
            $('#DateTimeDepart').removeClass('!border-red');
            return true;
-       }
-   }
-   
-   function CheckSelectedVehicule(){
-       var vehiculePersoValue = $('#vehicule_perso_select').val();
-       var vehiculeServiceValue = $('#vehicule_service_select').val();
-       if ((vehiculeServiceValue !== '' && vehiculeServiceValue !== undefined) || 
-       (vehiculePersoValue !== '' && vehiculePersoValue !== undefined)) {
-           return true;
-       } else {
-           return false;
        }
    }
 </script>  
