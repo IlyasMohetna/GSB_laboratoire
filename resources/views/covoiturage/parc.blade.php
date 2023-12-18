@@ -28,7 +28,7 @@
                             <p class="font-semibold text-[1.125rem] text-defaulttextcolor dark:text-defaulttextcolor/70 !mb-0 ">Ceci représente l'ensemble de vos véhicules personnels.</p>
                         </div>
                         <div class="btn-list md:mt-0 mt-2">
-                            <a href=""><button type="button" class="ti-btn bg-primary text-white btn-wave !font-medium !me-[0.375rem] !ms-0 !text-[0.85rem] !rounded-[0.35rem] !py-[0.51rem] !px-[0.86rem] shadow-none">
+                            <a href="{{ route('covoiturage.vehicule_perso_create_show') }}"><button type="button" class="ti-btn bg-primary text-white btn-wave !font-medium !me-[0.375rem] !ms-0 !text-[0.85rem] !rounded-[0.35rem] !py-[0.51rem] !px-[0.86rem] shadow-none">
                                 <i class="las la-plus"></i>Ajouter un véhicule
                             </button></a>
                         </div>

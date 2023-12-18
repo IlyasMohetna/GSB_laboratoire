@@ -11,6 +11,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/covoiturage/annonce/{id}', [CovoiturageController::class, 'annonce_show'])->name('covoiturage.annonce_show');
     Route::get('/covoiturage/reservations', [CovoiturageController::class, 'reservations_show'])->name('covoiturage.reservations_show');
     Route::get('/covoiturage/parc', [CovoiturageController::class, 'parc_show'])->name('covoiturage.parc_show');
+    Route::get('/covoiturage/parc/vehicule_perso/create', [CovoiturageController::class, 'vehicule_perso_create_show'])->name('covoiturage.vehicule_perso_create_show');
+    Route::post('/covoiturage/parc/vehicule_perso/create', [CovoiturageController::class, 'vehicule_perso_create_action'])->name('covoiturage.vehicule_perso_create_action');
     Route::get('/covoiturage/search', [CovoiturageController::class, 'annonce_search_show'])->name('covoiturage.annonce_search_show');
     Route::get('/api/covoiturage/search', [CovoiturageController::class, 'annonce_search_action'])->name('covoiturage.annonce_search_action');
     Route::get('/api/covoiturage/vehicule_perso/search', [CovoiturageController::class, 'vehicule_perso_available_search_action'])->name('covoiturage.vehicule_perso_available_search_action');

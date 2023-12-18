@@ -80,6 +80,26 @@ class CovoiturageController extends Controller
         ]);
     }
 
+    public function vehicule_perso_create_show()
+    {
+        return view('covoiturage.vehicule_create');
+    }
+
+    public function vehicule_perso_create_action()
+    {
+        $create = Vehicule::create([
+            'immatriculation' => request()->immatriculation,
+            'marque' => request()->marque,
+            'model' => request()->model,
+            'annee_model' => request()->annee_model,
+            'type_vehicule' => 'perso',
+            'photo' => request()->photo,
+            'code_employe' => auth()->user()->code_employe
+        ]);
+
+        return redirect()->route('covoiturage.parc_show');
+    }
+
     public function annonce_create_action()
     {
         $trajet = Trajet::create([
