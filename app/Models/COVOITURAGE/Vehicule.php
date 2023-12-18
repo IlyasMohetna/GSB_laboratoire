@@ -9,4 +9,9 @@ class Vehicule extends Model
     protected $table = 'covoiturage__vehicule';
     protected $primaryKey = 'id_vehicule';
     protected $guarded = [];
+
+    public function trajets()
+    {
+        return $this->hasMany(Trajet::class, 'id_vehicule', 'id_vehicule');
+    }
 }

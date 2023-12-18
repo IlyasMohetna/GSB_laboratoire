@@ -293,6 +293,19 @@
 </script>
 <script src="{{ asset('assets/js/covoiturage/js.js') }}"></script>
 <script>
+   function SearchAvailableVehicules(){
+      console.log('Function called');
+      $.ajax({
+         url:'/api/covoiturage/vehicule_perso/search',
+         method:'GET',
+         data:'startDate='+$('#DateTimeDepart').val()+'&endDate='+$('input[name="arriving_dates[]"]').last().val(),
+         success:function(vehicules){
+            console.log(vehicules);
+         }
+      })
+   }
+</script>
+<script>
    $(document).ready(function() {
      $("#vehicule_perso_select").select2({
        allowClear: true,

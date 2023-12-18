@@ -8,6 +8,7 @@ use App\Models\COVOITURAGE\Vehicule;
 use App\Models\COVOITURAGE\Trajet;
 use App\Models\COVOITURAGE\Etape;
 use App\Models\COVOITURAGE\Reservation;
+use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use Illuminate\Support\Sleep;
 
@@ -168,6 +169,17 @@ class CovoiturageController extends Controller
             return redirect()->route('covoiturage.reservation_confirmed_show');
         }
     }
+
+    public function vehicule_perso_available_search_action()
+    {
+        $startDate = Carbon::createFromFormat('d/m/Y H:i', request('startDate'));
+        $endDate = Carbon::createFromFormat('d/m/Y H:i:s', request('endDate')); 
+        $vehicules = Vehicule::where('type_vehicule', 'perso')->where('code_employe', auth()->user()->code_employe)
+        ->whereDoesntHave('trajets.etapes', function (Builder $query) use ($startDate, $endDate) {
+            $query->whereBetween('date_passage', [$startDate, $endDate]);
+        })->get();    
+        return response()->json($vehicules);
+    }    
 
     public function calculateTimeDifference($time1, $time2)
     {        

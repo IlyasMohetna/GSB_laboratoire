@@ -12,6 +12,7 @@ $(document).ready(function() {
   
       // Toggle NEXT and PREVIOUS button visibility based on the current step
       if (currentStep === 3) {
+        SearchAvailableVehicules();
         $('#nextBtn').addClass('!hidden');
       } else {
         $('#nextBtn').removeClass('!hidden');
