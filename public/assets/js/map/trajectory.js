@@ -171,3 +171,135 @@ function createMarkerIcon(color) {
         html: `<div style="background-color: ${color};" class="marker-color"></div>`
     });
 }
+
+// ///////////////////////////////////////////
+
+
+var uniqueIdCounter = 1; // Initialize a counter
+   
+function addNewStep() {
+   var newSelectId = 'step_select_' + uniqueIdCounter;
+   uniqueIdCounter++;
+   var newSelectHtml = '<div class="col-span-12 mb-4 sm:mb-0 flex items-center space-x-2" id="' + newSelectId + '_container"><select id="' + newSelectId + '" name="steps[]" class="select2watch w-80"></select><button type="button" aria-label="button" class="ti-btn ti-btn-icon bg-danger/10 text-danger hover:bg-danger hover:text-white !rounded-full ti-btn-wave w-20" onclick="removeStep(\'' + newSelectId + '_container\')"><i class="ri-delete-bin-line"></i></button></div>';
+   
+   $('#steps_list').append(newSelectHtml);
+
+   $('#' + newSelectId).select2({
+       placeholder: "Sélectionner une étape",
+       allowClear: true,
+       ajax: {
+           url: '/ville',
+           delay: 0,
+           dataType: 'json',
+           data: function (params) {
+               return {
+                   q: params.term
+               };
+           },
+           processResults: function (data) {
+               var formattedResults = data.results.map(function (result) {
+                   return {
+                       id: result.id,
+                       text: result.text,
+                       longitude: result.longitude,
+                       latitude: result.latitude
+                   };
+               });
+               return {
+                   results: formattedResults
+               };
+           }
+       }
+   });
+}
+
+       
+$('#steps_add_btn').on('click', function(){
+   addNewStep();
+})
+ 
+function removeStep(containerId) {
+   $('#' + containerId).remove();
+   updateSelect2Watch();
+}
+
+
+// ///////////////////////////////////////////////////////////////
+
+
+$(document).ready(function() {
+    $('#startLocation').select2({
+        placeholder: "Selectionner une ville",
+        allowClear: true,
+        ajax: {
+            url: '/ville',
+            delay: 0,
+            dataType: 'json',
+            data: function (params) {
+                return {
+                    q: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data.results
+                };
+            },
+        }
+    });
+
+    $('#endLocation').select2({
+        placeholder: "Selectionner une ville",
+        allowClear: true,
+        ajax: {
+            url: '/ville',
+            delay: 0,
+            dataType: 'json',
+            data: function (params) {
+                return {
+                    q: params.term
+                };
+            },
+            processResults: function (data) {
+                var formattedResults = data.results.map(function (result) {
+                    return {
+                        id: result.id,
+                        text: result.text,
+                        longitude: result.longitude,
+                        latitude: result.latitude
+                    };
+                });
+                return {
+                    results: formattedResults
+                };
+            }
+        }
+    });   
+});
+function updateSelect2Watch() {
+var trajectory_data = [];
+
+$('.select2watch').each(function () {
+    var element = $(this).select2('data')[0];
+    if (element && element.longitude && element.latitude) {
+        trajectory_data.push({
+            cityName: element.text,
+            coordinates: element.longitude + ',' + element.latitude
+        });
+    }
+});
+
+if (trajectory_data.length >= 2) {
+    // console.log(trajectory_data);
+    // const traject_coordinates = trajectory_data.map(data => data.coordinates).join(';');
+    // trajectory_data.forEach((step, index) => {
+    //     console.log(step['coordinates'].split(','));
+    //     // console.log(step,index);
+    // });
+    // return false;
+    generateRoute(trajectory_data);
+}
+}
+$(document).on('select2:select', '.select2watch', function (e) {
+updateSelect2Watch();
+});
