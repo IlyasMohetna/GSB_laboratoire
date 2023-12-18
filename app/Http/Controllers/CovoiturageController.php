@@ -11,6 +11,7 @@ use App\Models\COVOITURAGE\Reservation;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use Illuminate\Support\Sleep;
+use Illuminate\Support\Collection;
 
 class CovoiturageController extends Controller
 {
@@ -38,6 +39,28 @@ class CovoiturageController extends Controller
         ]);
     }
 
+    public function annonce_show($id)
+    {
+        $trajet = Trajet::with(['etapes.ville', 'reservations.covoitureur'])->findOrFail($id);
+
+        $etapes = $trajet->etapes->map(function ($etape) use ($trajet) {
+            $startReservations = $trajet->reservations->where('id_etape_depart', $etape->id_etape);
+            $endReservations = $trajet->reservations->where('id_etape_arrive', $etape->id_etape);
+
+            $etape->reservations = (object)[
+                'start' => $startReservations,
+                'end' => $endReservations
+            ];
+
+            return $etape;
+        });
+
+        return view('covoiturage.annonce', [
+            'trajet' => $trajet,
+            'etapes' => $etapes
+        ]);
+    }
+
     public function reservations_show()
     {
         $reservations = Reservation::where('code_employe', auth()->user()->code_employe)->with('etape_depart.ville','etape_arrive.ville','trajet.etapes')->latest()->get();
@@ -48,8 +71,8 @@ class CovoiturageController extends Controller
 
     public function parc_show()
     {
-        // $vehicules_perso = Vehicule::where('code_employe', auth()->user()->code_employe)->get();
-        // $vehicules_service = Vehicule::where('id_agence', auth()->user()->id_agence)->get();
+        $vehicules_perso = Vehicule::where('code_employe', auth()->user()->code_employe)->get();
+        $vehicules_service = Vehicule::where('id_agence', auth()->user()->id_agence)->get();
 
         return view('covoiturage.parc', [
             'vehicules_perso' => $vehicules_perso,

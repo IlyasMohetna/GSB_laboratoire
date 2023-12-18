@@ -8,6 +8,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/covoiturage/create', [CovoiturageController::class, 'annonce_create_show'])->name('covoiturage.annonce_create_show');
     Route::post('/covoiturage/create', [CovoiturageController::class, 'annonce_create_action'])->name('covoiturage.annonce_create_action');
     Route::get('/covoiturage/annonces', [CovoiturageController::class, 'annonces_show'])->name('covoiturage.annonces_show');
+    Route::get('/covoiturage/annonce/{id}', [CovoiturageController::class, 'annonce_show'])->name('covoiturage.annonce_show');
     Route::get('/covoiturage/reservations', [CovoiturageController::class, 'reservations_show'])->name('covoiturage.reservations_show');
     Route::get('/covoiturage/parc', [CovoiturageController::class, 'parc_show'])->name('covoiturage.parc_show');
     Route::get('/covoiturage/search', [CovoiturageController::class, 'annonce_search_show'])->name('covoiturage.annonce_search_show');

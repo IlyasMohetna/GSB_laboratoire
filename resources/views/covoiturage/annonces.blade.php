@@ -59,7 +59,7 @@ use Carbon\Carbon;
 									</td>
 									<td>
 										<div class="hstack flex gap-3 text-[.9375rem]">
-                                            <a aria-label="Voir" href="javascript:void(0);" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-warning-full">
+                                            <a aria-label="Voir" href="{{ route('covoiturage.annonce_show', ['id' => $trajet->id_trajet]) }}" target="_blank" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-warning-full">
                                                 <i class="las la-eye"></i>
                                             </a>
                                         </div>
