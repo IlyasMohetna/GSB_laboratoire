@@ -13,6 +13,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/covoiturage/search', [CovoiturageController::class, 'annonce_search_show'])->name('covoiturage.annonce_search_show');
     Route::get('/api/covoiturage/search', [CovoiturageController::class, 'annonce_search_action'])->name('covoiturage.annonce_search_action');
     Route::get('/api/covoiturage/vehicule_perso/search', [CovoiturageController::class, 'vehicule_perso_available_search_action'])->name('covoiturage.vehicule_perso_available_search_action');
+    Route::get('/api/covoiturage/vehicule_service/search', [CovoiturageController::class, 'vehicule_service_available_search_action'])->name('covoiturage.vehicule_service_available_search_action');
     Route::post('/covoiturage/reserver', [CovoiturageController::class, 'annonce_reserver'])->name('covoiturage.annonce_reserver_action');
     Route::get('/ville', [ParametrageController::class, 'ville_lookup'])->name('covoiturage.ville_lookup');
     

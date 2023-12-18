@@ -12,7 +12,30 @@ $(document).ready(function() {
   
       // Toggle NEXT and PREVIOUS button visibility based on the current step
       if (currentStep === 3) {
-        SearchAvailableVehicules();
+        SearchAvailableVehiculesPerso()
+        .then(() => {
+          $("#vehicule_perso_select").select2({
+            allowClear: true,
+            placeholder: "Choissisez un véhicule",
+            templateResult: formatCarState
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+        SearchAvailableVehiculesService()
+        .then(() => {
+          $("#vehicule_service_select").select2({
+            allowClear: true,
+            placeholder: "Choissisez un véhicule",
+            templateResult: formatCarState
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
         $('#nextBtn').addClass('!hidden');
       } else {
         $('#nextBtn').removeClass('!hidden');

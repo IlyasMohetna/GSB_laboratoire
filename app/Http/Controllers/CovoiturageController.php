@@ -48,8 +48,8 @@ class CovoiturageController extends Controller
 
     public function parc_show()
     {
-        $vehicules_perso = Vehicule::where('code_employe', auth()->user()->code_employe)->get();
-        $vehicules_service = Vehicule::where('id_agence', auth()->user()->id_agence)->get();
+        // $vehicules_perso = Vehicule::where('code_employe', auth()->user()->code_employe)->get();
+        // $vehicules_service = Vehicule::where('id_agence', auth()->user()->id_agence)->get();
 
         return view('covoiturage.parc', [
             'vehicules_perso' => $vehicules_perso,
@@ -115,11 +115,7 @@ class CovoiturageController extends Controller
         }, 'reservation_count')
         ->distinct()
         ->get();
-
-        // foreach(DB::getQueryLog() as $query){
-        //     echo $query['query'];
-        // }
-
+        
         $data = [];
         foreach($trajets as $trajet){
             $data[] = [
@@ -179,7 +175,18 @@ class CovoiturageController extends Controller
             $query->whereBetween('date_passage', [$startDate, $endDate]);
         })->get();    
         return response()->json($vehicules);
-    }    
+    }  
+    
+    public function vehicule_service_available_search_action()
+    {
+        $startDate = Carbon::createFromFormat('d/m/Y H:i', request('startDate'));
+        $endDate = Carbon::createFromFormat('d/m/Y H:i:s', request('endDate')); 
+        $vehicules = Vehicule::where('type_vehicule', 'service')->where('id_agence', auth()->user()->id_agence)
+        ->whereDoesntHave('trajets.etapes', function (Builder $query) use ($startDate, $endDate) {
+            $query->whereBetween('date_passage', [$startDate, $endDate]);
+        })->get();    
+        return response()->json($vehicules);
+    }  
 
     public function calculateTimeDifference($time1, $time2)
     {        

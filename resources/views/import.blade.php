@@ -1,6 +1,3 @@
-@extends('layout.app')
-
-@section('content')
 <div class="container">
     <form action="import" method="post" enctype="multipart/form-data">
         @csrf
@@ -9,4 +6,3 @@
         <input type="submit" name="submit" value="Charger">
     </form>
 </div>
-@stop

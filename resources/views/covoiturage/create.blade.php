@@ -104,28 +104,16 @@
                   </div>
                </div>
                <div id="vehicule_perso_list">
-                  @if($vehicules_perso->isEmpty())
-                  <div class="mx-auto text-center">Vous n'avez aucun véhicule personnel disponible pour le moment</div>
-                  @else 
                   <select id="vehicule_perso_select" name="vehicule_perso">
                      <option></option>
-                     @foreach($vehicules_perso as $vehicule_perso)
-                     <option value="{{ $vehicule_perso->id_vehicule }}" data-photo="{{ $vehicule_perso->photo }}" data-marque="{{ $vehicule_perso->marque }}" data-immatriculation="{{ $vehicule_perso->immatriculation }}" data-model="{{ $vehicule_perso->model }}" data-annee_model="{{ $vehicule_perso->annee_model }}">{{ $vehicule_perso->marque }} - {{ $vehicule_perso->immatriculation }}</option>
-                     @endforeach
+                     {{--<option value="{{ $vehicule_perso->id_vehicule }}" data-photo="{{ $vehicule_perso->photo }}" data-marque="{{ $vehicule_perso->marque }}" data-immatriculation="{{ $vehicule_perso->immatriculation }}" data-model="{{ $vehicule_perso->model }}" data-annee_model="{{ $vehicule_perso->annee_model }}">{{ $vehicule_perso->marque }} - {{ $vehicule_perso->immatriculation }}</option>--}}
                   </select>
-                  @endif
                </div>
                <div id="vehicule_service_list" style="display:none">
-                  @if($vehicules_service->isEmpty())
-                  <div class="mx-auto text-center">Aucun véhicule de service n'est disponible pour le moment</div>
-                  @else 
                   <select id="vehicule_service_select" name="vehicule_service">
                      <option></option>
-                     @foreach($vehicules_service as $vehicule_service)
-                     <option value="{{ $vehicule_service->id_vehicule }}" data-photo="{{ $vehicule_service->photo }}" data-marque="{{ $vehicule_service->marque }}" data-immatriculation="{{ $vehicule_service->immatriculation }}" data-model="{{ $vehicule_service->model }}" data-annee_model="{{ $vehicule_service->annee_model }}">{{ $vehicule_service->marque }} - {{ $vehicule_service->immatriculation }}</option>
-                     @endforeach
+                     {{--<option value="{{ $vehicule_service->id_vehicule }}" data-photo="{{ $vehicule_service->photo }}" data-marque="{{ $vehicule_service->marque }}" data-immatriculation="{{ $vehicule_service->immatriculation }}" data-model="{{ $vehicule_service->model }}" data-annee_model="{{ $vehicule_service->annee_model }}">{{ $vehicule_service->marque }} - {{ $vehicule_service->immatriculation }}</option>--}}
                   </select>
-                  @endif
                </div>
                <div class="col-span-12">
                   <button type="button" id="confirm-trajectory" class="float-right py-2 px-3 inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-e-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:z-10 focus:outline-none focus:ring-0 focus:ring-primary transition-all text-sm">
@@ -293,30 +281,78 @@
 </script>
 <script src="{{ asset('assets/js/covoiturage/js.js') }}"></script>
 <script>
-   function SearchAvailableVehicules(){
-      console.log('Function called');
-      $.ajax({
-         url:'/api/covoiturage/vehicule_perso/search',
-         method:'GET',
-         data:'startDate='+$('#DateTimeDepart').val()+'&endDate='+$('input[name="arriving_dates[]"]').last().val(),
-         success:function(vehicules){
-            console.log(vehicules);
-         }
-      })
+   function SearchAvailableVehiculesPerso(){
+      return new Promise((resolve, reject) => {
+         $.ajax({
+            url: '/api/covoiturage/vehicule_perso/search',
+            method: 'GET',
+            data: 'startDate=' + $('#DateTimeDepart').val() + '&endDate=' + $('input[name="arriving_dates[]"]').last().val(),
+            success: function (vehicules) {
+                  $('#vehicule_perso_select').empty();
+                  vehicules.forEach((vehicule, index) => {
+                     var option = $('<option>');
+                     option.attr('value', vehicule.id_vehicule);
+                     option.data('photo', vehicule.photo);
+                     option.data('marque', vehicule.marque);
+                     option.data('immatriculation', vehicule.immatriculation);
+                     option.data('model', vehicule.model);
+                     option.data('annee_model', vehicule.annee_model);
+                     option.text(vehicule.marque + ' - ' + vehicule.immatriculation);
+                     $('#vehicule_perso_select').append(option);
+
+                     // Check if it's the last iteration
+                     if (index === vehicules.length - 1) {
+                        resolve(); // Resolve the promise when the loop is complete
+                     }
+                  });
+            },
+            error: function (error) {
+                  reject(error);
+            }
+         });
+      });
+   }
+
+   function SearchAvailableVehiculesService(){
+      return new Promise((resolve, reject) => {
+         $.ajax({
+            url: '/api/covoiturage/vehicule_service/search',
+            method: 'GET',
+            data: 'startDate=' + $('#DateTimeDepart').val() + '&endDate=' + $('input[name="arriving_dates[]"]').last().val(),
+            success: function (vehicules) {
+                  $('#vehicule_service_select').empty();
+                  vehicules.forEach((vehicule, index) => {
+                     var option = $('<option>');
+                     option.attr('value', vehicule.id_vehicule);
+                     option.data('photo', vehicule.photo);
+                     option.data('marque', vehicule.marque);
+                     option.data('immatriculation', vehicule.immatriculation);
+                     option.data('model', vehicule.model);
+                     option.data('annee_model', vehicule.annee_model);
+                     option.text(vehicule.marque + ' - ' + vehicule.immatriculation);
+                     $('#vehicule_service_select').append(option);
+
+                     // Check if it's the last iteration
+                     if (index === vehicules.length - 1) {
+                        resolve(); // Resolve the promise when the loop is complete
+                     }
+                  });
+            },
+            error: function (error) {
+                  reject(error);
+            }
+         });
+      });
    }
 </script>
 <script>
    $(document).ready(function() {
-     $("#vehicule_perso_select").select2({
-       allowClear: true,
-       placeholder: "Choissisez un véhicule",
-       templateResult: formatCarState
-     });
-     $("#vehicule_service_select").select2({
-       allowClear: true,
-       placeholder: "Choissisez un véhicule",
-       templateResult: formatCarState
-     });
+
+   //   $("#vehicule_service_select").select2({
+   //     allowClear: true,
+   //     placeholder: "Choissisez un véhicule",
+   //     templateResult: formatCarState
+   //   });
    });
    
    // Custom template for car-select
