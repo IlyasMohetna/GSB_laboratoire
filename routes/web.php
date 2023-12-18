@@ -16,7 +16,7 @@ use App\Http\Controllers\ImportController;
 
 Route::get('/accueil', function(){
     return view('accueil');
-})->name('accueil.show');
+})->middleware('auth')->name('accueil.show');
 
 Route::get('/import', function(){
     return view('import');
