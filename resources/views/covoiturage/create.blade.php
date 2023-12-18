@@ -104,12 +104,14 @@
                   </div>
                </div>
                <div id="vehicule_perso_list">
+                  <span id="aucun_vehicule_perso_message"></span>
                   <select id="vehicule_perso_select" name="vehicule_perso">
                      <option></option>
                      {{--<option value="{{ $vehicule_perso->id_vehicule }}" data-photo="{{ $vehicule_perso->photo }}" data-marque="{{ $vehicule_perso->marque }}" data-immatriculation="{{ $vehicule_perso->immatriculation }}" data-model="{{ $vehicule_perso->model }}" data-annee_model="{{ $vehicule_perso->annee_model }}">{{ $vehicule_perso->marque }} - {{ $vehicule_perso->immatriculation }}</option>--}}
                   </select>
                </div>
                <div id="vehicule_service_list" style="display:none">
+                  <span id="aucun_vehicule_service_message"></span>
                   <select id="vehicule_service_select" name="vehicule_service">
                      <option></option>
                      {{--<option value="{{ $vehicule_service->id_vehicule }}" data-photo="{{ $vehicule_service->photo }}" data-marque="{{ $vehicule_service->marque }}" data-immatriculation="{{ $vehicule_service->immatriculation }}" data-model="{{ $vehicule_service->model }}" data-annee_model="{{ $vehicule_service->annee_model }}">{{ $vehicule_service->marque }} - {{ $vehicule_service->immatriculation }}</option>--}}
@@ -281,14 +283,23 @@
 </script>
 <script src="{{ asset('assets/js/covoiturage/js.js') }}"></script>
 <script>
-   function SearchAvailableVehiculesPerso(){
-      return new Promise((resolve, reject) => {
-         $.ajax({
+function SearchAvailableVehiculesPerso() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
             url: '/api/covoiturage/vehicule_perso/search',
             method: 'GET',
             data: 'startDate=' + $('#DateTimeDepart').val() + '&endDate=' + $('input[name="arriving_dates[]"]').last().val(),
             success: function (vehicules) {
-                  $('#vehicule_perso_select').empty();
+                $('#vehicule_perso_select').empty();
+                var nullOption = $('<option>');
+                nullOption.attr('value', ''); // You can set the value to an appropriate null value if needed
+                nullOption.text('Choisir un véhicule'); // Set the text for the null option
+                $('#vehicule_perso_select').append(nullOption);
+               if(vehicules.length === 0) {
+                  console.log('empty');
+                  $('#aucun_vehicule_perso_message').text("Aucun véhicule personnel n'est disponible pour le moment");
+                  resolve();
+               }else{
                   vehicules.forEach((vehicule, index) => {
                      var option = $('<option>');
                      option.attr('value', vehicule.id_vehicule);
@@ -299,20 +310,20 @@
                      option.data('annee_model', vehicule.annee_model);
                      option.text(vehicule.marque + ' - ' + vehicule.immatriculation);
                      $('#vehicule_perso_select').append(option);
-
-                     // Check if it's the last iteration
+                     
                      if (index === vehicules.length - 1) {
-                        resolve(); // Resolve the promise when the loop is complete
+                        $('#aucun_vehicule_perso_message').empty();
+                        resolve();
                      }
                   });
+               }
             },
             error: function (error) {
-                  reject(error);
+               reject(error);
             }
          });
       });
-   }
-
+}
    function SearchAvailableVehiculesService(){
       return new Promise((resolve, reject) => {
          $.ajax({
@@ -320,7 +331,15 @@
             method: 'GET',
             data: 'startDate=' + $('#DateTimeDepart').val() + '&endDate=' + $('input[name="arriving_dates[]"]').last().val(),
             success: function (vehicules) {
-                  $('#vehicule_service_select').empty();
+                $('#vehicule_service_select').empty();
+                var nullOption = $('<option>');
+                nullOption.attr('value', ''); // You can set the value to an appropriate null value if needed
+                nullOption.text('Choisir un véhicule'); // Set the text for the null option
+                $('#vehicule_service_select').append(nullOption);
+               if(vehicules.length === 0) {
+                  $('#aucun_vehicule_service_message').text("Aucun véhicule de service n'est disponible pour le moment");
+                  resolve();
+               }else{
                   vehicules.forEach((vehicule, index) => {
                      var option = $('<option>');
                      option.attr('value', vehicule.id_vehicule);
@@ -331,12 +350,13 @@
                      option.data('annee_model', vehicule.annee_model);
                      option.text(vehicule.marque + ' - ' + vehicule.immatriculation);
                      $('#vehicule_service_select').append(option);
-
-                     // Check if it's the last iteration
+                     
                      if (index === vehicules.length - 1) {
-                        resolve(); // Resolve the promise when the loop is complete
+                        $('#aucun_vehicule_service_message').empty();
+                        resolve();
                      }
                   });
+               }
             },
             error: function (error) {
                   reject(error);
