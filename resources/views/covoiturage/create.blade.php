@@ -9,7 +9,7 @@
    <!-- Page Header --> 
    <div class="block justify-between page-header md:flex">
       <div>
-         <h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">Créer une annonce covoiturage</h3>
+         <h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">Déposer une annonce covoiturage</h3>
       </div>
    </div>
    <!-- End:: row-4 --> <!-- Start:: row-5 --> 
@@ -41,7 +41,7 @@
                            <div class="input-group-text text-[#8c9097] dark:text-white/50">
                               <i class="ri-calendar-line"></i>
                            </div>
-                           <input type="text" class="form-control flatpickr-input" id="DateTimeDepart" name="DateTimeDepart" placeholder="Choose date with time" readonly="readonly">
+                           <input type="text" class="form-control flatpickr-input" id="DateTimeDepart" name="DateTimeDepart" placeholder="La date de départ" readonly="readonly">
                            <script>
                               $("#DateTimeDepart").flatpickr({
                                   minDate: "today",
@@ -75,7 +75,7 @@
                      <button type="button" id="steps_add_btn" class="ti-btn ti-btn-icon bg-success/10 text-success hover:bg-success hover:text-white !rounded-full ti-btn-wave">
                      <i class="ri-add-line"></i>
                      </button>
-                     <span class="justify-center align-center">Ajouté une étape et augmenter vos possibilités</span>
+                     <span class="justify-center align-center">Ajouté une étape et augmenter vos possibilités de covoiturer</span>
                   </div>
                </div>
                <div class="col-span-12 sm:mb-0 mt-2"> 

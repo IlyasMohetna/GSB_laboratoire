@@ -185,7 +185,7 @@ function addNewStep() {
    $('#steps_list').append(newSelectHtml);
 
    $('#' + newSelectId).select2({
-       placeholder: "Sélectionner une étape",
+       placeholder: "Ajouter une étape",
        allowClear: true,
        ajax: {
            url: '/ville',
@@ -229,7 +229,7 @@ function removeStep(containerId) {
 
 $(document).ready(function() {
     $('#startLocation').select2({
-        placeholder: "Selectionner une ville",
+        placeholder: "La ville de départ",
         allowClear: true,
         ajax: {
             url: '/ville',
@@ -249,7 +249,7 @@ $(document).ready(function() {
     });
 
     $('#endLocation').select2({
-        placeholder: "Selectionner une ville",
+        placeholder: "La ville d'arrivée",
         allowClear: true,
         ajax: {
             url: '/ville',
