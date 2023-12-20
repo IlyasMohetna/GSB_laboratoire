@@ -26,3 +26,4 @@ Route::post('/import', [ImportController::class, 'ville_import']);
 
 include __DIR__.'/auth.php';
 include __DIR__.'/covoiturage.php';
+include __DIR__.'/visite.php';

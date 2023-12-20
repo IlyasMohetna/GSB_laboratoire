@@ -25,6 +25,7 @@ class CovoiturageController extends Controller
             'vehicules_service' => $vehicules_service
         ]);
     }
+    
 
     public function annonce_search_show()
     {

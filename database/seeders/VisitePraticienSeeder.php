@@ -12,50 +12,19 @@ class VisitePraticienSeeder extends Seeder
      */
     public function run(): void
     {
-        \DB::disableQueryLog();
-        $count = 100000;
-        $batchSize = 100; // Adjust the batch size as needed
-        $batches = ceil($count / $batchSize);
+        $batchSize = 1000; // Adjust the batch size as needed
+        $totalRecords = 50000;
 
-        $this->command->getOutput()->progressStart($count);
+        $this->command->getOutput()->progressStart($totalRecords);
 
-        \DB::beginTransaction();
+        for ($i = 0; $i < $totalRecords; $i += $batchSize) {
+            $count = min($batchSize, $totalRecords - $i);
+            Praticien::factory()->count($count)->create();
 
-        try {
-            for ($i = 0; $i < $batches; $i++) {
-                $this->seedBatch($batchSize);
-                $this->command->getOutput()->progressAdvance($batchSize);
-            }
-
-            \DB::commit();
-        } catch (\Exception $e) {
-            \DB::rollBack();
-            $this->command->getOutput()->progressFinish();
-            // Log the exception or handle it in a way that suits your needs
-            // logger()->error($e);
-            // You can also output the exception message if needed
-            $this->command->error("Error: {$e->getMessage()}");
-            // Continue with the next batch
+            // Additional processing if needed
+            $this->command->getOutput()->progressAdvance($count);
         }
 
         $this->command->getOutput()->progressFinish();
-    }
-
-    /**
-     * Seed a batch of records.
-     *
-     * @param int $batchSize
-     * @return void
-     */
-    protected function seedBatch(int $batchSize): void
-    {
-        try {
-            Praticien::factory()->count($batchSize)->create();
-        } catch (\Exception $e) {
-            // Log the exception or handle it in a way that suits your needs
-            // logger()->error($e);
-            // You can also output the exception message if needed
-            $this->command->error("Error in batch: {$e->getMessage()}");
-        }
     }
 }
