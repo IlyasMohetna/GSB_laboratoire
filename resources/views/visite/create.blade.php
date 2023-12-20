@@ -172,7 +172,7 @@
 			    }
 			});
 		});
-		    
 	</script>
+    <script>$('#sidebar-visite-create').addClass('active');</script>
 </div>
 @stop

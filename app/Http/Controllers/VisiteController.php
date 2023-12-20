@@ -8,6 +8,7 @@ use App\Models\VISITE\Medicament;
 use App\Models\VISITE\Praticien;
 use App\Models\VISITE\Visite;
 use App\Models\VISITE\PresentationMedicament;
+use PDF;
 
 class VisiteController extends Controller
 {
@@ -18,8 +19,6 @@ class VisiteController extends Controller
 
     public function create_visite()
     {
-        
-        dd('stop');
         $visite = Visite::create([
             'date_debut_visite' => request()->date_debut_visite,
             'id_praticien' => request()->id_praticien,
@@ -36,7 +35,21 @@ class VisiteController extends Controller
             }
         }
 
-        return view('visite.confirmed');
+        return redirect()->route('visite.create_confirmed', ['id_visite' => $visite->id_visite]);
+    }
+
+    public function create_confirmed($id_visite)
+    {
+        return view('visite.confirmed', [
+            'id_visite' => $id_visite
+        ]);
+    }
+
+    public function generer_ordre_mission($id_visite)
+    {
+        $visite = Visite::where('id_visite', $id_visite)->with('visiteur.fonction','praticien.ville','visiteur.agence.ville','medicaments.medicament')->first();
+        $pdf = PDF::loadView('pdf.ordre_de_mission', $visite->toArray());
+        return $pdf->download('ORDRE_MISSION_'.$visite->created_at->format('d-m-Y').'.pdf');
     }
 
     public function medicament_lookup()

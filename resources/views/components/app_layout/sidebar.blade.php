@@ -68,8 +68,8 @@
                            <ul class="slide-menu child1">
                               <li class="slide side-menu__label1"><a href="javascript:void(0)">Gestion de visite</a></li>
                               <li class="slide"><a href="about-us.html" class="side-menu__item">Mes visites</a></li>
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Créer une visite</a> </li>
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Les médicaments</a> </li>
+                              <li class="slide"> <a href="{{ route('visite.create_visite') }}" class="side-menu__item" id="sidebar-visite-create">Créer une visite</a> </li>
+                              <li class="slide"> <a href="" class="side-menu__item" >Les médicaments</a> </li>
                               <li class="slide"> <a href="chat.html" class="side-menu__item">Les praticiens</a> </li>
                            </ul>
                         </li>

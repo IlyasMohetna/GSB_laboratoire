@@ -12,4 +12,9 @@ class Praticien extends Model
     protected $table = 'visite__praticien';
     protected $primaryKey = 'id_praticien';
     protected $guarded = [];
+
+    public function ville()
+    {
+        return $this->hasOne(\App\Models\PARAMETRAGE\Ville::class, 'id_ville', 'id_ville');
+    }
 }
