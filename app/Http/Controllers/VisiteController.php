@@ -14,6 +14,8 @@ class VisiteController extends Controller
 {
     public function create_show()
     {
+        // Medicament::updateAllPhotos();
+        // dd('stop');
         return view('visite.create');
     }
 

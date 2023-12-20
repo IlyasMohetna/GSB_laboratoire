@@ -130,7 +130,7 @@
 		                                        <div class="sm:flex block items-center justify-between">
 		                                        <div class="me-2 leading-none">
 		                                            <span class="avatar avatar-xl">
-		                                                <img src="https://www.pharmacie-du-centre-albert.fr/resize/600x600/media/finish/img/normal/75/3400930001479-a-313-pommade-dermique-200-000-ui-tube-50g.jpg" alt="">
+		                                                <img src="${medicament.photo_medicament}" alt="">
 		                                            </span>
 		                                        </div>
 		                                            <div class="w-full">
