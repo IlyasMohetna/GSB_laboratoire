@@ -27,9 +27,12 @@
             <div class="p-4 mt-2">
                 <div class="grid grid-cols-2 space-x-3 text-center">
                     <div>
-                        <a href="{{ route('visite.generer_ordre_mission', ['id_visite' => $id_visite]) }}"><button class="ti-btn ti-btn-primary-full ti-btn-wave w-4/5 float-right" type="button"><i class="las la-download"></i> Ordre de mission</button></a>
+                        <a href="{{ route('visite.generer_ordre_mission', ['id_visite' => $id_visite]) }}">
+                            <button class="ti-btn ti-btn-primary-full ti-btn-wave w-4/5 float-right" type="button"><i class="las la-download"></i> Ordre de mission</button>
+                        </a>
                     </div>
                     <div>
+                        <a href="{{ route('visite.visite_show', ['id_visite' => $id_visite]) }}">
                         <button class="ti-btn ti-btn-primary-full ti-btn-wave w-4/5 float-left" type="button"><i class="las la-external-link-square-alt"></i> Accéder à ma visite</button>
                     </div>
                 </div>

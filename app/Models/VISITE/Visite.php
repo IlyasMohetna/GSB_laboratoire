@@ -8,6 +8,10 @@ class Visite extends Model
 {
     protected $table = 'visite__visite';
     protected $primaryKey = 'id_visite';
+    protected $casts = [
+        'date_debut_visite' => 'datetime',
+        'date_fin_visite' => 'datetime'
+    ];
     protected $guarded = [];
 
     public function visiteur()
