@@ -205,8 +205,13 @@ class CovoiturageController extends Controller
                 'id_etape_depart' => request()->modal_etape_depart,
                 'id_etape_arrive' => request()->modal_etape_arrive
             ]);
-            session(['reservation_success' => true]);
-            return redirect()->route('covoiturage.reservation_confirmed_show');
+
+            if(isset(request()->id_visite)){
+                return redirect()->route('visite.create_confirmed', ['id_visite' => request()->id_visite]);
+            }else{
+                session(['reservation_success' => true]);
+                return redirect()->route('covoiturage.reservation_confirmed_show');
+            }
         }
     }
 

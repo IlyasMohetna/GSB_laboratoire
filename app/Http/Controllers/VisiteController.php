@@ -14,8 +14,6 @@ class VisiteController extends Controller
 {
     public function create_show()
     {
-        // Medicament::updateAllPhotos();
-        // dd('stop');
         return view('visite.create');
     }
 
@@ -37,7 +35,9 @@ class VisiteController extends Controller
             }
         }
 
-        return redirect()->route('visite.create_confirmed', ['id_visite' => $visite->id_visite]);
+        $visite = Visite::where('id_visite', $visite->id_visite)->with('visiteur.agence.ville','praticien.ville')->first();
+
+        return view('visite.search', ['visite' => $visite]);
     }
 
     public function create_confirmed($id_visite)
