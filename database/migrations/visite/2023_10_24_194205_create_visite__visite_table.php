@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('id_visite')->index();
             $table->date('date_debut_visite');
             $table->date('date_fin_visite')->nullable();
-            $table->longText('rapport')->nullable();
+            $table->text('rapport')->nullable();
             $table->foreignId('id_praticien')->index()->foreign()->references('id_praticien')->on('visite__praticien');
             $table->foreignId('code_employe')->index()->foreign()->references('code_employe')->on('employe__employe');
             $table->timestamps();

@@ -10,6 +10,23 @@
 		</div>
 	</div>
 	<!-- Page Header Close --> <!-- Start:: row-1 --> 
+    <div class="w-full p-2 flex items-center">
+    <div>
+        <button type="button" id="visu1" class="ti-btn ti-btn-primary-full border border-1">Visuelle visite</button>
+    </div>
+    <div>
+        <button type="button" id="visu2" class="ti-btn ti-btn-light border border-1">Visuelle frais</button>
+    </div>
+    <div class="ml-auto">
+        TEST
+    </div>
+</div>
+
+    <script>
+        $('#visu1,#visu2').on('click', function(){
+            $('#visu1,#visu2').toggleClass('ti-btn-primary-full ti-btn-light');
+        })
+    </script>
 	<div class="grid grid-cols-12 gap-4">
 		<div class="col-span-3">
 			<div class="box">
@@ -60,12 +77,7 @@
 					<div class="grid grid-cols-12">
 						<div class="xxxl:col-span-3 col-span-4 flex items-center ecommerce-icon px-0">
 							<span class="rounded-md p-4 bg-primary/10">
-								<svg xmlns="http://www.w3.org/2000/svg" class="svg-white primary" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-									<g>
-										<rect fill="none" height="24" width="24"></rect>
-										<path d="M18,6h-2c0-2.21-1.79-4-4-4S8,3.79,8,6H6C4.9,6,4,6.9,4,8v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8C20,6.9,19.1,6,18,6z M12,4c1.1,0,2,0.9,2,2h-4C10,4.9,10.9,4,12,4z M18,20H6V8h2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V8h4v2c0,0.55,0.45,1,1,1s1-0.45,1-1V8 h2V20z"></path>
-									</g>
-								</svg>
+                                <i class="las la-hourglass-start text-2xl"></i>
 							</span>
 						</div>
 						<div class="xxxl:col-span-9 col-span-8">
@@ -82,12 +94,7 @@
 					<div class="grid grid-cols-12">
 						<div class="xxxl:col-span-3 col-span-4 flex items-center ecommerce-icon px-0">
 							<span class="rounded-md p-4 bg-primary/10">
-								<svg xmlns="http://www.w3.org/2000/svg" class="svg-white primary" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-									<g>
-										<rect fill="none" height="24" width="24"></rect>
-										<path d="M18,6h-2c0-2.21-1.79-4-4-4S8,3.79,8,6H6C4.9,6,4,6.9,4,8v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8C20,6.9,19.1,6,18,6z M12,4c1.1,0,2,0.9,2,2h-4C10,4.9,10.9,4,12,4z M18,20H6V8h2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V8h4v2c0,0.55,0.45,1,1,1s1-0.45,1-1V8 h2V20z"></path>
-									</g>
-								</svg>
+                                <i class="las la-hourglass-end text-2xl"></i>
 							</span>
 						</div>
 						<div class="xxxl:col-span-9 col-span-8">
@@ -101,6 +108,8 @@
 			</div>
 		</div>
 		<div class="col-span-6">
+            <form action="{{ route('visite.visite_close') }}" method="POST"> 
+                @csrf
 			<div class="box">
 				<div class="box-header">
 					<div class="box-title">Rapport de visite</div>
@@ -108,8 +117,9 @@
 				<div class="box-body">
 					<div id="editor" style="max-height: 300px;overflow-y: auto;"></div>
 				</div>
+                <input type="text" name="quill_content" id="quill_content">
                 <div class="w-1/2 mx-auto p-2">
-                    <button type="button" class="ti-btn ti-btn-warning w-full ti-btn-border-top">Cloturer la visite</button>
+                    <button type="submit" class="ti-btn ti-btn-warning w-full ti-btn-border-top">Cloturer la visite</button>
                 </div>
 			</div>
 		</div>
@@ -146,7 +156,14 @@
 	    },
 	    theme: 'snow'
 	});
+
+    quill.on('text-change', function() {
+        var quillContent = quill.root.innerHTML;
+        document.getElementById('quill_content').value = JSON.stringify(quillContent);
+    });
 	
 	})();
+
+
 </script>
 @stop

@@ -60,6 +60,14 @@ class VisiteController extends Controller
         return view('visite.visite', ['visite' => $visite]);
     }
 
+    public function visite_close()
+    {
+        dd(request());
+        $visite = Visite::where('id_visite', request()->id_visite)->update([
+
+        ]);
+    }
+
     public function medicament_lookup()
     {
         $q = empty(request()->q) ? '' : request()->q;
