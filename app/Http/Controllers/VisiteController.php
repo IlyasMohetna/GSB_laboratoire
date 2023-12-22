@@ -8,6 +8,7 @@ use App\Models\VISITE\Medicament;
 use App\Models\VISITE\Praticien;
 use App\Models\VISITE\Visite;
 use App\Models\VISITE\PresentationMedicament;
+use Carbon\Carbon;
 use PDF;
 
 class VisiteController extends Controller
@@ -62,10 +63,12 @@ class VisiteController extends Controller
 
     public function visite_close()
     {
-        dd(request());
         $visite = Visite::where('id_visite', request()->id_visite)->update([
-
+            'rapport' => request()->quill_content,
+            'date_fin_visite' => Carbon::now()
         ]);
+
+        return redirect()->back();
     }
 
     public function medicament_lookup()

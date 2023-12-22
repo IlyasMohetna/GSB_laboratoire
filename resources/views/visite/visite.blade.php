@@ -117,10 +117,27 @@
 				<div class="box-body">
 					<div id="editor" style="max-height: 300px;overflow-y: auto;"></div>
 				</div>
-                <input type="text" name="quill_content" id="quill_content">
+				<input type="hidden" name="id_visite" value="{{ $visite->id_visite }}">
+                <input type="hidden" name="quill_content" id="quill_content">
+
+				@if(!empty($visite->date_fin_visite))
                 <div class="w-1/2 mx-auto p-2">
-                    <button type="submit" class="ti-btn ti-btn-warning w-full ti-btn-border-top">Cloturer la visite</button>
+					<div class="hs-tooltip ti-main-tooltip w-full"> 
+						<button type="button" disabled class="hs-tooltip-toggle ti-btn ti-btn-warning w-full ti-btn-border-top opacity-[0.6]"> 
+							Cloturer la visite
+							<span class="hs-tooltip-content ti-main-tooltip-content py-1 px-2 !bg-black !text-xs !font-medium !text-white shadow-sm hidden" role="tooltip"> 
+								Vous avez déja cloturer cette visite
+							</span> 
+						</button> 
+					</div>
                 </div>
+				@else 
+				<div class="w-1/2 mx-auto p-2">
+					<button type="submit" class="ti-btn ti-btn-warning w-full ti-btn-border-top">
+						Cloturer la visite
+					</button>
+                </div>
+				@endif
 			</div>
 		</div>
 	</div>
@@ -157,9 +174,12 @@
 	    theme: 'snow'
 	});
 
+	var content = {!! json_encode($visite->rapport) !!};
+    quill.root.innerHTML = content;
+
     quill.on('text-change', function() {
         var quillContent = quill.root.innerHTML;
-        document.getElementById('quill_content').value = JSON.stringify(quillContent);
+        document.getElementById('quill_content').value = quillContent;
     });
 	
 	})();
