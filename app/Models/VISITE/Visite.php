@@ -2,10 +2,13 @@
 
 namespace App\Models\VISITE;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Visite extends Model
 {
+    use HasFactory;
+    
     protected $table = 'visite__visite';
     protected $primaryKey = 'id_visite';
     protected $casts = [

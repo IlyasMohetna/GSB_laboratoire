@@ -55,6 +55,12 @@ class VisiteController extends Controller
         return $pdf->download('ORDRE_MISSION_'.$visite->created_at->format('d-m-Y').'.pdf');
     }
 
+    public function visites_show()
+    {
+        $visites = Visite::with('praticien')->get();
+        return view('visite.visites', ['visites' => $visites]);
+    }
+
     public function visite_show($id_visite)
     {
         $visite = Visite::where('id_visite', $id_visite)->with('praticien.ville','medicaments.medicament.famille')->first();

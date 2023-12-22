@@ -11,17 +11,17 @@
 	</div>
 	<!-- Page Header Close --> <!-- Start:: row-1 --> 
     <div class="w-full p-2 flex items-center">
-    <div>
-        <button type="button" id="visu1" class="ti-btn ti-btn-primary-full border border-1">Visuelle visite</button>
-    </div>
-    <div>
-        <button type="button" id="visu2" class="ti-btn ti-btn-light border border-1">Visuelle frais</button>
-    </div>
-    <div class="ml-auto">
-        TEST
-    </div>
-</div>
-
+		<div>
+			<button type="button" id="visu1" class="ti-btn ti-btn-primary-full border border-1">Visuelle visite</button>
+		</div>
+		<div>
+			<button type="button" id="visu2" class="ti-btn ti-btn-light border border-1">Visuelle frais</button>
+		</div>
+		<div class="ml-auto">
+			TEST
+		</div>
+	</div>
+		
     <script>
         $('#visu1,#visu2').on('click', function(){
             $('#visu1,#visu2').toggleClass('ti-btn-primary-full ti-btn-light');
