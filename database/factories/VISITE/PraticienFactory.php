@@ -34,7 +34,7 @@ class PraticienFactory extends Factory
             'raison_sociale' => $uniqueRaisonSociale,
             'prenom' => $faker->firstName,
             'nom' => $faker->lastName,
-            'adresse' => $faker->address,
+            'adresse' => $faker->streetAddress,
             'id_ville' => $ville->id_ville,
         ];
     }

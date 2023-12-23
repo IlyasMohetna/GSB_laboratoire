@@ -110,5 +110,5 @@ $(document).ready(function(){
 	    });
 	});
 </script>
-<script>$('#sidebar-praticiens').addClass('active');</script>
+<script>$('#sidebar-medicaments').addClass('active');</script>
 @stop
