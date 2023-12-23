@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "devdojo/google-image-search": "^0.2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "helgesverre/receipt-scanner": "^2.0",
         "laravel/framework": "^10.10",
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.2",
