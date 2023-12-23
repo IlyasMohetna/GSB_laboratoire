@@ -56,7 +56,7 @@ error_reporting(0);
 						<tbody>
 							@foreach($visites as $visite)
 							<tr class="border-b border-defaultborder">
-								<td class="capitalize fon-bold">{{ $visite->praticien->raison_sociale }}</td>
+								<td class="capitalize font-bold">{{ $visite->praticien->raison_sociale }}</td>
 								<td class="text-center">{{ $visite->date_debut_visite->format('d/m/Y') }}</td>
 								<td class="text-center">{{ optional($visite->date_fin_visite)->format('d/m/Y') ?? '--'}}</td>
 								<td>

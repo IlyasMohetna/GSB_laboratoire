@@ -9,6 +9,7 @@ use App\Models\VISITE\Praticien;
 use App\Models\VISITE\Visite;
 use App\Models\VISITE\PresentationMedicament;
 use Carbon\Carbon;
+use Yajra\DataTables\DataTables;
 use PDF;
 
 class VisiteController extends Controller
@@ -93,6 +94,28 @@ class VisiteController extends Controller
         return json_encode($search);        
     }
 
+    public function famille_lookup()
+    {
+        $query = empty(request()->q) ? '' : request()->q;
+        $search = FamilleMedicament::select(['id_famille', 'nom_famille'])
+                        ->where('nom_famille', 'LIKE', '%'.$query.'%')
+                        ->orWhere('nom_famille', 'LIKE', '%'.$query.'%')
+                        ->orderByRaw("CASE WHEN `nom_famille` = ? THEN 1 WHEN `nom_famille` LIKE ? THEN 2 ELSE 3 END", [$query, $query.'%'])
+                        ->limit(10)
+                        ->get();
+        $result = [];
+        $result['results'] = [];
+
+        foreach($search as $famille){
+            $result['results'][] = [
+                'id' => $famille->nom_famille,
+                'text' => $famille->nom_famille
+            ];
+        }
+
+        return json_encode($result);
+    }
+
     public function praticien_lookup()
     {
         $query = empty(request()->q) ? '' : request()->q;
@@ -114,4 +137,45 @@ class VisiteController extends Controller
 
         return json_encode($result);
     }
+
+    public function praticiens_show()
+    {
+        return view('visite.praticiens');
+    }
+
+    public function medicaments_show()
+    {
+        return view('visite.medicaments');
+    }
+
+    public function praticien_yajra()
+    {
+        $praticiens = Praticien::with('ville')->latest();
+        return DataTables::of($praticiens)
+        ->addColumn('code_postal', function ($praticien) {
+            return $praticien->ville->code_postal;
+        })
+        ->addColumn('ville', function ($praticien) {
+            return $praticien->ville->nom;
+        })
+        ->make(true);
+    }
+
+    public function medicaments_yajra(Request $request)
+    {
+    
+        $query = Medicament::query();
+        $query->with('famille')->get();
+        
+        return DataTables::of($query)
+        ->addColumn('photo', function ($medicament) {
+            return '<img src="' . asset($medicament->photo_medicament) . '" alt="Photo" class="img-thumbnail" width="50">';
+        })
+        ->editColumn('famille', function ($medicament) {
+            return $medicament->famille->nom_famille;
+        })
+        ->rawColumns(['photo'])
+        ->make(true);
+    }
+
 }

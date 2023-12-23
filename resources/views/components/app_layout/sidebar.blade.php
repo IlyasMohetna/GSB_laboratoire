@@ -70,7 +70,7 @@
                               <li class="slide"><a href="{{ route('visite.visites_show') }}" id="sidebar-visites" class="side-menu__item">Mes visites</a></li>
                               <li class="slide"> <a href="{{ route('visite.create_visite') }}" class="side-menu__item" id="sidebar-visite-create">Créer une visite</a> </li>
                               <li class="slide"> <a href="" class="side-menu__item" >Les médicaments</a> </li>
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Les praticiens</a> </li>
+                              <li class="slide"> <a href="{{ route('visite.praticiens_show') }}" id="sidebar-praticiens" class="side-menu__item">Les praticiens</a> </li>
                            </ul>
                         </li>
 
