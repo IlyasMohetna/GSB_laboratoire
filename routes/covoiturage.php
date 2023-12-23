@@ -19,6 +19,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/api/covoiturage/vehicule_service/search', [CovoiturageController::class, 'vehicule_service_available_search_action'])->name('covoiturage.vehicule_service_available_search_action');
     Route::post('/covoiturage/reserver', [CovoiturageController::class, 'annonce_reserver'])->name('covoiturage.annonce_reserver_action');
     Route::get('/ville', [ParametrageController::class, 'ville_lookup'])->name('covoiturage.ville_lookup');
+    Route::get('/departement', [ParametrageController::class, 'departement_lookup'])->name('covoiturage.departement_lookup');
+    Route::get('/region', [ParametrageController::class, 'region_lookup'])->name('covoiturage.region_lookup');
     
     Route::get('/covoiturage/reservation/confirmed', function () {
         if (!session('reservation_success')) {

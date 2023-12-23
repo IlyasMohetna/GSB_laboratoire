@@ -150,13 +150,21 @@ class VisiteController extends Controller
 
     public function praticien_yajra()
     {
-        $praticiens = Praticien::with('ville')->latest();
-        return DataTables::of($praticiens)
+        $query = Praticien::query();
+        $query->with('ville.departement.region')->get();
+
+        return DataTables::of($query)
         ->addColumn('code_postal', function ($praticien) {
             return $praticien->ville->code_postal;
         })
         ->addColumn('ville', function ($praticien) {
             return $praticien->ville->nom;
+        })
+        ->editColumn('departement', function ($praticien) {
+            return $praticien->ville->departement->nom_departement;
+        })
+        ->editColumn('region', function ($praticien) {
+            return $praticien->ville->departement->region->nom_region;
         })
         ->make(true);
     }
