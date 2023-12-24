@@ -50,10 +50,12 @@
                               <i class="fe fe-chevron-right side-menu__angle"></i> 
                            </a> 
                            <ul class="slide-menu child1">
-                              <li class="slide side-menu__label1"><a href="javascript:void(0)">Gestion de frais</a></li>
                               <li class="slide"><a href="about-us.html" class="side-menu__item">Mes frais</a></li>
+                              @role('comptable')
+                              <li class="slide"> <a href="chat.html" class="side-menu__item">Les visiteurs</a> </li>
+                              @endrole
                               <li class="slide"> <a href="chat.html" class="side-menu__item">Gestion des frais</a> </li>
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Déclarer une note de frais</a> </li>
+                              <li class="slide"> <a href="chat.html" class="side-menu__item">Déclarer un frais</a> </li>
                            </ul>
                         </li>
 
