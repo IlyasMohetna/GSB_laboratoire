@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('frais__nature', function (Blueprint $table) {
             $table->id('id_nature')->index();
             $table->string('intitule_frais', 50);
+            $table->string('intitule_quantite', 50)->nullable();
             $table->decimal('montant_forfait', 16, 2);
             $table->timestamps();
         });

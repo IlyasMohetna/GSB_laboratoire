@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/css/flatpickr.min.css') }}">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
 
       <script src="{{ asset('assets/js/flatpickr.min.js') }}"></script>
    </head>
