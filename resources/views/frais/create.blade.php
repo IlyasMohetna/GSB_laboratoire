@@ -65,6 +65,7 @@
 		<div class="xl:col-span-12 col-span-12 mt-6 w-3/5 mx-auto block text-center bg-white rounded-xl !hidden" id="frais_create_form">
 			<form action="{{ route('frais.frais_create') }}" method="POST" enctype="multipart/form-data">
 				@csrf
+                <input type="hidden" name="id_visite" value="{{ $id_visite }}">
 				<div class="grid grid-cols-2 mt-4 h-auto text-left">
 					<div class="col-span-1 p-2 overflow-y-auto">
                         <div class="grid grid-cols-2 gap-2">

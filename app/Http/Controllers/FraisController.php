@@ -37,10 +37,10 @@ class FraisController extends Controller
         return view('frais.recap', ['months' => $months, 'visiteur' => $visiteur]);
     }
 
-    public function frais_create_show()
+    public function frais_create_show($id_visite)
     {
         $forfaits = Nature::all();
-        return view('frais.create', ['forfaits' => $forfaits]);
+        return view('frais.create', ['forfaits' => $forfaits, 'id_visite' => $id_visite]);
     }
 
     public function frais_justificative_IA(Request $request)
@@ -134,7 +134,7 @@ class FraisController extends Controller
             'appartenance_annee' => 2023,
             'id_nature' => $isforfait ? request()->frais_nature : NULL,
             'code_situation' => 1,
-            'id_visite' => 1
+            'id_visite' => request()->id_visite
         ]);
 
         foreach(request()->file('justificatives') as $file){
