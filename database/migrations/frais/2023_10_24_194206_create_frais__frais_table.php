@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('id_frais')->index();
             $table->decimal('montant_total', 16,2);
             $table->date('date_frais');
-            $table->enum('type_forfait', ['forfait','horforfait']);
+            $table->enum('type_forfait', ['forfait','horsforfait']);
             $table->string('horsforfait_libelle', 50)->nullable();
             $table->integer('forfait_quantite')->nullable();
             $table->string('commentaire')->nullable();

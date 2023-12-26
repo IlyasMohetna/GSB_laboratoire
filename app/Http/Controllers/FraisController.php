@@ -46,38 +46,24 @@ class FraisController extends Controller
     public function frais_justificative_IA(Request $request)
     {
         try {
-            $user = auth()->user(); // Assuming you have a user authentication system
-
             $file = $request->file('file');
             $originalFilename = $file->getClientOriginalName();
-            
-            // Generate a dynamic and unique filename
-            $uniqueFilename = $user->code_employe . '_' . time() . '_' . $originalFilename;
-            
-            // Store the file in the "temp_uploads" directory with the unique filename
+            $uniqueFilename = auth()->user()->code_employe . '_' . time() . '_' . $originalFilename;
             $originalTempPath = $file->storeAs('temp_uploads', $uniqueFilename);
-            
-            // Continue with the rest of your code
             $originalImage = InterventionImage::make(storage_path('app/' . $originalTempPath));
-            // Apply resizing and greyscale
             $resizedGreyscaleImage = $originalImage
                 ->resize(800, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })
                 ->greyscale();
-            
-            // Save the manipulated image as a new temporary file with quality set to 90 (adjust as needed)
             $resizedGreyscaleTempPath = $resizedGreyscaleImage->encode('jpg', 90)
                 ->save(storage_path('app/temp_uploads/resized_greyscale_' . $uniqueFilename))
                 ->basename;
-            
-            // Perform OCR using Laravel Tesseract with additional settings
             $imagePath = storage_path('app/temp_uploads/resized_greyscale_' . $uniqueFilename);
-            
             $text = (new TesseractOCR($imagePath))
                 ->lang('fra', 'eng')
-                ->psm(6) // Experiment with different PSM values
-                ->oem(3) // Experiment with different OCR engine modes
+                ->psm(6)
+                ->oem(3)
                 ->run();
                 
             Storage::delete($originalTempPath);
@@ -119,6 +105,46 @@ class FraisController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function frais_create()
+    {
+        $isforfait = is_numeric(request()->frais_nature);
+        if($isforfait){
+            if(!in_array(request()->frais_nature, [6,7])){
+                $nature = Nature::find(request()->frais_nature);
+                if(request()->montant_reel > $nature->montant_forfait){
+                    request()->montant_reel = $nature->montant_forfait;
+                }
+            }
+            $montant_total = request()->forfait_quantite * request()->montant_reel;
+        }else{
+            $montant_total = request()->montant_reel * 1;
+        }
+
+        $frais = Frais::create([
+            'montant_total' => $montant_total,
+            'date_frais' => request()->date_frais,
+            'type_forfait' => $isforfait ? 'forfait' : 'horsforfait',
+            'horsforfait_libelle' => request()->horsforfait_label ?? NULL,
+            'forfait_quantite' => request()->forfait_quantite,
+            'commentaire' => request()->frais_commentaire,
+            'appartenance_mois' => 12,
+            'appartenance_annee' => 2023,
+            'id_nature' => $isforfait ? request()->frais_nature : NULL,
+            'code_situation' => 1,
+            'id_visite' => 1
+        ]);
+
+        foreach(request()->file('justificatives') as $file){
+            $path = $file->store('public/justificatives');
+            Justificative::create([
+                'justif_chemin' => $path,
+                'justif_extension' => $file->getClientOriginalExtension(),
+                'justif_mime' => $file->getMimeType(),
+                'id_frais' => $frais->id_frais
+            ]);
         }
     }
 }
