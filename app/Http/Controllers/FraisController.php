@@ -28,9 +28,21 @@ class FraisController extends Controller
         Carbon::setLocale('fr');
         $requested_year = request()->requested_year ?? Carbon::now()->year;
         $startMonth = Carbon::createFromDate($requested_year, 1, 1)->startOfYear();
+        
         $months = [];
         for ($i = 0; $i < 12; $i++) {
-            $months[] = $startMonth->copy()->addMonths($i);
+            $startMonth = Carbon::now()->startOfYear();
+            $frais = Frais::where('appartenance_annee', $requested_year)
+            ->where('appartenance_mois', $startMonth->copy()->addMonths($i)->month)
+            ->count();  
+
+            $visite = \App\Models\VISITE\Visite::where('code_employe', $id_visiteur)->whereMonth('created_at', $startMonth->copy()->addMonths($i))->count();
+                        
+            $months[] = (object)[
+                'date' => $startMonth->copy()->addMonths($i),
+                'frais_count' => $frais,
+                'visite_count' => $visite
+            ];
         }
 
         $visiteur = User::where('code_employe', $id_visiteur ?? auth()->user()->code_employe)->first();

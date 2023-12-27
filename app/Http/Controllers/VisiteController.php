@@ -58,7 +58,7 @@ class VisiteController extends Controller
 
     public function visites_show()
     {
-        $visites = Visite::with('praticien')->get();
+        $visites = Visite::where('code_employe', auth()->user()->code_employe)->with('praticien')->get();
         return view('visite.visites', ['visites' => $visites]);
     }
 

@@ -40,23 +40,23 @@
 					</thead>
 					<tbody>
                         @foreach($months as $month)
-						<tr class="border-b border-defaultborder @if ($month->month == now()->month) bg-warning/10 @endif text-center !p-0">
+						<tr class="border-b border-defaultborder @if ($month->date->month == now()->month) bg-warning/10 @endif text-center !p-0">
 							<th scope="row">
 								<div class="flex items-center space-x-2">
-                                    @if ($month->month == now()->month && $month->year == now()->year)
+                                    @if ($month->date->month == now()->month && $month->date->year == now()->year)
                                         <i class="las la-flag-checkered text-xl"></i>
                                     @endif
-                                    <b class="capitalize">{{ $month->translatedFormat('n - F') }}</b>
+                                    <b class="capitalize">{{ $month->date->translatedFormat('n - F') }}</b>
                                 </div>
 							</th>
-							<td>kimosukuro@gmail.com</td>
-                            <td>kimosukuro@gmail.com</td>
+							<td>{{ $month->frais_count }} Frais</td>
+                            <td>{{ $month->visite_count }} Visite<?=($month->visite_count > 1) ? 's' : ''?></td>
                             <td class="!text-center">
-                                @if ($month->isCurrentMonth() && now()->day < 20 || now()->addMonth(1)->isSameMonth($month))
+                                @if ($month->date->isCurrentMonth() && now()->day < 20 || now()->addMonth(1)->isSameMonth($month->date))
                                 <span class="badge bg-success/10 text-xl text-success" style="font-size:13px">Ouvert à la saisie</span>
-                                @elseif ($month->isCurrentMonth() && now()->day >= 20)
+                                @elseif ($month->date->isCurrentMonth() && now()->day >= 20)
                                 <span class="badge bg-danger/10 text-xl text-warning" style="font-size:13px">Mois cloturé à la saisie</span>
-                                @elseif ($month->gt(now()) && !$month->isCurrentMonth())
+                                @elseif ($month->date->gt(now()) && !$month->date->isCurrentMonth())
                                 <span class="badge bg-info/10 text-xl text-info" style="font-size:13px">Non ouvert</span>
                                 @else
                                 <span class="badge bg-primary/10 text-xl text-danger" style="font-size:13px">Fermé à la saisie</span>
@@ -66,7 +66,7 @@
                                 <a href="{{ route('frais.frais_list_show', [
                                         'id_visiteur' => $visiteur->code_employe,
                                         'year' => 2023,
-                                        'month' => $month->month
+                                        'month' => $month->date->month
                                     ]) }}">
                                     <button class="badge bg-primary text-white" style="font-size:13px"><i class="las la-eye pr-2"></i> Voir</button>
                                 </a>

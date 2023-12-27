@@ -37,4 +37,9 @@ class Frais extends Model
     {
         return $this->hasOne(Nature::class, 'id_nature', 'id_nature');
     }
+
+    public function visiteur()
+    {
+        return $this->HasOneThrough(\App\Models\User::class, \App\Models\VISITE\Visite::class, 'id_frais', 'id_visite', 'id_frais', 'id_visite');
+    }
 }
