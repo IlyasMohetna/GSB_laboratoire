@@ -31,4 +31,14 @@ class Visite extends Model
     {
         return $this->hasMany(PresentationMedicament::class, 'id_visite', 'id_visite');
     }
+
+    public function frais()
+    {
+        return $this->hasMany(\App\Models\FRAIS\Frais::class, 'id_visite', 'id_visite');
+    }
+
+    public function ged()
+    {
+        return $this->HasManyThrough(\App\Models\FRAIS\Justificative::class, \App\Models\FRAIS\Frais::class, 'id_visite', 'id_frais', 'id_visite', 'id_frais');
+    }
 }

@@ -68,6 +68,7 @@ class FraisController extends Controller
                 
             Storage::delete($originalTempPath);
             Storage::delete($imagePath);
+            // dd($text);
 
             // $scan = ReceiptScanner::scan($text,asArray: true);
             $scan = [
@@ -140,11 +141,14 @@ class FraisController extends Controller
         foreach(request()->file('justificatives') as $file){
             $path = $file->store('public/justificatives');
             Justificative::create([
+                'justif_nom' => $file->getClientOriginalName(),
                 'justif_chemin' => $path,
                 'justif_extension' => $file->getClientOriginalExtension(),
                 'justif_mime' => $file->getMimeType(),
                 'id_frais' => $frais->id_frais
             ]);
         }
+
+        return redirect()->route('visite.visite_show', ['id_visite' => request()->id_visite]);
     }
 }

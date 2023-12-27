@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('frais__justificative', function (Blueprint $table) {
             $table->id('id_justif')->index();
+            $table->string('justif_nom');
             $table->string('justif_chemin');
             $table->string('justif_extension', 5);
             $table->string('justif_mime', 20);

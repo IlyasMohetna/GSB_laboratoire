@@ -1,7 +1,10 @@
 @extends('layout.app')
 @section('content')
+@php use Illuminate\Support\Number; @endphp
+<script src="https://cdn.quilljs.com/1.2.2/quill.min.js"></script>
 <link rel="stylesheet" href="{{ asset('assets/css/quill.snow.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/quill.bubble.css') }}">
+<script src="https://run.plnkr.co/preview/clqntpriw0007356w6nqbn2vg/image-resize.min.js"></script>
 <div class="main-content">
 	<!-- Page Header --> 
 	<div class="block justify-between page-header md:flex">
@@ -10,24 +13,44 @@
 		</div>
 	</div>
 	<!-- Page Header Close --> <!-- Start:: row-1 --> 
-    <div class="w-full p-2 flex items-center">
+	<div class="w-full p-2 flex items-center">
 		<div>
 			<button type="button" id="visu1" class="ti-btn ti-btn-primary-full border border-1">Visuelle visite</button>
 		</div>
+		@if(empty($visite->date_fin_visite) || $visite->frais->isEmpty())
+		<div>
+			<button type="button" disabled class="cursor-not-allowed ti-btn ti-btn-light border border-1">Visuelle frais</button>
+		</div>
+		@else 
 		<div>
 			<button type="button" id="visu2" class="ti-btn ti-btn-light border border-1">Visuelle frais</button>
 		</div>
-		<div class="ml-auto">
-			TEST
+		@endif
+		<div class="ml-auto flex space-x-2">
+			<a href="{{ route('visite.generer_ordre_mission', ['id_visite' => $visite->id_visite]) }}" class="hs-dropdown-toggle ti-btn !gap-0 !py-1 !px-2 !text-[0.9rem] !font-medium bg-primary text-white flex items-center justify-center" data-hs-overlay="#todo-compose">
+			<i class="las la-download"></i>
+			Ordre de mission
+			</a>
+			@if(empty($visite->date_fin_visite))
+				<a href="#" title="Visite non cloturer" disabled class="cursor-not-allowed opacity-3 hs-dropdown-toggle ti-btn !gap-0 !py-1 !px-2 !text-[0.9rem] !font-medium bg-secondary text-white flex items-center justify-center" data-hs-overlay="#todo-compose2">
+					<i class="ri-add-circle-line align-middle !me-1"></i>
+					Déclarer un frais
+				</a>
+			@else
+				<a href="{{ route('frais.frais_create_show', ['id_visite' => $visite->id_visite]) }}" class="hs-dropdown-toggle ti-btn !gap-0 !py-1 !px-2 !text-[0.9rem] !font-medium bg-secondary text-white flex items-center justify-center" data-hs-overlay="#todo-compose2">
+					<i class="ri-add-circle-line align-middle !me-1"></i>
+					Déclarer un frais
+				</a>
+			@endif
 		</div>
 	</div>
-		
-    <script>
-        $('#visu1,#visu2').on('click', function(){
-            $('#visu1,#visu2').toggleClass('ti-btn-primary-full ti-btn-light');
-        })
-    </script>
-	<div class="grid grid-cols-12 gap-4">
+	<script>
+		$('#visu1,#visu2').on('click', function(){
+		    $('#visu1,#visu2').toggleClass('ti-btn-primary-full ti-btn-light');
+		$('#visu1_container,#visu2_container').toggleClass('!hidden');
+		})
+	</script>
+	<div class="grid grid-cols-12 gap-4" id="visu1_container">
 		<div class="col-span-3">
 			<div class="box">
 				<div class="box-header justify-between">
@@ -35,15 +58,15 @@
 				</div>
 				<div class="box-body">
 					<ul class="list-none mb-0">
-                        @foreach($visite->medicaments as $medicament)
+						@foreach($visite->medicaments as $medicament)
 						<li class="mb-4">
 							<a href="javascript:void(0);">
 								<div class="flex tems-center">
 									<div class="leading-none"> 
-                                    <span class="inline-flex justify-center items-center avatar avatar-md">
-                                        <img src="{{ $medicament->medicament->photo_medicament }}">
-                                    </span> 
-                                </div>
+										<span class="inline-flex justify-center items-center avatar avatar-md">
+										<img src="{{ $medicament->medicament->photo_medicament }}">
+										</span> 
+									</div>
 									<div class="flex-grow ms-2">
 										<p class="font-semibold mb-0">{{ $medicament->medicament->nom_medicament }}</p>
 										<p class="text-[0.75rem] !text-[#8c9097] dark:text-white/50 mb-0">Catégorie : {{ $medicament->medicament->famille->nom_famille }}</p>
@@ -51,23 +74,23 @@
 								</div>
 							</a>
 						</li>
-                        @endforeach
+						@endforeach
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="col-span-3">
-            <div class="box crm-highlight-card">
+			<div class="box crm-highlight-card">
 				<div class="box-body">
 					<div class="flex items-center justify-between">
 						<div>
 							<div class="font-semibold text-[1.125rem] text-white mb-2">Praticien :</div>
-                            <div class="!block text-[0.85rem] text-white">
-                                <div><span>Raison sociale : <b>{{ $visite->praticien->raison_sociale }}</b></span></div>
-                                <div><span>Représentant : <b>{{ $visite->praticien->prenom.' '.$visite->praticien->nom }}</b></span></div>
-                                <div><span>Adresse : <b>{{ $visite->praticien->adresse }}</b></span></div>
-                                <div><span>Vile de rattachement : <b>{{ $visite->praticien->ville->nom }}</b></span></div>
-                            </div> 
+							<div class="!block text-[0.85rem] text-white">
+								<div><span>Raison sociale : <b>{{ $visite->praticien->raison_sociale }}</b></span></div>
+								<div><span>Représentant : <b>{{ $visite->praticien->prenom.' '.$visite->praticien->nom }}</b></span></div>
+								<div><span>Adresse : <b>{{ $visite->praticien->adresse }}</b></span></div>
+								<div><span>Vile de rattachement : <b>{{ $visite->praticien->ville->nom }}</b></span></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -77,7 +100,7 @@
 					<div class="grid grid-cols-12">
 						<div class="xxxl:col-span-3 col-span-4 flex items-center ecommerce-icon px-0">
 							<span class="rounded-md p-4 bg-primary/10">
-                                <i class="las la-hourglass-start text-2xl"></i>
+							<i class="las la-hourglass-start text-2xl"></i>
 							</span>
 						</div>
 						<div class="xxxl:col-span-9 col-span-8">
@@ -89,12 +112,12 @@
 					</div>
 				</div>
 			</div>
-            <div class="box">
+			<div class="box">
 				<div class="box-body">
 					<div class="grid grid-cols-12">
 						<div class="xxxl:col-span-3 col-span-4 flex items-center ecommerce-icon px-0">
 							<span class="rounded-md p-4 bg-primary/10">
-                                <i class="las la-hourglass-end text-2xl"></i>
+							<i class="las la-hourglass-end text-2xl"></i>
 							</span>
 						</div>
 						<div class="xxxl:col-span-9 col-span-8">
@@ -108,8 +131,8 @@
 			</div>
 		</div>
 		<div class="col-span-6">
-            <form action="{{ route('visite.visite_close') }}" method="POST"> 
-                @csrf
+			<form action="{{ route('visite.visite_close') }}" method="POST">
+			@csrf
 			<div class="box">
 				<div class="box-header">
 					<div class="box-title">Rapport de visite</div>
@@ -118,31 +141,153 @@
 					<div id="editor" style="max-height: 300px;overflow-y: auto;"></div>
 				</div>
 				<input type="hidden" name="id_visite" value="{{ $visite->id_visite }}">
-                <input type="hidden" name="quill_content" id="quill_content">
-
+				<input type="hidden" name="quill_content" id="quill_content">
 				@if(!empty($visite->date_fin_visite))
-                <div class="w-1/2 mx-auto p-2">
+				<div class="w-1/2 mx-auto p-2">
 					<div class="hs-tooltip ti-main-tooltip w-full"> 
 						<button type="button" disabled class="hs-tooltip-toggle ti-btn ti-btn-warning w-full ti-btn-border-top opacity-[0.6]"> 
-							Cloturer la visite
-							<span class="hs-tooltip-content ti-main-tooltip-content py-1 px-2 !bg-black !text-xs !font-medium !text-white shadow-sm hidden" role="tooltip"> 
-								Vous avez déja cloturer cette visite
-							</span> 
+						Cloturer la visite
+						<span class="hs-tooltip-content ti-main-tooltip-content py-1 px-2 !bg-black !text-xs !font-medium !text-white shadow-sm hidden" role="tooltip"> 
+						Vous avez déja cloturer cette visite
+						</span> 
 						</button> 
 					</div>
-                </div>
+				</div>
 				@else 
 				<div class="w-1/2 mx-auto p-2">
 					<button type="submit" class="ti-btn ti-btn-warning w-full ti-btn-border-top">
-						Cloturer la visite
+					Cloturer la visite
 					</button>
-                </div>
+				</div>
 				@endif
 			</div>
 		</div>
 	</div>
+	<div class="grid grid-cols-12 gap-4 !hidden" id="visu2_container">
+		<div class="col-span-3">
+			<div class="box">
+				<div class="box-header justify-between">
+					<div class="box-title"> GED </div>
+				</div>
+				<div class="box-body">
+					<ul class="list-none mb-0">
+						@forelse($visite->ged as $document)
+						<li class="mb-4">
+							<div class="grid grid-cols-12">
+								<div class="col-span-9 flex tems-center">
+									<div class="leading-none"> 
+										<span class="inline-flex justify-center items-center avatar avatar-md">
+										@switch($document->justif_extension)
+										@case('jpg')
+										<img width="60" height="60" src="https://img.icons8.com/papercut/60/jpg.png" alt="jpg"/>
+										@break;
+										@case('png')
+										<img width="60" height="60" src="https://img.icons8.com/papercut/60/png.png" alt="png"/>
+										@break;		
+										@case('pdf')
+										<img width="48" height="48" src="https://img.icons8.com/color/48/pdf.png" alt="pdf"/>
+										@break;	
+										@case('xlsx')
+										<img width="48" height="48" src="https://img.icons8.com/color/48/ms-excel.png" alt="ms-excel"/>
+										@break;	
+										@endswitch
+										</span> 
+									</div>
+									<div class="flex-grow ms-2">
+										<p class="font-semibold mb-0">{{ $document->justif_nom }}</p>
+										<p class="text-[0.75rem] !text-[#8c9097] dark:text-white/50 mb-0">Date d'ajout : {{ $document->created_at }}</p>
+									</div>
+								</div>
+								<div class="col-span-3">
+									<div class="float-right right-1 space-x-1">
+										<a href="{{ route('document.downloader', ['justificativeId' => $document->id_justif]) }}"><i class="las la-save text-xl"></i></a>
+										<a href="{{ route('document.viewer', ['justificativeId' => $document->id_justif]) }}" target="_blank"><i class="las la-eye text-xl"></i></a>
+									</div>
+								</div>
+							</div>
+						</li>
+						@empty 
+						<div>
+							Aucun document n'est disponible sur votre GED
+						</div>
+						@endforelse
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-span-9">
+			<div class="box">
+				<div class="box-header justify-between sm:flex block">
+					<div class="box-title"> Frais </div>
+					<div>
+						<nav class="sm:flex block sm:mt-0 mt-2" aria-label="Tabs"> 
+							<a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4 text-[0.8rem] font-medium text-center rounded-md hover:text-primary active" id="active-item" data-hs-tab="#taskactive" aria-controls="taskactive"> Active Orders </a>
+							<a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4 text-[0.8rem] font-medium text-center rounded-md hover:text-primary" id="completed-item" data-hs-tab="#completed" aria-controls="completed"> Completed </a>
+							<a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4 text-[0.8rem] font-medium text-center rounded-md hover:text-primary" id="cancelled-item" data-hs-tab="#cancelled" aria-controls="cancelled"> Cancelled </a>
+						</nav>
+					</div>
+				</div>
+				<div class="box-body !p-0">
+					<div class="tab-content">
+						<div class="tab-pane show active text-[#8c9097] dark:text-white/50 !border-0 !p-0" id="taskactive" role="tabpanel">
+							<table class="table min-w-full whitespace-nowrap table-hover border table-bordered">
+								<thead>
+									<tr class="border border-inherit border-solid  dark:border-defaultborder/10 ">
+										<th scope="col" class="!text-start">Libelle</th>
+										<th scope="col" class="!text-start">Date frais</th>
+										<th scope="col" class="!text-start">Montant total</th>
+										<th scope="col" class="!text-start">Quantité</th>
+										<th scope="col" class="!text-start">Date d'appartenance</th>
+										<th scope="col" class="!text-start">Commentaire</th>
+										<th scope="col" class="!text-start">Situation</th>
+										<th scope="col" class="!text-start">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach($visite->frais as $frais)
+									<tr class="border-y border-inherit border-solid dark:border-defaultborder/10">
+										<td>
+											@if($frais->type_forfait == 'forfait')
+											{{ $frais->nature->intitule_frais }}
+											@else 
+											{{ $frais->horsforfait_libelle }}
+											@endif
+										</td>
+										<td>{{ $frais->date_frais->format('d/m/Y') }}</td>
+										<td> <span class="font-semibold">{{ Number::currency($frais->montant_total, 'EUR') }}</span> </td>
+										<td>{{ $frais->forfait_quantite }}</td>
+										<td>{{ $frais->appartenance_mois.'/'.$frais->appartenance_annee }}</td>
+										<td>{{ $frais->commentaire }}</td>
+										<td>
+											@if($frais->code_situation == 1)
+											<span class="badge bg-primary/10 text-primary">{{ $frais->situation->libelle_situation }}</span>
+											@else
+											<span class="badge bg-info/10 text-info">Available</span>
+											@endif
+										</td>
+										<td>
+											<div class="flex space-x-1 cursor-pointer font-bold">
+												@role('comptable') 
+													<i class="las la-check-circle text-xl text-green"></i>
+													<i class="las la-ban text-xl text-red"></i>
+												@endrole
+												@role('visiteur') 
+													<i class="las la-trash text-xl text-red"></i> 
+												@endrole
+											</div>
+										</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<script src="{{ asset('assets/js/quill.min.js') }}"></script>
+<script src="asset('assets/js/quill.min.js')"></script>
 <script>
 	(function () {
 	'use strict';
@@ -169,21 +314,34 @@
 	];
 	var quill = new Quill('#editor', {
 	    modules: {
-	        toolbar: toolbarOptions
+	        toolbar: toolbarOptions,
+			imageResize: {
+          displaySize: true
+        }
 	    },
 	    theme: 'snow'
 	});
-
+	
 	var content = {!! json_encode($visite->rapport) !!};
-    quill.root.innerHTML = content;
-
-    quill.on('text-change', function() {
-        var quillContent = quill.root.innerHTML;
-        document.getElementById('quill_content').value = quillContent;
-    });
+	   quill.root.innerHTML = content;
+	
+	   quill.on('text-change', function() {
+	       var quillContent = quill.root.innerHTML;
+	       document.getElementById('quill_content').value = quillContent;
+	   });
 	
 	})();
-
-
+	
+	
 </script>
+<!-- <script>
+	var quill = new Quill('#editor', {
+    theme: 'snow',
+     modules: {
+        imageResize: {
+          displaySize: true
+        }
+    }
+});
+</script> -->
 @stop
