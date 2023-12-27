@@ -10,4 +10,5 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/frais/create/{id_visite}', [FraisController::class, 'frais_create_show'])->name('frais.frais_create_show');
     Route::post('/frais/create/', [FraisController::class, 'frais_create'])->name('frais.frais_create');
     Route::post('/frais/justificative/ia', [FraisController::class, 'frais_justificative_IA'])->name('frais.frais_justificative_IA');
+    Route::post('/frais/delete/', [FraisController::class, 'frais_delete'])->name('frais.frais_delete');
 });

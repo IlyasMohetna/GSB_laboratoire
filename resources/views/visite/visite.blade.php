@@ -146,10 +146,10 @@
 				<div class="w-1/2 mx-auto p-2">
 					<div class="hs-tooltip ti-main-tooltip w-full"> 
 						<button type="button" disabled class="hs-tooltip-toggle ti-btn ti-btn-warning w-full ti-btn-border-top opacity-[0.6]"> 
-						Cloturer la visite
-						<span class="hs-tooltip-content ti-main-tooltip-content py-1 px-2 !bg-black !text-xs !font-medium !text-white shadow-sm hidden" role="tooltip"> 
-						Vous avez déja cloturer cette visite
-						</span> 
+							Cloturer la visite
+							<span class="hs-tooltip-content ti-main-tooltip-content py-1 px-2 !bg-black !text-xs !font-medium !text-white shadow-sm hidden" role="tooltip"> 
+								Vous avez déja cloturer cette visite
+							</span> 
 						</button> 
 					</div>
 				</div>
@@ -170,9 +170,9 @@
 					<div class="box-title"> GED </div>
 				</div>
 				<div class="box-body">
-					<ul class="list-none mb-0">
+					<ul class="list-none mb-0" id="ged">
 						@forelse($visite->ged as $document)
-						<li class="mb-4">
+						<li class="mb-4" data-id-frais="{{ $document->id_frais }}">
 							<div class="grid grid-cols-12">
 								<div class="col-span-9 flex tems-center">
 									<div class="leading-none"> 
@@ -267,12 +267,20 @@
 										</td>
 										<td>
 											<div class="flex space-x-1 cursor-pointer font-bold">
-												@role('comptable') 
+												@role('comptable')
 													<i class="las la-check-circle text-xl text-green"></i>
 													<i class="las la-ban text-xl text-red"></i>
 												@endrole
 												@role('visiteur') 
-													<i class="las la-trash text-xl text-red"></i> 
+													@if($frais->code_situation == 1)
+													<button type="button" data-id-frais="{{ $frais->id_frais }}" class="delete">
+														<i class="las la-trash text-xl text-red"></i>
+													</button>
+													@else 
+													<button type="button" title="Impossible de supprimer ce frais" class="opacity-4 cursor-not-allowed">
+														<i class="las la-trash text-xl text-red"></i>
+													</button>
+													@endif
 												@endrole
 											</div>
 										</td>
@@ -287,6 +295,42 @@
 		</div>
 	</div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css" integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script>
+	function DeleteFrais(id_frais)
+	{
+		$.ajax({
+			url:"{{ route('frais.frais_delete') }}",
+			method:'POST',
+			headers: {
+	            'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+	        },
+			data:'id_frais='+id_frais,
+			success:function(response){
+				$.toast({
+					heading: 'Success',
+					text: 'Ce frais et tout les documents relative ont été supprimer',
+					showHideTransition: 'slide',
+					position: 'top-right',
+					icon: 'success'
+				})
+			}
+		});
+	}
+	
+	$('.delete').on('click', function(){
+		$element = $(this);
+		$element.closest('tr').hide();
+		var id_frais = $element.data('id-frais');
+		DeleteFrais(id_frais);
+		$('#ged li').each(function(){
+			if($(this).data('id-frais') == id_frais){
+				$(this).slideUp();
+			}
+		})
+	})
+</script>
 <script src="asset('assets/js/quill.min.js')"></script>
 <script>
 	(function () {
@@ -331,17 +375,5 @@
 	   });
 	
 	})();
-	
-	
 </script>
-<!-- <script>
-	var quill = new Quill('#editor', {
-    theme: 'snow',
-     modules: {
-        imageResize: {
-          displaySize: true
-        }
-    }
-});
-</script> -->
 @stop

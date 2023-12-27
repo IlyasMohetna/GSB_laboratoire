@@ -151,4 +151,20 @@ class FraisController extends Controller
 
         return redirect()->route('visite.visite_show', ['id_visite' => request()->id_visite]);
     }
+
+    public function frais_delete()
+    {
+        $id_frais = request()->id_frais;
+        $frais = Frais::with('ged')->find($id_frais);
+        foreach($frais->ged as $justificative){
+            $filePath = $justificative->justif_chemin;
+            if (Storage::exists($filePath)) {
+                Storage::delete($filePath);
+            }
+        }
+        $frais->ged()->delete();
+        $frais->delete();
+    }
+
+    
 }
