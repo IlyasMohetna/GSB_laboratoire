@@ -51,7 +51,7 @@
 		})
 	</script>
 	<div class="grid grid-cols-12 gap-4" id="visu1_container">
-		<div class="col-span-3">
+		<div class="xl:col-span-3 md:col-span-6 col-span-12">
 			<div class="box">
 				<div class="box-header justify-between">
 					<div class="box-title"> Médicament à présenter </div>
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-span-3">
+		<div class="xl:col-span-3 md:col-span-6 col-span-12">
 			<div class="box crm-highlight-card">
 				<div class="box-body">
 					<div class="flex items-center justify-between">
@@ -130,7 +130,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-span-6">
+		<div class="xl:col-span-6 col-span-12">
 			<form action="{{ route('visite.visite_close') }}" method="POST">
 			@csrf
 			<div class="box">
@@ -164,7 +164,7 @@
 		</div>
 	</div>
 	<div class="grid grid-cols-12 gap-4 !hidden" id="visu2_container">
-		<div class="col-span-3">
+		<div class="xl:col-span-3 col-span-12">
 			<div class="box">
 				<div class="box-header justify-between">
 					<div class="box-title"> GED </div>
@@ -215,7 +215,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-span-9">
+		<div class="xl:col-span-9 col-span-12">
 			<div class="box">
 				<div class="box-header justify-between sm:flex block">
 					<div class="box-title"> Frais </div>
