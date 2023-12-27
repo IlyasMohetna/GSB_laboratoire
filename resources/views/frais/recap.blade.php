@@ -7,18 +7,23 @@
 			<div class="box-title"> Récapitulatif annuel </div>
 		</div>
         <div class="w-1/2 p-2 mx-auto">
-            <div class="flex items-center justify-center text-2xl font-bold">
-                <a>
-                    <button>
-                        <span class="arrow mx-2">&larr;</span>
-                    </button>
-                </a>
-                <span class="year mx-2">2023</span>
-                <a>
-                    <button>
-                        <span class="arrow mx-2">&rarr;</span>
-                    </button>
-                </a>
+            <div class="flex items-center justify-center  text-3xl font-extrabold">
+                    <form action="{{ route('frais.recap_show_year', ['id_visiteur' => $visiteur->code_employe ]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="requested_year" value="{{ $requested_year-1 }}">
+                        <button class="mt-4">
+                            <span class="arrow mx-2">&larr;</span>
+                        </button>
+                    </form> 
+                    <span class="year mx-2">{{ $requested_year }}</span>
+                    <form action="{{ route('frais.recap_show_year', ['id_visiteur' => $visiteur->code_employe ]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="requested_year" value="{{ $requested_year+1 }}">
+                        <button class="mt-4">
+                            <span class="arrow mx-2">&rarr;</span>
+                        </button>
+                    </form> 
+                </form>
             </div>
         </div>
 		<div class="box-body">
@@ -47,14 +52,14 @@
 							<td>kimosukuro@gmail.com</td>
                             <td>kimosukuro@gmail.com</td>
                             <td class="!text-center">
-                                @if ($month->isCurrentMonth() && now()->day < 20)
+                                @if ($month->isCurrentMonth() && now()->day < 20 || now()->addMonth(1)->isSameMonth($month))
                                 <span class="badge bg-success/10 text-xl text-success" style="font-size:13px">Ouvert à la saisie</span>
                                 @elseif ($month->isCurrentMonth() && now()->day >= 20)
-                                <span class="badge bg-danger/10 text-xl text-danger" style="font-size:13px">Mois cloturé à la saisie</span>
+                                <span class="badge bg-danger/10 text-xl text-warning" style="font-size:13px">Mois cloturé à la saisie</span>
                                 @elseif ($month->gt(now()) && !$month->isCurrentMonth())
                                 <span class="badge bg-info/10 text-xl text-info" style="font-size:13px">Non ouvert</span>
                                 @else
-                                <span class="badge bg-primary/10 text-xl text-primary" style="font-size:13px">Fermé à la saisie</span>
+                                <span class="badge bg-primary/10 text-xl text-danger" style="font-size:13px">Fermé à la saisie</span>
                                 @endif
                             </td>
 							<td class="!text-end">

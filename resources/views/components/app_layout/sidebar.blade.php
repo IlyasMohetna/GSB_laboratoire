@@ -52,7 +52,7 @@
                            <ul class="slide-menu child1">
                               <li class="slide"><a href="about-us.html" class="side-menu__item">Mes frais</a></li>
                               @role('comptable')
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Les visiteurs</a> </li>
+                              <li class="slide"> <a href="{{ route('frais.visiteurs_show') }}" class="side-menu__item">Les visiteurs</a> </li>
                               @endrole
                               <li class="slide"> <a href="chat.html" class="side-menu__item">Gestion des frais</a> </li>
                               <li class="slide"> <a href="chat.html" class="side-menu__item">Déclarer un frais</a> </li>

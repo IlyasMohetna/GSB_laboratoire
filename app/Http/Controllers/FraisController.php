@@ -26,7 +26,8 @@ class FraisController extends Controller
     public function recap_show($id_visiteur = NULL)
     {
         Carbon::setLocale('fr');
-        $startMonth = Carbon::createFromDate(2024, 1, 1)->startOfYear();
+        $requested_year = request()->requested_year ?? Carbon::now()->year;
+        $startMonth = Carbon::createFromDate($requested_year, 1, 1)->startOfYear();
         $months = [];
         for ($i = 0; $i < 12; $i++) {
             $months[] = $startMonth->copy()->addMonths($i);
@@ -34,7 +35,7 @@ class FraisController extends Controller
 
         $visiteur = User::where('code_employe', $id_visiteur ?? auth()->user()->code_employe)->first();
 
-        return view('frais.recap', ['months' => $months, 'visiteur' => $visiteur]);
+        return view('frais.recap', ['requested_year' => $requested_year, 'months' => $months, 'visiteur' => $visiteur]);
     }
 
     public function frais_create_show($id_visite)
