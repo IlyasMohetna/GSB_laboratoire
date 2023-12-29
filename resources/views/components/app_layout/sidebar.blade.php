@@ -50,12 +50,14 @@
                               <i class="fe fe-chevron-right side-menu__angle"></i> 
                            </a> 
                            <ul class="slide-menu child1">
-                              <li class="slide"><a href="about-us.html" class="side-menu__item">Mes frais</a></li>
                               @role('comptable')
-                              <li class="slide"> <a href="{{ route('frais.visiteurs_show') }}" class="side-menu__item">Les visiteurs</a> </li>
+                              <li class="slide"> <a href="{{ route('frais.visiteurs_show') }}" class="side-menu__item">Gestion des frais</a> </li>
                               @endrole
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Gestion des frais</a> </li>
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Déclarer un frais</a> </li>
+                              @role('visiteur')
+                              <li class="slide"> <a href="{{ route('frais.frais_list_show_tout_frais') }}" id="sidebar-mesfrais" class="side-menu__item">Mes frais</a> </li>
+                              <li class="slide"> <a href="{{ route('frais.recap_show') }}" id="sidebar-frais-recap_annuel" class="side-menu__item">Mon récap annuel</a> </li>
+                              <li class="slide"> <a href="{{ route('frais.frais_list_show', ['year' => now()->year, 'month' => now()->month]) }}" id="sidebar-frais-recap_mensuel" class="side-menu__item">Mon récap mensuel</a> </li>
+                              @endrole
                            </ul>
                         </li>
 

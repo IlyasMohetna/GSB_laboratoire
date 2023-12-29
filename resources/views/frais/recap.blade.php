@@ -81,4 +81,5 @@
 		</div>
 	</div>
 </div>
+<script>$('#sidebar-frais-recap_annuel').addClass('active');</script>
 @stop

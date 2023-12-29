@@ -11,7 +11,11 @@ use Illuminate\Support\Number;
 		<div class="xl:col-span-12 col-span-12">
 			<div class="box custom-box">
 				<div class="box-header justify-between">
-					<div class="box-title">Mes frais</div>
+					@if(auth()->user()->code_employe == $visiteur->code_employe)
+						<div class="box-title">Mes frais # @if(!$requested_year || !$requested_month) Aucun filtre de période @elseif(now()->month == $requested_month && now()->year == $requested_year) Récap mensuel @else {{$requested_month}}-{{$requested_year}} @endif</div>
+					@else
+						<div class="box-title">{{ $visiteur->prenom.' '.$visiteur->nom }} # @if(!$requested_year || !$requested_month) Aucun filtre de période @elseif(now()->month == $requested_month && now()->year == $requested_year) Récap mensuel @else {{$requested_month}}-{{$requested_year}} @endif</div>
+					@endif
 				</div>
 				<div class="sortable-data p-6 bg-primary/50">
                     <span class="font-bold">Filtres de recherche : </span>
@@ -106,5 +110,9 @@ use Illuminate\Support\Number;
 	    });
 	});
 </script>
-<script>$('#sidebar-visites').addClass('active');</script>
+@if(now()->month == $requested_month && now()->year == $requested_year) 
+<script>$('#sidebar-frais-recap_mensuel').addClass('active');</script>
+@else 
+<script>$('#sidebar-mesfrais').addClass('active');</script>
+@endif
 @stop

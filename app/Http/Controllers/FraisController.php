@@ -28,6 +28,7 @@ class FraisController extends Controller
         Carbon::setLocale('fr');
         $requested_year = request()->requested_year ?? Carbon::now()->year;
         $startMonth = Carbon::createFromDate($requested_year, 1, 1)->startOfYear();
+        $id_visiteur = $id_visiteur ?? auth()->user()->code_employe;
         
         $months = [];
         for ($i = 0; $i < 12; $i++) {
@@ -50,13 +51,15 @@ class FraisController extends Controller
         return view('frais.recap', ['requested_year' => $requested_year, 'months' => $months, 'visiteur' => $visiteur]);
     }
 
-    public function frais_list_show($id_visiteur = NULL,$requested_year = NULL,$requested_month = NULL)
+    public function frais_list_show($requested_year = NULL,$requested_month = NULL,$id_visiteur = NULL)
     {
-        $id_visiteur =  ($id_visiteur) ? $id_visiteur : auth()->user()->code_employe;
+        $id_visiteur = ($id_visiteur) ? $id_visiteur : auth()->user()->code_employe;
+        $visiteur = User::where('code_employe', $id_visiteur)->first();
         if(!$requested_year || !$requested_month){
-            $frais = Frais::whereHas('visite.visiteur', function($query) use ($id_visiteur){
-                $qeury->where('visiteur.code_employe', $id_visiteur);
+            $frais = Frais::whereHas('visite', function($query) use ($id_visiteur){
+                $query->where('visite__visite.code_employe', $id_visiteur);
             })
+            ->with('situation','nature')
             ->get();
         }else{
             $frais = Frais::whereHas('visite', function($query) use ($id_visiteur){
@@ -70,7 +73,7 @@ class FraisController extends Controller
 
         $situations = SituationValidation::all();
 
-        return view('frais.frais', ['lesfrais' => $frais, 'situations' => $situations]);
+        return view('frais.frais', ['lesfrais' => $frais, 'situations' => $situations, 'visiteur' => $visiteur, 'requested_year' => $requested_year , 'requested_month' => $requested_month]);
     }
 
     public function frais_create_show($id_visite)
