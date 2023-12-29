@@ -125,9 +125,9 @@ $(document).ready(function(){
                 {data: 'nom', name: 'nom'},
                 {data: 'adresse', name: 'adresse'},
                 {data: 'code_postal', name: 'code_postal'},
-                {data: 'ville', name: 'ville.nom'},
-				{data: 'departement', name: 'ville.departement_id'},
-                {data: 'region', name: 'ville.departement.region_id'}
+                {data: 'ville', name: 'ville.nom', className: 'capitalize'},
+				{data: 'departement', name: 'ville.departement.departement_id', className: 'capitalize'},
+                {data: 'region', name: 'ville.departement.region_id', className: 'capitalize'}
             ],
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json'

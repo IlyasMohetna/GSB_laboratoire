@@ -76,8 +76,8 @@
 			Par la présente, la société <span class="bold">Galaxy-Swiss Bourdin (GSB)</span> mandate son collaborateur
 			<span class="bold">{{ $visiteur['prenom'].' '.$visiteur['nom'] }}</span>, en qualité de <span class="bold">{{ $visiteur['fonction']['nom_fonction'] }}</span>, 
             pour effectuer une mission de <span class="bold">prospection commerciale</span>. Le déplacement du salarié aura lieu entre son lieu de travail
-            <span class="bold">{{ $visiteur['agence']['nom_agence'] }}</span> à <span class="bold">{{ $visiteur['agence']['ville']['nom'] }}</span> et le lieu du praticien 
-            <span class="bold">{{ $praticien['raison_sociale'] }}</span> à <span class="bold">{{ $praticien['ville']['nom'] }}</span>.
+            <span class="bold">(Agence) {{ $visiteur['agence']['nom_agence'] }}</span> à <span class="bold" style="text-transform: capitalize;">{{ $visiteur['agence']['ville']['nom'] }}</span> et le lieu de la visite 
+            <span class="bold">(Praticien) {{ $praticien['raison_sociale'] }}</span> à <span class="bold" style="text-transform: capitalize;">{{ $praticien['ville']['nom'] }}</span>.
 		</div>
 		<div class="content">
 			Cette mission vise la promotion des produits de la gamme Pharmaceutique dont les références :
@@ -94,7 +94,7 @@
 			<span class="italic">, sous réserve de présentation desdites factures et de leur conformité à la politique interne de l’entreprise.</span>
 		</div>
 		<div class="signature" stlye="margin-top:30px">
-			<p>Fait à <b>{{ $visiteur['agence']['ville']['nom'] }}</b>,</p>
+			<p>Fait à <b style="text-transform: capitalize;">{{ $visiteur['agence']['ville']['nom'] }}</b>,</p>
 			<p>Le <span class="bold">{{ \Carbon\Carbon::parse($created_at)->format('d/m/Y') }}</span></p>
 			<div style="display:block;margin-top:5%;margin-left:15%">
 				<p>Directeur GSB</p>

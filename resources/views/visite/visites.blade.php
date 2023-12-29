@@ -17,8 +17,8 @@ error_reporting(0);
                     <span class="font-bold">Filtres de recherche : </span>
 					<div class="w-full p-2 flex items-center">
 						<div>
-							<div class="choices ml-2" data-type="select-one" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
-								<select id="sort-praticien" class="w-full ti-form-select choices__input">
+							<div class="choices ml-2 cursor-pointer" data-type="select-one" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
+								<select id="sort-praticien" class="w-full ti-form-select choices__input cursor-pointer">
 									<option value="">Tout les praticiens  </option>
                                     @foreach($visites->pluck('praticien.raison_sociale')->unique() as $praticien)
                                         <option value="{{ $praticien }}">{{ $praticien }}</option>
@@ -27,8 +27,8 @@ error_reporting(0);
 							</div>
 						</div>
 						<div>
-							<div class="choices ml-4" data-type="select-one" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
-								<select id="sort-situation" class="ti-form-select choices__input">
+							<div class="choices ml-4 cursor-pointer" data-type="select-one" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
+								<select id="sort-situation" class="ti-form-select choices__input cursor-pointer">
                                     <option value="">Toutes les situations</option>
                                     <option value="Terminée">Terminée</option>
                                     <option value="En cours">En cours</option>
@@ -50,7 +50,7 @@ error_reporting(0);
 								<th scope="col" class="text-start">Date debut visite</th>
 								<th scope="col" class="text-start">Date de fin</th>
 								<th scope="col" class="text-start">Situation</th>
-								<th scope="col" class="text-start">Action</th>
+								<th scope="col" class="text-start no-sort">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,6 +97,9 @@ error_reporting(0);
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json'
             },
+			columnDefs: [
+				{ targets: 'no-sort', orderable: false }
+			],
             pageLength: 7
         });
 	    $('#sort-praticien').on('change', function () {

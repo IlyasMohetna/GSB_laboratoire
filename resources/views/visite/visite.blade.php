@@ -4,13 +4,19 @@
 <script src="https://cdn.quilljs.com/1.2.2/quill.min.js"></script>
 <link rel="stylesheet" href="{{ asset('assets/css/quill.snow.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/quill.bubble.css') }}">
-<script src="https://run.plnkr.co/preview/clqntpriw0007356w6nqbn2vg/image-resize.min.js"></script>
+<script src="https://unpkg.com/quill-image-resize-module@3.0.0/image-resize.min.js"></script>
 <div class="main-content">
 	<!-- Page Header --> 
 	<div class="block justify-between page-header md:flex">
 		<div>
-			<h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">Visite #{{ $visite->id_visite }}</h3>
-		</div>
+			<h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">
+				Visite #{{ $visite->id_visite }} 
+				@if(!empty($visite->rapport))
+				<span class="badge bg-success text-white">Terminée</span>
+				@else 
+				<span class="badge bg-warning text-white">En cours</span>
+				@endif</h3>
+			</div>
 	</div>
 	<!-- Page Header Close --> <!-- Start:: row-1 --> 
 	<div class="w-full p-2 flex items-center">
@@ -137,25 +143,14 @@
 				<div class="box-header">
 					<div class="box-title">Rapport de visite</div>
 				</div>
-				<div class="box-body">
+				<div class="box-body @if(!empty($visite->date_fin_visite)) cursor-not-allowed @endif">
 					<div id="editor" style="max-height: 300px;overflow-y: auto;"></div>
 				</div>
 				<input type="hidden" name="id_visite" value="{{ $visite->id_visite }}">
 				<input type="hidden" name="quill_content" id="quill_content">
-				@if(!empty($visite->date_fin_visite))
+				@if(empty($visite->date_fin_visite))
 				<div class="w-1/2 mx-auto p-2">
-					<div class="hs-tooltip ti-main-tooltip w-full"> 
-						<button type="button" disabled class="hs-tooltip-toggle ti-btn ti-btn-warning w-full ti-btn-border-top opacity-[0.6]"> 
-							Cloturer la visite
-							<span class="hs-tooltip-content ti-main-tooltip-content py-1 px-2 !bg-black !text-xs !font-medium !text-white shadow-sm hidden" role="tooltip"> 
-								Vous avez déja cloturer cette visite
-							</span> 
-						</button> 
-					</div>
-				</div>
-				@else 
-				<div class="w-1/2 mx-auto p-2">
-					<button type="submit" class="ti-btn ti-btn-warning w-full ti-btn-border-top">
+					<button type="button" onclick="Cloturer()" class="ti-btn ti-btn-success w-full ti-btn-border-top">
 					Cloturer la visite
 					</button>
 				</div>
@@ -163,6 +158,16 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		function Cloturer(){
+			$quill_content = $('#quill_content').val();
+			if($quill_content.length < 1){
+				alert('Veuillez remplire le rapport !');
+			}else{
+				$('form').submit();
+			}
+		}
+	</script>
 	<div class="grid grid-cols-12 gap-4 !hidden" id="visu2_container">
 		<div class="xl:col-span-3 col-span-12">
 			<div class="box">
@@ -331,7 +336,6 @@
 		})
 	})
 </script>
-<script src="asset('assets/js/quill.min.js')"></script>
 <script>
 	(function () {
 	'use strict';
@@ -365,14 +369,26 @@
 	    },
 	    theme: 'snow'
 	});
-	
+
+	@if(!empty($visite->date_fin_visite))
+	quill.disable();
+	@endif
+
 	var content = {!! json_encode($visite->rapport) !!};
 	   quill.root.innerHTML = content;
 	
 	   quill.on('text-change', function() {
-	       var quillContent = quill.root.innerHTML;
-	       document.getElementById('quill_content').value = quillContent;
-	   });
+    var quillContent = quill.root.innerHTML;
+
+    // Check if the content is empty or contains only a newline
+    if (!quillContent.trim() || quillContent.trim() === '<p><br></p>') {
+        document.getElementById('quill_content').value = '';
+    } else {
+        document.getElementById('quill_content').value = quillContent;
+    }
+});
+
+
 	
 	})();
 </script>

@@ -150,8 +150,14 @@ class VisiteController extends Controller
 
     public function praticien_yajra()
     {
-        $praticiens = Praticien::with('ville.departement.region')->latest();
-        return DataTables::of($praticiens)
+        $query = Praticien::with('ville.departement.region')
+        ->leftJoin('parametrage__ville', 'parametrage__ville.id_ville', '=', 'visite__praticien.id_ville')
+        ->leftJoin('parametrage__departement', 'parametrage__departement.departement_id', '=', 'parametrage__ville.departement_id')
+        ->leftJoin('parametrage__region', 'parametrage__region.region_id', '=', 'parametrage__departement.region_id')
+        ->selectRaw('visite__praticien.*, parametrage__ville.code_postal, parametrage__ville.nom as ville_nom, parametrage__departement.departement_id, parametrage__departement.nom_departement, parametrage__departement.region_id, parametrage__region.nom_region')
+        ->latest('visite__praticien.created_at');
+        
+        return DataTables::of($query)
         ->addColumn('code_postal', function ($praticien) {
             return $praticien->ville->code_postal;
         })
@@ -159,10 +165,10 @@ class VisiteController extends Controller
             return $praticien->ville->nom;
         })
         ->addColumn('departement', function ($praticien) {
-            return $praticien->ville->departement->nom;
+            return $praticien->nom_departement;
         })
         ->addColumn('region', function ($praticien) {
-            return $praticien->ville->nom;
+            return $praticien->nom_region;
         })
         ->make(true);
     }

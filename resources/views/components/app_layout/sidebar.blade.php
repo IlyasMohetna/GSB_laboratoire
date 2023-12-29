@@ -59,6 +59,7 @@
                            </ul>
                         </li>
 
+                        @role('visiteur')
                         <li class="slide has-sub open">
                            <a href="javascript:void(0);" class="side-menu__item"> 
                               <i class="bx bx-capsule side-menu__icon"></i>
@@ -75,6 +76,7 @@
                               <li class="slide"> <a href="{{ route('visite.praticiens_show') }}" id="sidebar-praticiens" class="side-menu__item">Les praticiens</a> </li>
                            </ul>
                         </li>
+                        @endrole
 
                         <li class="slide has-sub open">
                            <a href="javascript:void(0);" class="side-menu__item"> 

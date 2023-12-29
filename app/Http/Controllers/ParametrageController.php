@@ -47,7 +47,7 @@ class ParametrageController extends Controller{
         foreach($search as $departement){
             $result['results'][] = [
                 'id' => $departement->departement_id,
-                'text' => $departement->nom_departement
+                'text' => ucfirst($departement->nom_departement)
             ];
         }
 
@@ -69,7 +69,7 @@ class ParametrageController extends Controller{
         foreach($search as $region){
             $result['results'][] = [
                 'id' => $region->region_id,
-                'text' => $region->nom_region
+                'text' => ucfirst($region->nom_region)
             ];
         }
 
