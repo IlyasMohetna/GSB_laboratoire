@@ -65,6 +65,12 @@ class VisiteController extends Controller
     public function visite_show($id_visite)
     {
         $visite = Visite::where('id_visite', $id_visite)->with('ged','praticien.ville','medicaments.medicament.famille', 'frais.situation', 'frais.nature')->first();
+        if($visite->code_employe !== auth()->user()->code_employe){
+            foreach($visite->frais->where('code_situation', 1) as $frais){
+                $frais->update(['code_situation' => 2]);
+            }
+            $visite = $visite->refresh();
+        }
         return view('visite.visite', ['visite' => $visite]);
     }
 

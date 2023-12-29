@@ -206,5 +206,29 @@ class FraisController extends Controller
         $frais->delete();
     }
 
-    
+    public function frais_accept()
+    {
+        $frais = Frais::find(request()->modal_id_frais);
+        if($frais){
+            $frais->update([
+                'code_situation' => 4
+            ]);
+            return redirect()->to(route('visite.visite_show', ['id_visite' => $frais->id_visite]) . '#frais'); 
+        }else{
+            die(505);
+        }
+    }
+
+    public function frais_decline()
+    {
+        $frais = Frais::find(request()->modal_id_frais);
+        if($frais){
+            $frais->update([
+                'code_situation' => 3
+            ]);
+            return redirect()->to(route('visite.visite_show', ['id_visite' => $frais->id_visite]) . '#frais'); 
+        }else{
+            die(505);
+        }
+    }
 }
