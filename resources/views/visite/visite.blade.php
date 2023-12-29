@@ -221,7 +221,7 @@
 			</div>
 		</div>
 		<div class="xl:col-span-9 col-span-12">
-			<div class="box">
+			<div class="box pl-4">
 				<div class="box-header justify-between sm:flex block">
 					<div class="box-title"> Frais </div>
 					<div>
@@ -233,7 +233,7 @@
 					</div>
 				</div>
 				<div class="box-body !p-0">
-					<div class="tab-content">
+					<div class="tab-content p-4">
 						<div class="tab-pane show active text-[#8c9097] dark:text-white/50 !border-0 !p-0" id="taskactive" role="tabpanel">
 							<table class="table min-w-full whitespace-nowrap table-hover border table-bordered">
 								<thead>
