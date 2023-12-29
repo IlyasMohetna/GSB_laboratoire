@@ -185,7 +185,8 @@ class FraisController extends Controller
             ]);
         }
 
-        return redirect()->route('visite.visite_show', ['id_visite' => request()->id_visite]);
+        $url = route('visite.visite_show', ['id_visite' => request()->id_visite]);
+        return redirect()->to($url . '#frais'); 
     }
 
     public function frais_delete()

@@ -55,6 +55,12 @@
 		    $('#visu1,#visu2').toggleClass('ti-btn-primary-full ti-btn-light');
 		$('#visu1_container,#visu2_container').toggleClass('!hidden');
 		})
+
+		$(document).ready(function() {
+			if (window.location.hash === '#frais') {
+				$('#visu2').click();
+			}
+		});
 	</script>
 	<div class="grid grid-cols-12 gap-4" id="visu1_container">
 		<div class="xl:col-span-3 md:col-span-6 col-span-12">
@@ -225,10 +231,12 @@
 				<div class="box-header justify-between sm:flex block">
 					<div class="box-title"> Frais </div>
 					<div>
-						<nav class="sm:flex block sm:mt-0 mt-2" aria-label="Tabs"> 
-							<a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4 text-[0.8rem] font-medium text-center rounded-md hover:text-primary active" id="active-item" data-hs-tab="#taskactive" aria-controls="taskactive"> Active Orders </a>
-							<a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4 text-[0.8rem] font-medium text-center rounded-md hover:text-primary" id="completed-item" data-hs-tab="#completed" aria-controls="completed"> Completed </a>
-							<a class="block w-full sm:w-auto hs-tab-active:bg-primary/10 hs-tab-active:text-primary cursor-pointer text-defaulttextcolor dark:text-defaulttextcolor/70 py-2 px-4 text-[0.8rem] font-medium text-center rounded-md hover:text-primary" id="cancelled-item" data-hs-tab="#cancelled" aria-controls="cancelled"> Cancelled </a>
+						<nav class="sm:flex block sm:mt-0 mt-2 space-x-2" aria-label="Tabs" id="filters">
+							<button type="button" class="ti-btn ti-btn-info ti-btn-wave" data-filter="all">Voir tout</button>
+							<button type="button" class="ti-btn ti-btn-primary ti-btn-wave" data-filter="1">Déclaré</button>
+							<button type="button" class="ti-btn ti-btn-warning ti-btn-wave" data-filter="2">Traitement en cours</button>
+							<button type="button" class="ti-btn ti-btn-danger ti-btn-wave" data-filter="3">Refusé</button>
+							<button type="button" class="ti-btn ti-btn-success ti-btn-wave" data-filter="4">Remboursé</button>
 						</nav>
 					</div>
 				</div>
@@ -250,7 +258,7 @@
 								</thead>
 								<tbody>
 									@foreach($visite->frais as $frais)
-									<tr class="border-y border-inherit border-solid dark:border-defaultborder/10">
+									<tr class="border-y border-inherit border-solid dark:border-defaultborder/10 filter-{{ $frais->code_situation }}">
 										<td>
 											@if($frais->type_forfait == 'forfait')
 											{{ $frais->nature->intitule_frais }}
@@ -266,8 +274,14 @@
 										<td>
 											@if($frais->code_situation == 1)
 											<span class="badge bg-primary/10 text-primary">{{ $frais->situation->libelle_situation }}</span>
+											@elseif($frais->code_situation == 2)
+											<span class="badge bg-warning/10 text-warning">{{ $frais->situation->libelle_situation }}</span>
+											@elseif($frais->code_situation == 3)
+											<span class="badge bg-danger/10 text-danger">{{ $frais->situation->libelle_situation }}</span>
+											@elseif($frais->code_situation == 4)
+											<span class="badge bg-success/10 text-success">{{ $frais->situation->libelle_situation }}</span>
 											@else
-											<span class="badge bg-info/10 text-info">Available</span>
+											Erreur
 											@endif
 										</td>
 										<td>
@@ -300,6 +314,22 @@
 		</div>
 	</div>
 </div>
+<script>
+    $(document).ready(function() {
+        filterTableRows('all');
+        $('#filters button').on('click', function() {
+            var filter = $(this).data('filter');
+            filterTableRows(filter);
+        });
+        function filterTableRows(filter) {
+            $('.table tbody tr').show();
+            if (filter !== 'all') {
+				console.log($('.table tbody tr:not(.filter-' + filter + ')'));
+                $('.table tbody tr:not(.filter-' + filter + ')').hide();
+            }
+        }
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css" integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
