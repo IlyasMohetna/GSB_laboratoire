@@ -13,28 +13,149 @@
 	<div class="container">
 		<!-- Start::row-1 --> 
 		<div class="grid grid-cols-12 gap-6">
-			<div class="col-span-12 mx-auto w-1/2">
-				<div class="grid grid-cols-12 gap-6 items-center mb-6 mt-40" id="search_container">
+			<div class="box col-span-12 mx-auto w-1/2 mt-24 p-4 pb-0" id="search_container">
+				<div class="grid grid-cols-12 gap-4 items-center mb-6" >
 					<!-- Page Header --> 
 					<div class="col-span-12 block justify-between page-header md:flex">
-						<div>
-							<h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">Réserver une salle</h3>
+						<div class="text-center w-full">
+							<h3 class="text-center !text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.2rem] font-semibold">Réserver une salle</h3>
 						</div>
 					</div>
 					<!-- Page Header Close --> 
-					<div class="lg:col-span-12 col-span-12">
-						<div class="inline-flex !w-full companies-search-input">
-							<select id="agences" class="form-control select2watch" name="agence"></select>
-							<select id="batiments" class="form-control select2watch" name="batiment"></select>
-							<input type="text" class="form-control flatpickr-input" id="DateDepart" name="DateDepart" placeholder="Date de départ" readonly="readonly">
-							<script>
-								$("#DateDepart").flatpickr({
-								    minDate: "today",
-								    dateFormat: "d/m/Y",
-								});
-							</script>
-							<button type="button" aria-label="button" id="search-perform" class="ti-btn ti-btn-primary-full !mb-0 !rounded-s-none"><i class="ri-search-line"></i></button> 
+					<div class="lg:col-span-12 col-span-12 space-y-3">
+                        <div>
+                            <select id="agences" class="form-control select2watch" name="agence"></select>
+                        </div>
+                        <div>
+                            <select id="batiments" class="form-control select2watch" name="batiment"></select>
+                        </div>
+						<div class="grid grid-cols-2 gap-4">
+                            <div>							
+                                <input type="text" class="form-control flatpickr-input" id="startDate" name="startDate" placeholder="Date de début" readonly="readonly">
+                                <script>
+                                    $("#startDate").flatpickr({
+                                        enableTime: true,
+                                        minDate: "today",
+                                        minTime: Date.now(),
+                                        dateFormat: "d/m/Y H:i",
+                                    });
+                                </script>
+                            </div>
+                            <div>
+                                <input type="text" class="form-control flatpickr-input" id="endDate" name="endDate" placeholder="Date de fin" readonly="readonly">
+                                <script>
+                                    $("#endDate").flatpickr({
+                                        enableTime: true,
+                                        minDate: "today",
+                                        minTime: Date.now(),
+                                        dateFormat: "d/m/Y H:i",
+                                    });
+                                </script>
+                            </div>
 						</div>
+                        <div>
+                            <h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1rem]">Choix du materiels :</h3>
+                        </div>
+                        <div class="grid md:grid-cols-5 sm:grid-cols-1 gap-6">
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-handshake text-4xl"></i></div>
+                                        <div><b>Table de réunion</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-chair text-4xl"></i></div>
+                                        <div><b>Chaises</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-chalkboard text-4xl"></i></div>
+                                        <div><b>Tableau blanc</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-film text-4xl"></i></div>
+                                        <div class="whitespace-normal break-all"><b>Vidéoprojecteur</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-tv text-4xl"></i></div>
+                                        <div><b>Télévision</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-video text-4xl"></i></div>
+                                        <div class="whitespace-normal break-all"><b>Visioconférence</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-laptop text-4xl"></i></div>
+                                        <div><b>Ordinateur portable</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-plug text-4xl"></i></div>
+                                        <div><b>Prises électriques</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-wifi text-4xl"></i></div>
+                                        <div><b>Réseau Wi-Fi</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cursor-pointer">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                    <div class="mx-auto text-center justify-center block text-primary p-4">
+                                        <div><i class="las la-lightbulb text-4xl"></i></div>
+                                        <div><b>Lampes de bureau</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $('.type_materiel').on('mouseenter', function () {
+                                $(this).addClass('!bg-primary/10');
+                            });
+
+                            $('.type_materiel').on('mouseleave', function () {
+                                if (!$(this).hasClass('clicked')) {
+                                    $(this).removeClass('!bg-primary/10');
+                                }
+                            });
+                            
+                            $('.type_materiel').on('click', function () {
+                                $(this).toggleClass('clicked');
+                            });
+                        </script>
+                        <div class="col-span-1 w-1/2 mx-auto mt-2">
+                            <button type="button" aria-label="button" id="search-perform" class="mt-4 ti-btn ti-btn-primary-full w-full !mb-0 !rounded-s-none">Rechercher <i class="ri-search-line"></i></button> 
+                        </div>
 					</div>
 				</div>
 				<div class="mt-40 ml-6 !hidden" id="loading_annonce">
