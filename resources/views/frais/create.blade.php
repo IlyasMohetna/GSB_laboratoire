@@ -59,8 +59,10 @@
 			</div>
 		</div>
 		<div class="xl:col-span-12 col-span-12 mt-6 w-1/2 mx-auto block text-center !hidden" id="ai_analyse_animation">
-			<img src="{{ asset('assets/img/ai_analyse.gif') }}">
-			<span class="text-center font-bold text-2xl">L'IA analyse votre justificative...</span>
+			<div class="mx-auto w-1/2">
+				<img src="{{ asset('assets/img/ai_analyse.gif') }}">
+				<span class="text-center font-bold text-2xl">L'IA analyse votre justificative...</span>
+			</div>
 		</div>
 		<div class="xl:col-span-12 col-span-12 mt-6 w-3/5 mx-auto block text-center bg-white rounded-xl !hidden" id="frais_create_form">
 			<form action="{{ route('frais.frais_create') }}" method="POST" enctype="multipart/form-data">
@@ -294,7 +296,6 @@
 	        },
 	           onload: (response) => {
 	               var response = JSON.parse(response);
-	               console.log(response);
 	               var content = response.content;
 	               const formattedDate = new Date(content.date).toISOString().split('T')[0];
 	               $('#date_frais').val(formattedDate);
