@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ParametrageVilleTableSeeder::class);
         $this->call(VisiteMedicamentTableSeeder::class);
         $this->call(VisiteFamilleMedicamentTableSeeder::class);
+        $this->call(SalleMaterielTypeTableSeeder::class);
     }
 }
