@@ -75,4 +75,26 @@ class ParametrageController extends Controller{
 
         return json_encode($result);
     }
+
+    public function agence_lookup()
+    {
+        $query = empty(request()->q) ? '' : request()->q;
+        $search = Region::select(['region_id', 'nom_region'])
+                        ->where('nom_region', 'LIKE', '%'.$query.'%')
+                        ->orWhere('nom_region', 'LIKE', '%'.$query.'%')
+                        ->orderByRaw("CASE WHEN `nom_region` = ? THEN 1 WHEN `nom_region` LIKE ? THEN 2 ELSE 3 END", [$query, $query.'%'])
+                        ->limit(10)
+                        ->get();
+        $result = [];
+        $result['results'] = [];
+
+        foreach($search as $region){
+            $result['results'][] = [
+                'id' => $region->region_id,
+                'text' => ucfirst($region->nom_region)
+            ];
+        }
+
+        return json_encode($result);
+    }
 }

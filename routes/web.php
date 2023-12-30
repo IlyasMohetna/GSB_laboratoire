@@ -28,4 +28,5 @@ include __DIR__.'/auth.php';
 include __DIR__.'/covoiturage.php';
 include __DIR__.'/visite.php';
 include __DIR__.'/frais.php';
+include __DIR__.'/salle.php';
 include __DIR__.'/document.php';

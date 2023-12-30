@@ -89,9 +89,8 @@
                               <i class="fe fe-chevron-right side-menu__angle"></i> 
                            </a> 
                            <ul class="slide-menu child1">
-                              <li class="slide side-menu__label1"><a href="javascript:void(0)">Reservation de salles</a></li>
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Mes réservations</a> </li>
                               <li class="slide"> <a href="chat.html" class="side-menu__item">Recherche de salle</a> </li>
+                              <li class="slide"> <a href="chat.html" class="side-menu__item">Mes réservations</a> </li>
                               <li class="slide"> <a href="chat.html" class="side-menu__item">Planning des salles</a> </li>
                            </ul>
                         </li>
