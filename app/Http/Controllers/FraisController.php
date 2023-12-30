@@ -14,6 +14,9 @@ use HelgeSverre\ReceiptScanner\Enums\Model;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
 use Carbon\Carbon;
+use Mail;
+use App\Mail\FraisAcceptedMail;
+use App\Mail\FraisRefusedMail;
 
 class FraisController extends Controller
 {
@@ -208,11 +211,12 @@ class FraisController extends Controller
 
     public function frais_accept()
     {
-        $frais = Frais::find(request()->modal_id_frais);
+        $frais = Frais::with('visite.visiteur')->find(request()->modal_id_frais);
         if($frais){
             $frais->update([
                 'code_situation' => 4
             ]);
+            Mail::to('ilyas.mohetna.1@gmail.com')->send(new FraisAcceptedMail($frais));
             return redirect()->to(route('visite.visite_show', ['id_visite' => $frais->id_visite]) . '#frais'); 
         }else{
             die(505);
@@ -226,6 +230,7 @@ class FraisController extends Controller
             $frais->update([
                 'code_situation' => 3
             ]);
+            Mail::to('ilyas.mohetna.1@gmail.com')->send(new FraisRefusedMail($frais));
             return redirect()->to(route('visite.visite_show', ['id_visite' => $frais->id_visite]) . '#frais'); 
         }else{
             die(505);
