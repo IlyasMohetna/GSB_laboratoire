@@ -12,4 +12,18 @@ class Reservation extends Model
     protected $table = 'salle__reservation';
     protected $primaryKey = 'id_reservation';
     protected $guarded = [];
+    protected $casts = [
+        'date_debut_reservation' => 'datetime',
+        'date_fin_reservation' => 'datetime'
+    ];
+
+    public function salle()
+    {
+        return $this->hasOne(Salle::class, 'id_salle', 'id_salle');
+    }
+
+    public function employe()
+    {
+        return $this->hasOne(\App\Models\User::class, 'code_employe', 'code_employe');
+    }
 }

@@ -33,6 +33,41 @@ class SalleController extends Controller
         ]);
     }
 
+    public function planning_show()
+    {
+        return view('salle.planning');
+    }
+
+    public function planning_events()
+    {
+        $id_agence = request()->id_agence;
+        $id_batiment = request()->id_batiment;
+        
+        $reservations = Reservation::
+            with('salle.batiment.agence','employe')
+            ->when(($id_agence !== 'null'), function ($query) use ($id_agence) {
+                $query->whereHas('salle.batiment.agence', function ($query) use ($id_agence) {
+                    $query->where('id_agence', $id_agence);
+                });
+            })
+            ->when(($id_batiment !== 'null'), function ($query) use ($id_batiment) {
+                $query->whereHas('salle.batiment', function ($query) use ($id_batiment) {
+                    $query->where('id_batiment', $id_batiment);
+                });
+            })
+            ->get();
+        
+        $events = $reservations->map(function ($reservation) {
+            return [
+                "title" => 'Salle '.ucfirst($reservation->salle->nom_salle). ' | '.$reservation->employe->prenom.' '.$reservation->employe->nom,
+                "start" => $reservation->date_debut_reservation->toDateTimeString(),
+                "end" => $reservation->date_fin_reservation->toDateTimeString(),
+            ];
+        });
+            
+        return json_encode($events);
+    }
+
     public function agence_lookup()
     {
         $query = empty(request()->q) ? '' : request()->q;

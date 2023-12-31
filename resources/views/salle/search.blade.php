@@ -384,5 +384,5 @@
     });
 	});
 </script>
-<script>$('#sidebar-covoiturer').addClass('active');</script>
+<script>$('#sidebar-recherche-salle').addClass('active');</script>
 @stop
