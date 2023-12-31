@@ -13,6 +13,16 @@ class Salle extends Model
     protected $primaryKey = 'id_salle';
     protected $guarded = [];
 
+    public function batiment()
+    {
+        return $this->hasOne(Batiment::class, 'id_batiment', 'id_batiment');    
+    }
+
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class, 'id_salle', 'id_salle');
+    }
+
     public function materielTypes()
     {
         return $this->hasMany(PosessionMateriel::class, 'id_salle', 'id_salle');

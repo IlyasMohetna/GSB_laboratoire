@@ -32,33 +32,46 @@
 						<div class="grid grid-cols-2 gap-4">
                             <div>							
                                 <input type="text" class="form-control flatpickr-input" id="startDate" name="startDate" placeholder="Date de début" readonly="readonly">
-                                <script>
-                                    $("#startDate").flatpickr({
-                                        enableTime: true,
-                                        minDate: "today",
-                                        minTime: Date.now(),
-                                        dateFormat: "d/m/Y H:i",
-                                    });
-                                </script>
                             </div>
                             <div>
                                 <input type="text" class="form-control flatpickr-input" id="endDate" name="endDate" placeholder="Date de fin" readonly="readonly">
+                            </div>
+                            <script>
+                                    $("#startDate").flatpickr({
+                                        enableTime: true,
+                                        minDate: new Date().setHours(new Date().getHours() + 1, 0, 0, 0),
+                                        time_24hr: true,
+                                        dateFormat: "d/m/Y H:i",
+                                        onClose: function () {
+                                            this.config.onChange(this.selectedDates, this.input.value, this);
+                                        },
+                                        onChange: function (selectedDates, dateStr, instance) {
+                                            $("#endDate").flatpickr().clear();
+                                            const minEndDate = new Date(selectedDates[0].setHours(selectedDates[0].getHours() + 1, 0, 0, 0));
+                                            $("#endDate").flatpickr({
+                                                enableTime: true,
+                                                time_24hr: true,
+                                                dateFormat: "d/m/Y H:i",
+                                                minDate: minEndDate,
+                                                defaultDate: minEndDate,
+                                            });
+                                        },
+                                    });
+                                </script>
                                 <script>
                                     $("#endDate").flatpickr({
                                         enableTime: true,
-                                        minDate: "today",
-                                        minTime: Date.now(),
+                                        time_24hr: true,
                                         dateFormat: "d/m/Y H:i",
                                     });
                                 </script>
-                            </div>
 						</div>
                         <div>
                             <h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1rem]">Choix du materiels :</h3>
                         </div>
                         <div class="grid md:grid-cols-5 sm:grid-cols-1 gap-6">
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=1>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-handshake text-4xl"></i></div>
                                         <div><b>Table de réunion</b></div>
@@ -66,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=2>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-chair text-4xl"></i></div>
                                         <div><b>Chaises</b></div>
@@ -74,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=3>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-chalkboard text-4xl"></i></div>
                                         <div><b>Tableau blanc</b></div>
@@ -82,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=4>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-film text-4xl"></i></div>
                                         <div class="whitespace-normal break-all"><b>Vidéoprojecteur</b></div>
@@ -90,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=5>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-tv text-4xl"></i></div>
                                         <div><b>Télévision</b></div>
@@ -98,7 +111,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=6>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-video text-4xl"></i></div>
                                         <div class="whitespace-normal break-all"><b>Visioconférence</b></div>
@@ -106,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=7>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-laptop text-4xl"></i></div>
                                         <div><b>Ordinateur portable</b></div>
@@ -114,7 +127,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=8>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-plug text-4xl"></i></div>
                                         <div><b>Prises électriques</b></div>
@@ -122,7 +135,7 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=9>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-wifi text-4xl"></i></div>
                                         <div><b>Réseau Wi-Fi</b></div>
@@ -130,13 +143,25 @@
                                 </div>
                             </div>
                             <div class="cursor-pointer">
-                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel">
+                                <div class="bg-white border border-primary w-full rounded-xl justify-center text-center align-center h-full type_materiel" data-id=10>
                                     <div class="mx-auto text-center justify-center block text-primary p-4">
                                         <div><i class="las la-lightbulb text-4xl"></i></div>
                                         <div><b>Lampes de bureau</b></div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div style="display:none">
+                        <input id="material_1" name="type_material[1]" type="hidden" value=0>
+                        <input id="material_2" name="type_material[2]" type="hidden" value=0>
+                        <input id="material_3" name="type_material[3]" type="hidden" value=0>
+                        <input id="material_4" name="type_material[4]" type="hidden" value=0>
+                        <input id="material_5" name="type_material[5]" type="hidden" value=0>
+                        <input id="material_6" name="type_material[6]" type="hidden" value=0>
+                        <input id="material_7" name="type_material[7]" type="hidden" value=0>
+                        <input id="material_8" name="type_material[8]" type="hidden" value=0>
+                        <input id="material_9" name="type_material[9]" type="hidden" value=0>
+                        <input id="material_10" name="type_material[10]" type="hidden" value=0>
                         </div>
                         <script>
                             $('.type_materiel').on('mouseenter', function () {
@@ -151,6 +176,9 @@
                             
                             $('.type_materiel').on('click', function () {
                                 $(this).toggleClass('clicked');
+                                var id = $(this).data('id');
+                                var hiddenInput = $('#material_' + id);
+                                hiddenInput.val(hiddenInput.val() == 0 ? 1 : 0);
                             });
                         </script>
                         <div class="col-span-1 w-1/2 mx-auto mt-2">
@@ -158,19 +186,27 @@
                         </div>
 					</div>
 				</div>
-				<div class="mt-40 ml-6 !hidden" id="loading_annonce">
-					<img src="https://www.cartakeback.ie/wp-content/themes/cartakeback/images/Car-Animation-V2.gif">
-				</div>
-				<div class="box custom-box !hidden" id="annonce_metric">
-					<div class="box-body">
-						<div class="sm:flex items-center">
-							<h5 class="font-semibold mb-0 flex-grow"><b id="covoiturage_count"></b> <span class="font-normal text-[1.125rem]">covoiturage(s) correspond à votre recherche.</span> </h5>
-						</div>
-					</div>
-				</div>
-				<div id="annonces"></div>
 			</div>
+            <div class="col-span-12 w-1/2 mx-auto !hidden" id="loading_annonce">
+                <div class="mt-36 ml-6 mx-auto w-1/2 text-center">
+                    <img src="{{ asset('assets/img/building_lookup.gif') }}">
+                    <b class="text-[1.2rem]">Recherche en cours...</b>
+                </div>
+            </div>
 		</div>
+        <div class="w-1/2 mx-auto mt-12 space-y-2 !hidden" id="response_container">
+            <div>
+                <button type="button" id="reset_search" class="ti-btn ti-btn-dark ti-btn-wave"><i class="las la-arrow-left"></i>Retour vers la recherche</button>
+            </div>
+            <div class="box custom-box" id="annonce_metric">
+                <div class="box-body">
+                    <div class="sm:flex items-center">
+                        <h5 class="font-semibold mb-0 flex-grow"><b id="salle_count"></b> <span class="font-normal text-[1.125rem]">Salle(s) correspond à votre recherche.</span> </h5>
+                    </div>
+                </div>
+            </div>
+            <div id="annonces"></div>
+        </div>
 		<!--End::row-1 --> 
 		<div class="box-body">
 			<button type="button" id="reservation_confirm_modal_opener" class="hs-dropdown-toggle ti-btn ti-btn-primary-full" data-hs-overlay="#reservation_confirm_modal" style="display:none"></button>
@@ -188,17 +224,26 @@
 						</div>
 						<div class="ti-modal-body">
 							<div>
-                            Confirmez-vous la réservation de ce trajet ? Si oui, veuillez appuyer sur <b>Covoiturer</b> et préparer vos bagages. Dans le cas contraire, merci d'annuler cette réservation.
+                            Confirmez-vous la réservation de cette salle ? Si oui, veuillez appuyer sur <b>Reserver</b>.Dans le cas contraire, merci d'annuler cette réservation.
 							</div>
+                            <form action="{{ route('salle.reserver') }}" method="POST">
+                                @csrf
+                                <div>
+                                <label>Vous vous des extras ?</label>
+                                <select name="extra">
+                                    <option value="">Aucun</option>
+                                    @foreach($extras as $extra)
+                                        <option value="{{ $extra->id_extra }}">{{ $extra->libelle_extra }}</option>
+                                    @endforeach
+                                </select>
+                                </div>
 						</div>
 						<div class="ti-modal-footer">
                             <button type="button" class="hs-dropdown-toggle ti-btn ti-btn-danger-full" data-hs-overlay="#reservation_confirm_modal"> Annuler </button>
-                            <form action="{{ route('covoiturage.annonce_reserver_action') }}" method="POST">
-                                @csrf
-                                <input type="hidden" id="modal_id_trajet" name="modal_id_trajet">
-                                <input type="hidden" id="modal_etape_depart" name="modal_etape_depart">
-                                <input type="hidden" id="modal_etape_arrive" name="modal_etape_arrive">
-                                <button class="mt-3 ti-btn ti-btn-success-full" type="submit">Covoiturer</button>
+                                <input type="hidden" id="modal_id_salle" name="id_salle">
+                                <input type="hidden" id="modal_debut" name="debut">
+                                <input type="hidden" id="modal_fin" name="fin">
+                                <button class="mt-3 ti-btn ti-btn-success-full" type="submit">Reserver</button>
                             </form>
                         </div>
 					</div>
@@ -209,11 +254,25 @@
 </div>
 <script>
 	$('#search-perform').on('click', function(){
-	       $('#annonces').html('');
-	    $('#search_container,#annonce_metric').addClass('!hidden');
-	       $('#loading_annonce').removeClass('!hidden');
+	    $('#annonces').html('');
+	    $('#search_container,#response_container').addClass('!hidden');
+        $('#loading_annonce').removeClass('!hidden');
 	       // Perform search
-	       const url = '/api/covoiturage/search?depart='+$('#startLocation').val()+'&arrive='+$('#endLocation').val()+'&datedepart='+$('#DateDepart').val();
+	       const url = '/api/salle/search?' +
+                        'agence=' + $('#agences').val() +
+                        '&batiment=' + $('#batiments').val() +
+                        '&debut=' + $('#startDate').val() +
+                        '&fin=' + $('#endDate').val() +
+                        '&material_1=' + $('#material_1').val() +
+                        '&material_2=' + $('#material_2').val() +
+                        '&material_3=' + $('#material_3').val() +
+                        '&material_4=' + $('#material_4').val() +
+                        '&material_5=' + $('#material_5').val() +
+                        '&material_6=' + $('#material_6').val() +
+                        '&material_7=' + $('#material_7').val() +
+                        '&material_8=' + $('#material_8').val() +
+                        '&material_9=' + $('#material_9').val() +
+                        '&material_10=' + $('#material_10').val();
 	       fetch(url).then((response) => {
 	           if (response.ok) {
 	               return response.json();
@@ -222,88 +281,30 @@
 	       })
 	       .then((responseJson) => {
 	           $('#loading_annonce').addClass('!hidden');
-	           $('#search_container').removeClass('mt-40 !hidden');
-	           $('#annonce_metric').removeClass('!hidden');
-	           $('#covoiturage_count').text(responseJson.length);
-	           responseJson.forEach(trajet => {
-                var full = trajet.full;
-                if(full){
+               $('#response_container').removeClass('!hidden');
+	           $('#salle_count').text(responseJson.length);
+	           responseJson.forEach(salle => {
                     $('#annonces').append(`<div class="box custom-box">
-					<div class="box-body">
-                        <div class="pb-4"><span class="badge !rounded-full bg-danger text-white">Trajet complet</span></div>
-						<div class="btn-list ltr:float-right rtl:float-left space-x-2 rtl:space-x-reverse">
-                            <button type="button" data-id-etape-arrive="${trajet.point_arrive.id_etape}" class="ti-btn-disabled ti-btn ti-btn-primary-full label-ti-btn"> <i class="ri-chat-smile-line label-ti-btn-icon  me-2"></i> Réserver </button>
-						</div>
-						<div class="flex mb-3 items-center">
-							<span class="avatar avatar-lg ">
-	                               <div class="uppercase inline-flex items-center justify-center w-10 h-10 text-md font-bold text-white bg-indigo-500 rounded-full">${trajet.automobiliste.initials}</div>
-	                           </span> 
-							<div class="ms-2">
-								<h5 class="font-semibold mb-0 flex items-center">
-	                                   <span> 
-	                                       ${trajet.automobiliste.name} 
-	                                       <i class="bi bi-check-circle-fill text-success text-base"></i>
-	                                   </span>
-	                               </h5>
-								<div class="sm:flex gap-2">
-									<a href="javascript:void(0);">${trajet.automobiliste.fonction}</a> 
-									<p class="text-xs text-[#8c9097] dark:text-white/50 mt-0.5"><i class="bi bi-geo-alt text-[.6875rem]"></i> ${trajet.automobiliste.agence}, <span class="uppercase">${trajet.automobiliste.agence_ville}</span></p>
-								</div>
-							</div>
-						</div>
-						<div class="flex items-center">
-							<p class="mb-0 flex-grow">
-								<i class="las la-map-marker"></i>
-								<span class="text-[#8c9097] dark:text-white/50 capitalize">${trajet.point_depart.ville} : </span>
-								<span class="font-semibold" title="Current">${trajet.point_depart.date_passage}</span>
-							</p>
-							<p class="mb-0">
-								<i class="las la-map-marker"></i>
-								<span class="text-[#8c9097] dark:text-white/50 capitalize">${trajet.point_arrive.ville} : </span>
-								<span class="font-semibold">${trajet.point_arrive.date_passage}</span>
-							</p>
-						</div>
-					</div>
-				    </div>`);
-                }else{
-                    $('#annonces').append(`<div class="box custom-box">
-					<div class="box-body">
-						<div class="btn-list ltr:float-right rtl:float-left space-x-2 rtl:space-x-reverse">
-                            <button type="button" data-id-trajet="${trajet.id_trajet}" data-id-etape-depart="${trajet.point_depart.id_etape}"  data-id-etape-arrive="${trajet.point_arrive.id_etape}" class="${full ? 'ti-btn-disabled' : ''} ti-btn ti-btn-primary-full label-ti-btn reservation_confirm_button"> <i class="ri-chat-smile-line label-ti-btn-icon  me-2"></i> Réserver </button>
-						</div>
-						<div class="flex mb-3 items-center">
-							<span class="avatar avatar-lg ">
-	                               <div class="uppercase inline-flex items-center justify-center w-10 h-10 text-md font-bold text-white bg-indigo-500 rounded-full">${trajet.automobiliste.initials}</div>
-	                           </span> 
-							<div class="ms-2">
-								<h5 class="font-semibold mb-0 flex items-center">
-	                                   <span> 
-	                                       ${trajet.automobiliste.name} 
-	                                       <i class="bi bi-check-circle-fill text-success text-base"></i>
-	                                   </span>
-	                               </h5>
-								<div class="sm:flex gap-2">
-									<a href="javascript:void(0);">${trajet.automobiliste.fonction}</a> 
-									<p class="text-xs text-[#8c9097] dark:text-white/50 mt-0.5"><i class="bi bi-geo-alt text-[.6875rem]"></i> ${trajet.automobiliste.agence}, <span class="uppercase">${trajet.automobiliste.agence_ville}</span></p>
-								</div>
-							</div>
-						</div>
-						<div class="flex items-center">
-							<p class="mb-0 flex-grow">
-								<i class="las la-map-marker"></i>
-								<span class="text-[#8c9097] dark:text-white/50 capitalize">${trajet.point_depart.ville} : </span>
-								<span class="font-semibold" title="Current">${trajet.point_depart.date_passage}</span>
-							</p>
-							<p class="mb-0">
-								<i class="las la-map-marker"></i>
-								<span class="text-[#8c9097] dark:text-white/50 capitalize">${trajet.point_arrive.ville} : </span>
-								<span class="font-semibold">${trajet.point_arrive.date_passage}</span>
-							</p>
-						</div>
-					</div>
-				    </div>`);
-                }
-	               
+				 	<div class="box-body">
+				 		<div class="btn-list ltr:float-right rtl:float-left space-x-2 rtl:space-x-reverse">
+                             <button type="button" data-id="${salle.id}" data-debut="${salle.debut}" data-fin="${salle.fin}" class="ti-btn ti-btn-primary-full label-ti-btn reservation_confirm_button"> <i class="ri-chat-smile-line label-ti-btn-icon  me-2"></i> Réserver </button>
+				 		</div>
+				 		<div class="flex mb-3 items-center">
+				 			<div class="ms-2">
+				 				<h5 class="font-semibold mb-0 flex items-center">
+	                                    <span> 
+                                            Salle : ${salle.numero}
+	                                        <i class="bi bi-check-circle-fill text-success text-base"></i>
+	                                    </span>
+	                                </h5>
+				 				<div class="sm:flex gap-2">
+				 					<a href="javascript:void(0);">${salle.batiment}</a> 
+				 					<p class="text-xs text-[#8c9097] dark:text-white/50 mt-0.5"><i class="bi bi-geo-alt text-[.6875rem]"></i> Agence : ${salle.agence} ,<span class="uppercase">${salle.ville}</span></p>
+				 				</div>
+				 			</div>
+				 		</div>
+				 	</div>
+				     </div>`);
 	           })
 	       })
 	       .catch((error) => {
@@ -314,10 +315,15 @@
 <script>
     $(document).ready(function(){
         $('body').on('click', '.reservation_confirm_button', function(){
-            $('#modal_id_trajet').val($(this).data('id-trajet'));
-            $('#modal_etape_depart').val($(this).data('id-etape-depart'));
-            $('#modal_etape_arrive').val($(this).data('id-etape-arrive'));
+            $('#modal_id_salle').val($(this).data('id'));
+            $('#modal_debut').val($(this).data('debut'));
+            $('#modal_fin').val($(this).data('fin'));
             $('#reservation_confirm_modal_opener').click();
+        });
+
+        $('#reset_search').on('click', function(){
+            $('#response_container').addClass('!hidden');
+            $('#search_container').removeClass('!hidden');
         });
     })
 </script>

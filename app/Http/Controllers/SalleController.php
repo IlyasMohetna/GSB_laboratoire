@@ -3,14 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\SALLE\Salle;
 use App\Models\SALLE\Agence;
 use App\Models\SALLE\Batiment;
+use App\Models\SALLE\Reservation;
+use App\Models\SALLE\Extra;
+use Carbon\Carbon;
 
 class SalleController extends Controller
 {
     public function search_show()
     {
-        return view('salle.search');
+        return view('salle.search', [
+            'extras' => Extra::all()
+        ]);
+    }
+
+    public function reserver()
+    {
+        $debut = Carbon::createFromFormat('d/m/Y H:i', request()->debut);
+        $fin = Carbon::createFromFormat('d/m/Y H:i', request()->fin);
+
+        Reservation::create([
+            'date_debut_reservation' => $debut,
+            'date_fin_reservation' => $fin,
+            'code_employe' => auth()->user()->code_employe,
+            'id_salle' => request()->id_salle,
+            'id_extra' => request()->extra ?? NULL
+        ]);
     }
 
     public function agence_lookup()
@@ -67,5 +87,56 @@ class SalleController extends Controller
         }
 
         return json_encode($result);
+    }
+
+    public function salle_search()
+    {
+        $id_agence = request()->agence ?? NULL;
+        $id_batiment = request()->batiment ?? NULL;
+        $debut = Carbon::createFromFormat('d/m/Y H:i', request()->debut);
+        $fin = Carbon::createFromFormat('d/m/Y H:i', request()->fin);
+        $materialInputs = collect(request()->all())->filter(function ($value, $key) {
+            return strpos($key, 'material_') === 0 && $value === "1";
+        })->all();
+        $query_material = [];
+        foreach($materialInputs as $material_key => $material_value){
+            array_push($query_material, explode('_', $material_key)[1]);
+        }
+
+        $search = Salle::
+            with('batiment.agence.ville', 'materielTypes')
+            ->when($id_agence, function ($query) use ($id_agence) {
+                return $query->whereHas('batiment', function ($query) use ($id_agence) {
+                    $query->where('id_agence', $id_agence);
+                });
+            })
+            ->when($id_batiment, function ($query) use ($id_batiment) {
+                return $query->where('id_batiment', $id_batiment);
+            })
+            ->when((!empty($query_material)), function ($query) use ($query_material) {
+                return $query->whereHas('materielTypes', function ($query) use ($query_material) {
+                    $query->whereIn('id_materiel', $query_material);
+                }, '=', count($query_material));
+            })
+            ->whereDoesntHave('reservation', function ($subquery) use ($debut, $fin) {
+                $subquery->where(function ($query) use ($debut, $fin) {
+                    $query->whereBetween('date_debut_reservation', [$debut, $fin])
+                    ->orWhereBetween('date_fin_reservation', [$debut, $fin]);
+                });
+            })
+            ->get();
+        $data = collect();
+        foreach($search as $salle){
+            $data[] = (object)[
+                'id' => $salle->id_salle,
+                'numero' => ucfirst($salle->nom_salle),
+                'batiment' => $salle->batiment->nom_batiment,
+                'agence' => $salle->batiment->agence->nom_agence,
+                'ville' => $salle->batiment->agence->ville->nom,
+                'debut' => $debut->format('d/m/Y H:i'),
+                'fin' => $fin->format('d/m/Y H:i')
+            ];
+        }
+        return $data->toJson();
     }
 }
