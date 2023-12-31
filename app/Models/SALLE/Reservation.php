@@ -26,4 +26,9 @@ class Reservation extends Model
     {
         return $this->hasOne(\App\Models\User::class, 'code_employe', 'code_employe');
     }
+
+    public function extra()
+    {
+        return $this->hasOne(Extra::class, 'id_extra', 'id_extra');
+    }
 }

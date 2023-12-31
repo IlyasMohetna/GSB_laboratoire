@@ -33,6 +33,12 @@ class SalleController extends Controller
         ]);
     }
 
+    public function reservation_show()
+    {
+        $reservations = Reservation::where('code_employe', auth()->user()->code_employe)->with('salle.batiment.agence','extra')->get();
+        return view('salle.reservation', ['reservations' => $reservations]);
+    }
+
     public function planning_show()
     {
         return view('salle.planning');

@@ -90,7 +90,7 @@
                            </a> 
                            <ul class="slide-menu child1">
                               <li class="slide"> <a href="{{ route('salle.search_show') }}" id="sidebar-recherche-salle" class="side-menu__item">Recherche de salle</a> </li>
-                              <li class="slide"> <a href="chat.html" class="side-menu__item">Mes réservations</a> </li>
+                              <li class="slide"> <a href="{{ route('salle.reservation_show') }}" id="sidebar-salles-reservations" class="side-menu__item">Mes réservations</a> </li>
                               <li class="slide"> <a href="{{ route('salle.planning_show') }}" id="sidebar-planning-salle" class="side-menu__item">Planning des salles</a> </li>
                            </ul>
                         </li>
