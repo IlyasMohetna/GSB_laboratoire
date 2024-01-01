@@ -298,5 +298,19 @@
       <!-- <script src="{{ asset('assets/js/crm-dashboard.js') }}"></script> -->
       <script src="{{ asset('assets/js/custom-switcher.js') }}"></script>
       <script src="{{ asset('assets/js/custom.js') }}"></script>
+      <script>
+        function openFullscreen() {
+           var element = document.documentElement;
+           if (element.requestFullscreen) {
+              element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+               element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+               element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+               element.msRequestFullscreen();
+            }
+         }
+      </script>
    </body>
 </html>
