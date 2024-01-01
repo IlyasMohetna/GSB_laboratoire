@@ -20,7 +20,7 @@
 							<div class="grid grid-cols-2 gap-6">
 								<div class="mb-2">
 									<label for="form-text" class="form-label !text-[.875rem] text-black">Date programmé de visite</label>
-									<input type="date" id="date_debut_visite" required="" name="date_debut_visite" class="form-control" id="form-text" placeholder="">
+									<input type="date" id="date_debut_visite" required="" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" name="date_debut_visite" class="form-control" id="form-text" placeholder="">
 								</div>
 								<div class="mb-2">
 									<label for="form-text" class="form-label !text-[.875rem] text-black">Praticien</label>

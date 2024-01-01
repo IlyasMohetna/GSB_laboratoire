@@ -115,7 +115,7 @@ class VisiteController extends Controller
         foreach($search as $famille){
             $result['results'][] = [
                 'id' => $famille->nom_famille,
-                'text' => $famille->nom_famille
+                'text' => ucfirst($famille->nom_famille)
             ];
         }
 
@@ -125,19 +125,22 @@ class VisiteController extends Controller
     public function praticien_lookup()
     {
         $query = empty(request()->q) ? '' : request()->q;
-        $search = Praticien::select(['id_praticien', 'raison_sociale'])
+        $search = Praticien::select(['id_praticien', 'raison_sociale', 'id_ville'])
+                        ->with('ville')
                         ->where('raison_sociale', 'LIKE', '%'.$query.'%')
-                        ->orWhere('raison_sociale', 'LIKE', '%'.$query.'%')
+                        ->orWhereHas('ville', function ($subquery) use ($query) {
+                            $subquery->where('nom', 'LIKE', '%' . $query . '%');
+                        })
                         ->orderByRaw("CASE WHEN `raison_sociale` = ? THEN 1 WHEN `raison_sociale` LIKE ? THEN 2 ELSE 3 END", [$query, $query.'%'])
                         ->limit(10)
                         ->get();
         $result = [];
         $result['results'] = [];
 
-        foreach($search as $ville){
+        foreach($search as $praticien){
             $result['results'][] = [
-                'id' => $ville->id_praticien,
-                'text' => $ville->raison_sociale
+                'id' => $praticien->id_praticien,
+                'text' => ucfirst($praticien->ville->nom).' - '.$praticien->raison_sociale
             ];
         }
 
@@ -190,7 +193,7 @@ class VisiteController extends Controller
             return '<img src="' . asset($medicament->photo_medicament) . '" alt="Photo" class="img-thumbnail" width="50">';
         })
         ->editColumn('famille', function ($medicament) {
-            return $medicament->famille->nom_famille;
+            return ucfirst($medicament->famille->nom_famille);
         })
         ->rawColumns(['photo'])
         ->make(true);
