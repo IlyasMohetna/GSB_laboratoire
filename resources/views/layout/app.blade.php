@@ -217,7 +217,7 @@
                         <!-- Start::header-link --> <a aria-label="anchor" onclick="openFullscreen();" href="javascript:void(0);" class="inline-flex flex-shrink-0 justify-center items-center gap-2  !rounded-full font-medium dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"> <i class="bx bx-fullscreen full-screen-open header-link-icon"></i> <i class="bx bx-exit-fullscreen full-screen-close header-link-icon hidden"></i> </a> <!-- End::header-link --> 
                      </div>
                      <!-- End Full screen --> <!-- Header Profile --> 
-                     <div class="header-element md:!px-[0.65rem] px-2 hs-dropdown !items-center ti-dropdown [--placement:bottom-left]">
+                     <div class="header-element md:!px-[0.65rem] px-2 hs-dropdown !items-center ti-dropdown [--placement:bottom-left] cursor-pointer">
                         <button id="dropdown-profile" type="button" class="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent "> 
                            <div class="inline-flex items-center justify-center w-10 h-10 text-md font-bold text-white bg-indigo-500 rounded-full">{{ substr(auth()->user()->prenom, 0, 1).''.substr(auth()->user()->nom, 0, 1)}}</div> 
                         </button> 
@@ -228,18 +228,6 @@
                         <div class="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end" aria-labelledby="dropdown-profile">
                            <ul class="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
                               <li>
-                                 <a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex" href="profile.html">
-                                    <i class="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>
-                                    Profile 
-                                 </a> 
-                              </li>
-                              <li>
-                                 <a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex" href="mail-settings.html">
-                                    <i class="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
-                                    Settings
-                                 </a>
-                              </li>
-                              <li>
                                  <a class="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="{{ Route('auth.logout') }}">
                                     <i class="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
                                     Se déconnecter
@@ -248,9 +236,7 @@
                            </ul>
                         </div>
                      </div>
-                     <!-- End Header Profile --> <!-- Switcher Icon --> 
-                     <div class="header-element md:px-[0.48rem]"> <button aria-label="button" type="button" class="hs-dropdown-toggle switcher-icon inline-flex flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium  align-middle transition-all text-xs dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10" data-hs-overlay="#hs-overlay-switcher"> <i class="bx bx-cog header-link-icon animate-spin-slow"></i> </button> </div>
-                     <!-- Switcher Icon --> <!-- End::header-element --> 
+                     <!-- <div class="header-element md:px-[0.48rem]"> <button aria-label="button" type="button" class="hs-dropdown-toggle switcher-icon inline-flex flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium  align-middle transition-all text-xs dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10" data-hs-overlay="#hs-overlay-switcher"> <i class="bx bx-cog header-link-icon animate-spin-slow"></i> </button> </div> -->
                   </div>
                </div>
             </nav>
