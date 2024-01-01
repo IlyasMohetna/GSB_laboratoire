@@ -41,6 +41,26 @@
                            </ul>
                         </li>
 
+                        @role('visiteur')
+                        <li class="slide has-sub open">
+                           <a href="javascript:void(0);" class="side-menu__item"> 
+                              <i class="bx bx-capsule side-menu__icon"></i>
+                              <span class="side-menu__label">
+                                 Gestion de visite
+                              </span> 
+                              <i class="fe fe-chevron-right side-menu__angle"></i> 
+                           </a> 
+                           <ul class="slide-menu child1">
+                              <li class="slide side-menu__label1"><a href="javascript:void(0)">Gestion de visite</a></li>
+                              <li class="slide"><a href="{{ route('visite.visites_show') }}" id="sidebar-visites" class="side-menu__item">Mes visites</a></li>
+                              <li class="slide"> <a href="{{ route('visite.create_visite') }}" id="sidebar-visite-create" class="side-menu__item" >Créer une visite</a> </li>
+                              <li class="slide"> <a href="{{ route('visite.medicaments_show') }}" id="sidebar-medicaments" class="side-menu__item" >Les médicaments</a> </li>
+                              <li class="slide"> <a href="{{ route('visite.praticiens_show') }}" id="sidebar-praticiens" class="side-menu__item">Les praticiens</a> </li>
+                           </ul>
+                        </li>
+                        @endrole
+
+                        @role(['comptable','visiteur'])
                         <li class="slide has-sub open">
                            <a href="javascript:void(0);" class="side-menu__item"> 
                               <i class="bx bx-money side-menu__icon"></i> 
@@ -58,24 +78,6 @@
                               <li class="slide"> <a href="{{ route('frais.recap_show') }}" id="sidebar-frais-recap_annuel" class="side-menu__item">Mon récap annuel</a> </li>
                               <li class="slide"> <a href="{{ route('frais.frais_list_show', ['year' => now()->year, 'month' => now()->month]) }}" id="sidebar-frais-recap_mensuel" class="side-menu__item">Mon récap mensuel</a> </li>
                               @endrole
-                           </ul>
-                        </li>
-
-                        @role('visiteur')
-                        <li class="slide has-sub open">
-                           <a href="javascript:void(0);" class="side-menu__item"> 
-                              <i class="bx bx-capsule side-menu__icon"></i>
-                              <span class="side-menu__label">
-                                 Gestion de visite
-                              </span> 
-                              <i class="fe fe-chevron-right side-menu__angle"></i> 
-                           </a> 
-                           <ul class="slide-menu child1">
-                              <li class="slide side-menu__label1"><a href="javascript:void(0)">Gestion de visite</a></li>
-                              <li class="slide"><a href="{{ route('visite.visites_show') }}" id="sidebar-visites" class="side-menu__item">Mes visites</a></li>
-                              <li class="slide"> <a href="{{ route('visite.create_visite') }}" id="sidebar-visite-create" class="side-menu__item" >Créer une visite</a> </li>
-                              <li class="slide"> <a href="{{ route('visite.medicaments_show') }}" id="sidebar-medicaments" class="side-menu__item" >Les médicaments</a> </li>
-                              <li class="slide"> <a href="{{ route('visite.praticiens_show') }}" id="sidebar-praticiens" class="side-menu__item">Les praticiens</a> </li>
                            </ul>
                         </li>
                         @endrole

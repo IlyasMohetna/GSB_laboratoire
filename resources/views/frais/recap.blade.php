@@ -52,7 +52,7 @@
 							<td>{{ $month->frais_count }} Frais</td>
                             <td>{{ $month->visite_count }} Visite<?=($month->visite_count > 1) ? 's' : ''?></td>
                             <td class="!text-center">
-                                @if ($month->date->isCurrentMonth() && now()->day < 20 || now()->addMonth(1)->isSameMonth($month->date))
+                                @if (($month->date->isCurrentMonth() && now()->day < 20) )
                                 <span class="badge bg-success/10 text-xl text-success" style="font-size:13px">Ouvert à la saisie</span>
                                 @elseif ($month->date->isCurrentMonth() && now()->day >= 20)
                                 <span class="badge bg-danger/10 text-xl text-warning" style="font-size:13px">Mois cloturé à la saisie</span>
