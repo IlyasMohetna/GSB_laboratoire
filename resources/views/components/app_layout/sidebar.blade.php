@@ -16,7 +16,7 @@
                      </div>
                      <ul class="main-menu">
                         <li class="slide">
-                           <a href="javascript:void(0);" id="sidebar-accueil" class="side-menu__item"> 
+                           <a href="{{ route('accueil.show') }}" id="sidebar-accueil" class="side-menu__item"> 
                               <i class="bx bx-home side-menu__icon"></i> 
                               <span class="side-menu__label">
                                  Accueil
