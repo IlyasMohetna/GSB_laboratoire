@@ -6,7 +6,7 @@ use Carbon\Carbon;
    <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>GSB - Déclaration de visite</title>
+      <title>GSB - Reservation covoiturage validée</title>
       <style media="all" type="text/css">
          /* -------------------------------------
          GLOBAL RESETS
@@ -272,7 +272,7 @@ use Carbon\Carbon;
                   <!-- START CENTERED WHITE CONTAINER -->
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="main">
                      <!-- START MAIN CONTENT AREA -->
-                     <tr>
+                     <tr style="margin-top:10px">
                         <td style="text-align:center">
                             <img style="width:20%" src="https://static.vecteezy.com/system/resources/previews/025/210/762/original/check-mark-icon-transparent-background-checkmark-icon-approved-symbol-confirmation-sign-design-elements-checklist-positive-thinking-sign-correct-answer-verified-badge-flat-icon-png.png" alt="Check Mark Icon">
                         </td>
@@ -280,7 +280,7 @@ use Carbon\Carbon;
                      <tr>
                         <td class="wrapper">
                            <p>Bonjour,</b></p>
-                           <p>Suite à la déclaration d'une visite par un membre de votre équipe ce mail contenant l'ordre de mission vous a été envoyer.</p>
+                           <p><b>{{ $reservation->covoitureur->prenom.' '.$reservation->covoitureur->nom }}</b> souhaite faire partie de votre trajet.</p>
                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                               <tbody>
                                  <tr>
@@ -288,7 +288,7 @@ use Carbon\Carbon;
                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                           <tbody>
                                              <tr>
-                                                <td> <a href="" target="_blank">Voir la visite</a> </td>
+                                                <td> <a href="{{ route('covoiturage.annonce_show', ['id' => $reservation->id_trajet])}}" target="_blank">Voir le trajet</a> </td>
                                              </tr>
                                           </tbody>
                                        </table>
@@ -297,7 +297,7 @@ use Carbon\Carbon;
                               </tbody>
                            </table>
                            <p style="margin-top:10px">Bonne journée,</p>
-                           <p><b>Service de déléguation</b></p>
+                           <p><b>Service de covoiturage</b></p>
                         </td>
                      </tr>
                      <!-- END MAIN CONTENT AREA -->

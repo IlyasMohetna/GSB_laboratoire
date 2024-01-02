@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 use Illuminate\Support\Sleep;
 use Illuminate\Support\Collection;
+use Mail;
+use App\Mail\CovoiturageConfirmedMail;
 
 class CovoiturageController extends Controller
 {
@@ -201,13 +203,17 @@ class CovoiturageController extends Controller
         if(!$trajet){
             dd('Impossible de retrouver le trajet');
         }else{
-            Reservation::create([
+            $reservation_create = Reservation::create([
                 'date_de_reservation' => Carbon::now(),
                 'code_employe' => auth()->user()->code_employe,
                 'id_trajet' => $trajet->id_trajet,
                 'id_etape_depart' => request()->modal_etape_depart,
                 'id_etape_arrive' => request()->modal_etape_arrive
             ]);
+
+            $reservation = Reservation::where('id_reservation', $reservation_create->id_reservation)->with('covoitureur')->first();
+
+            Mail::to('ilyas.mohetna.1@gmail.com')->send(new CovoiturageConfirmedMail($reservation));
 
             if(isset(request()->id_visite)){
                 return redirect()->route('visite.create_confirmed', ['id_visite' => request()->id_visite]);

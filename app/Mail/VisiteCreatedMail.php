@@ -24,7 +24,7 @@ class VisiteCreatedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'TEST FROM ME',
+            subject: 'Ordre de mission - Visite programmée',
         );
     }
 
