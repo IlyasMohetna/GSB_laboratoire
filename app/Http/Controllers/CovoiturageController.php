@@ -127,6 +127,8 @@ class CovoiturageController extends Controller
                 'id_ville' => request()->endLocation
             ]);
         }
+
+        return redirect()->route('covoiturage.annonces_show');
     }
 
     public function annonce_search_action()

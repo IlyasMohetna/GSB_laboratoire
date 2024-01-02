@@ -29,7 +29,7 @@ use Carbon\Carbon;
 									<td class="capitalize">{{ $trajet->etapes->first()->ville->nom.' à '.$trajet->etapes->first()->date_passage->format('d/m/Y H:i') }}</td>
 									<td class="capitalize">{{ $trajet->etapes->last()->ville->nom.' à '.$trajet->etapes->last()->date_passage->format('d/m/Y H:i') }}</td>
 									<td class="text-center">{{ $trajet->etapes->count() }} Etapes</td>
-									<td>
+									<td style="font-size:16px">
                                         @if($trajet->etapes->last()->date_passage->isPast())
                                         <span class="badge bg-danger text-white">Terminé</span>
                                         @elseif(Carbon::now()->between($trajet->etapes->first()->date_passage,$trajet->etapes->last()->date_passage))
