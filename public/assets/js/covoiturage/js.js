@@ -18,14 +18,15 @@ $(document).ready(function() {
   
       // Toggle NEXT and PREVIOUS button visibility based on the current step
       if (currentStep === 3) {
-        
         SearchAvailableVehiculesPerso()
         .then(() => {
-          $("#vehicule_perso_select").select2({
-            allowClear: true,
-            placeholder: "Choissisez un véhicule",
-            templateResult: formatCarState
-          });
+          if($('#vehicule_perso_select').length > 0 && $('#vehicule_perso_select').children('option').length > 0){
+            $("#vehicule_perso_select").select2({
+              allowClear: true,
+              placeholder: "Choissisez un véhicule",
+              templateResult: formatCarState
+            });
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -33,11 +34,13 @@ $(document).ready(function() {
 
         SearchAvailableVehiculesService()
         .then(() => {
-          $("#vehicule_service_select").select2({
-            allowClear: true,
-            placeholder: "Choissisez un véhicule",
-            templateResult: formatCarState
-          });
+          if($('#vehicule_service_select').length > 0 && $('#vehicule_service_select').children('option').length > 0){
+            $("#vehicule_service_select").select2({
+              allowClear: true,
+              placeholder: "Choissisez un véhicule",
+              templateResult: formatCarState
+            });
+          }
         })
         .catch((error) => {
           console.error(error);

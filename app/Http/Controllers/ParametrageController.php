@@ -23,7 +23,7 @@ class ParametrageController extends Controller{
         foreach($search as $ville){
             $result['results'][] = [
                 'id' => $ville->id_ville,
-                'text' => $ville->nom,
+                'text' => ucfirst($ville->nom),
                 'longitude' => $ville->ville_longitude,
                 'latitude' => $ville->ville_latitude
             ];

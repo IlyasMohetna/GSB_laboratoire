@@ -106,14 +106,13 @@
                </div>
                <div id="vehicule_perso_list">
                   <span id="aucun_vehicule_perso_message"></span>
-                  <select id="vehicule_perso_select" name="vehicule_perso">
-                     <option></option>
+                  <select id="vehicule_perso_select" name="vehicule_perso" style="display:none">
                      {{--<option value="{{ $vehicule_perso->id_vehicule }}" data-photo="{{ $vehicule_perso->photo }}" data-marque="{{ $vehicule_perso->marque }}" data-immatriculation="{{ $vehicule_perso->immatriculation }}" data-model="{{ $vehicule_perso->model }}" data-annee_model="{{ $vehicule_perso->annee_model }}">{{ $vehicule_perso->marque }} - {{ $vehicule_perso->immatriculation }}</option>--}}
                   </select>
                </div>
                <div id="vehicule_service_list" style="display:none">
                   <span id="aucun_vehicule_service_message"></span>
-                  <select id="vehicule_service_select" name="vehicule_service">
+                  <select id="vehicule_service_select" name="vehicule_service" style="display:none">
                      <option></option>
                      {{--<option value="{{ $vehicule_service->id_vehicule }}" data-photo="{{ $vehicule_service->photo }}" data-marque="{{ $vehicule_service->marque }}" data-immatriculation="{{ $vehicule_service->immatriculation }}" data-model="{{ $vehicule_service->model }}" data-annee_model="{{ $vehicule_service->annee_model }}">{{ $vehicule_service->marque }} - {{ $vehicule_service->immatriculation }}</option>--}}
                   </select>
@@ -291,16 +290,16 @@ function SearchAvailableVehiculesPerso() {
             method: 'GET',
             data: 'startDate=' + $('#DateTimeDepart').val() + '&endDate=' + $('input[name="arriving_dates[]"]').last().val(),
             success: function (vehicules) {
-                $('#vehicule_perso_select').empty();
-                var nullOption = $('<option>');
-                nullOption.attr('value', ''); // You can set the value to an appropriate null value if needed
-                nullOption.text('Choisir un véhicule'); // Set the text for the null option
-                $('#vehicule_perso_select').append(nullOption);
+                $('#vehicule_perso_select').empty().hide();
                if(vehicules.length === 0) {
-                  console.log('empty');
-                  $('#aucun_vehicule_perso_message').text("Aucun véhicule personnel n'est disponible pour le moment");
+                  $('#aucun_vehicule_perso_message').html("Aucun véhicule personnel n'est disponible pour le moment. Veuillez ajouter un véhicule personnel <a href='/covoiturage/parc/vehicule_perso/create' target='_blank' style='color:blue'><b>ici</b></a>");
                   resolve();
                }else{
+                  var nullOption = $('<option>');
+                  nullOption.attr('value', ''); // You can set the value to an appropriate null value if needed
+                  nullOption.text('Choisir un véhicule'); // Set the text for the null option
+                  $('#vehicule_perso_select').append(nullOption);
+                  $('#vehicule_perso_select').show();
                   vehicules.forEach((vehicule, index) => {
                      var option = $('<option>');
                      option.attr('value', vehicule.id_vehicule);
@@ -332,15 +331,16 @@ function SearchAvailableVehiculesPerso() {
             method: 'GET',
             data: 'startDate=' + $('#DateTimeDepart').val() + '&endDate=' + $('input[name="arriving_dates[]"]').last().val(),
             success: function (vehicules) {
-                $('#vehicule_service_select').empty();
-                var nullOption = $('<option>');
-                nullOption.attr('value', ''); // You can set the value to an appropriate null value if needed
-                nullOption.text('Choisir un véhicule'); // Set the text for the null option
-                $('#vehicule_service_select').append(nullOption);
+                $('#vehicule_service_select').empty().hide();
                if(vehicules.length === 0) {
                   $('#aucun_vehicule_service_message').text("Aucun véhicule de service n'est disponible pour le moment");
                   resolve();
                }else{
+                  var nullOption = $('<option>');
+                  nullOption.attr('value', ''); // You can set the value to an appropriate null value if needed
+                  nullOption.text('Choisir un véhicule'); // Set the text for the null option
+                  $('#vehicule_service_select').append(nullOption);
+                  $('#vehicule_service_select').show();
                   vehicules.forEach((vehicule, index) => {
                      var option = $('<option>');
                      option.attr('value', vehicule.id_vehicule);
