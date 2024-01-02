@@ -141,6 +141,7 @@ class CovoiturageController extends Controller
         ->join('covoiturage__etape as depart', 'depart.id_trajet', '=', 'covoiturage__trajet.id_trajet')
         ->where('depart.id_ville', $id_ville_depart)
         ->whereDate('depart.date_passage', $departDate)
+        ->where('depart.date_passage', '>', now())
         ->whereExists(function ($query) use ($id_ville_arrive) {
             $query->select(DB::raw(1))
                   ->from('covoiturage__etape as arrive')
@@ -179,12 +180,12 @@ class CovoiturageController extends Controller
                 'point_depart' => [
                     'id_etape' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->id_etape,
                     'ville' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->ville->nom,
-                    'date_passage' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->date_passage
+                    'date_passage' => $trajet->etapes->where('id_ville', $id_ville_depart)->first()->date_passage->format('d/m/Y H:i')
                 ],
                 'point_arrive' => [
                     'id_etape' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->id_etape,
                     'ville' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->ville->nom,
-                    'date_passage' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->date_passage
+                    'date_passage' => $trajet->etapes->where('id_ville', $id_ville_arrive)->first()->date_passage->format('d/m/Y H:i')
                 ]
             ];
         }
@@ -240,27 +241,24 @@ class CovoiturageController extends Controller
     }  
 
     public function calculateTimeDifference($time1, $time2)
-    {        
-        // Calculate the difference in total minutes
+    {
         $diffInMinutes = $time1->diffInMinutes($time2);
         
-        // Calculate hours and minutes
-        $hours = intdiv($diffInMinutes, 60);
-        $minutes = $diffInMinutes % 60;
-        
-        // Format the string
-        $result = '';
-        if ($hours > 0) {
-            if ($minutes > 0) {
-                $result .= $hours . ' heure' . ($hours > 1 ? 's' : '');
-            }
-            if (!empty($result)) {
-                $result .= ' ';
-            }
-            $result .= $minutes . ' minute' . ($minutes > 1 ? 's' : '');
+        if ($diffInMinutes < 60) {
+            return $diffInMinutes . ' minute' . ($diffInMinutes > 1 ? 's' : '');
         }
             
-        return $result ?: '0 minute';
+        $hours = intdiv($diffInMinutes, 60);
+        $remainingMinutes = $diffInMinutes % 60;
+        
+        $result = $hours . ' heure' . ($hours > 1 ? 's' : '');
+        
+        if ($remainingMinutes > 0) {
+            $result .= ' ' . $remainingMinutes . ' minute' . ($remainingMinutes > 1 ? 's' : '');
+        }
+        
+        return $result;
     }
+
 
 }

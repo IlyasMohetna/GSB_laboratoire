@@ -51,13 +51,15 @@
                             </div>
                         </div>
                         @empty 
-                        <span>Vous n'avez aucun véhicule personnel disponible pour le moment</span>
+                        <div class="col-span-12">
+                            <span>Vous n'avez aucun véhicule personnel disponible pour le moment</span>
+                        </div>    
                     @endforelse
                     </div>
                 <div class="grid col-span-12 grid-cols-12 gap-2" id="vehicule_service_list" style="display:none">
                 <div class="md:flex col-span-12 block items-center justify-between my-[1.5rem] page-header-breadcrumb">
                         <div>
-                            <p class="font-semibold text-[1.125rem] text-defaulttextcolor dark:text-defaulttextcolor/70 !mb-0 ">Ceci représente l'ensemble de véhicules disponible sur le site : <b>{{ auth()->user()->agence->nom_agence }}</b></p>
+                            <p class="font-semibold text-[1.125rem] text-defaulttextcolor dark:text-defaulttextcolor/70 !mb-0 ">Ceci représente l'ensemble de véhicules disponible sur l'agence : <b>{{ auth()->user()->agence->nom_agence }}</b></p>
                         </div>
                     </div>
                     @forelse($vehicules_service as $vehicule)
@@ -78,7 +80,9 @@
                             </div>
                         </div>
                         @empty 
-                        <span>Vous n'avez aucun véhicule personnel disponible pour le moment</span>
+                        <div class="col-span-12">
+                            <span>Vous n'avez aucun véhicule personnel disponible pour le moment</span>
+                        </div>
                     @endforelse
                 </div>
 			</div>

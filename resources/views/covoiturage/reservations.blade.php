@@ -29,7 +29,7 @@ use Carbon\Carbon;
 									<td class="capitalize">{{ $reservation->etape_arrive->ville->nom.' à '.$reservation->etape_arrive->date_passage->format('d/m/Y H:i') }}</td>
 									<td class="text-center">{{ $reservation->date_de_reservation->format('d/m/Y H:i') }}</td>
                                     <td class="text-center">{{ (new App\Http\Controllers\CovoiturageController)->calculateTimeDifference($reservation->etape_depart->date_passage,$reservation->etape_arrive->date_passage) }}</td>
-									<td>
+									<td style="font-size:16px">
                                         @if($reservation->trajet->etapes->last()->date_passage->isPast())
                                         <span class="badge bg-danger text-white">Terminé</span>
                                         @elseif(Carbon::now()->between($reservation->trajet->etapes->first()->date_passage,$reservation->trajet->etapes->last()->date_passage))

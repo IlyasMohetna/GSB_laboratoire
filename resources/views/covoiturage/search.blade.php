@@ -88,6 +88,9 @@
 </div>
 <script>
 	$('#search-perform').on('click', function(){
+		if($('#startLocation').val() === null || $('#endLocation').val() === null || $('#DateDepart').val().length < 1){
+			return false;
+		}
 	       $('#annonces').html('');
 	    $('#search_container,#annonce_metric').addClass('!hidden');
 	       $('#loading_annonce').removeClass('!hidden');

@@ -25,9 +25,11 @@
                 On vous souhaitons un bon voyage à votre destination.</p>
             </div>
             <div class="p-4 mx-auto">
-                <button type="button" class="ti-btn ti-btn-success-full" style="background-color:#1bd623">
-                    Revenir à mon tableau de reservation
-                </button>
+                <a href="{{ route('covoiturage.reservations_show') }}">
+                    <button type="button" class="ti-btn ti-btn-success-full" style="background-color:#1bd623">
+                        Revenir à mon tableau de reservation
+                    </button>
+                </a>    
             </div>
          </div>
       </div>
