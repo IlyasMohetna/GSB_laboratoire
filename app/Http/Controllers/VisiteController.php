@@ -11,6 +11,8 @@ use App\Models\VISITE\PresentationMedicament;
 use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 use PDF;
+use Mail;
+use App\Mail\VisiteCreatedMail;
 
 class VisiteController extends Controller
 {
@@ -37,8 +39,10 @@ class VisiteController extends Controller
             }
         }
 
-        $visite = Visite::where('id_visite', $visite->id_visite)->with('visiteur.agence.ville','praticien.ville')->first();
-
+        $visite = Visite::where('id_visite', $visite->id_visite)->with('visiteur.fonction','praticien.ville','visiteur.agence.ville','medicaments.medicament')->first();
+        $pdf = PDF::loadView('pdf.ordre_de_mission', $visite->toArray());
+        Mail::to('ilyas.mohetna.1@gmail.com')
+            ->send(new VisiteCreatedMail($visite));
         return view('visite.search', ['visite' => $visite]);
     }
 
@@ -184,7 +188,6 @@ class VisiteController extends Controller
 
     public function medicaments_yajra(Request $request)
     {
-    
         $query = Medicament::query();
         $query->with('famille')->get();
         

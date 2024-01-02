@@ -4,6 +4,12 @@ $(document).ready(function() {
     $('#nextBtn').on('click', function() {
       if (currentStep < 3 && (CheckDateTimeDepart() && CheckNbPlace())) {
           CheckDateTimeDepart();
+          if (currentStep === 2) {
+            if($("#startLocation").val() === null || $("#endLocation").val() === null){
+              console.log('here');
+              return false;
+            }
+          }
         $('#step' + currentStep).addClass('!hidden');
         currentStep++;
         $('#step' + currentStep).removeClass('!hidden');
@@ -12,6 +18,7 @@ $(document).ready(function() {
   
       // Toggle NEXT and PREVIOUS button visibility based on the current step
       if (currentStep === 3) {
+        
         SearchAvailableVehiculesPerso()
         .then(() => {
           $("#vehicule_perso_select").select2({

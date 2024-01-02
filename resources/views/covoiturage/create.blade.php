@@ -44,8 +44,9 @@
                            <input type="text" class="form-control flatpickr-input" id="DateTimeDepart" name="DateTimeDepart" placeholder="La date de départ" readonly="readonly">
                            <script>
                               $("#DateTimeDepart").flatpickr({
-                                  minDate: "today",
                                   enableTime: true,
+                                  minDate: new Date().setHours(new Date().getHours() + 1, 0, 0, 0),
+                                  time_24hr: true,
                                   dateFormat: "d/m/Y H:i",
                               });
                            </script>
