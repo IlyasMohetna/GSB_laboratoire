@@ -31,11 +31,13 @@ class SalleController extends Controller
             'id_salle' => request()->id_salle,
             'id_extra' => request()->extra ?? NULL
         ]);
+
+        return redirect()->route('salle.reservation_show');
     }
 
     public function reservation_show()
     {
-        $reservations = Reservation::where('code_employe', auth()->user()->code_employe)->with('salle.batiment.agence','extra')->get();
+        $reservations = Reservation::where('code_employe', auth()->user()->code_employe)->with('salle.batiment.agence','extra')->latest()->get();
         return view('salle.reservation', ['reservations' => $reservations]);
     }
 
@@ -65,6 +67,7 @@ class SalleController extends Controller
         
         $events = $reservations->map(function ($reservation) {
             return [
+                "id" => $reservation->id_reservation,
                 "title" => 'Salle '.ucfirst($reservation->salle->nom_salle). ' | '.$reservation->employe->prenom.' '.$reservation->employe->nom,
                 "start" => $reservation->date_debut_reservation->toDateTimeString(),
                 "end" => $reservation->date_fin_reservation->toDateTimeString(),
@@ -144,6 +147,7 @@ class SalleController extends Controller
             array_push($query_material, explode('_', $material_key)[1]);
         }
 
+        // dd($debut,$fin);
         $search = Salle::
             with('batiment.agence.ville', 'materielTypes')
             ->when($id_agence, function ($query) use ($id_agence) {
@@ -161,8 +165,8 @@ class SalleController extends Controller
             })
             ->whereDoesntHave('reservation', function ($subquery) use ($debut, $fin) {
                 $subquery->where(function ($query) use ($debut, $fin) {
-                    $query->whereBetween('date_debut_reservation', [$debut, $fin])
-                    ->orWhereBetween('date_fin_reservation', [$debut, $fin]);
+                    $query->where('date_debut_reservation', '<=', $debut)
+                        ->where('date_fin_reservation', '>=', $fin);
                 });
             })
             ->get();

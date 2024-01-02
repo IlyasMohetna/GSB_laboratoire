@@ -228,9 +228,9 @@
 							</div>
                             <form action="{{ route('salle.reserver') }}" method="POST">
                                 @csrf
-                                <div>
+                                <div class="block">
                                 <label>Vous vous des extras ?</label>
-                                <select name="extra">
+                                <select name="extra" class="ti-form-select rounded-sm !py-2 !px-3">
                                     <option value="">Aucun</option>
                                     @foreach($extras as $extra)
                                         <option value="{{ $extra->id_extra }}">{{ $extra->libelle_extra }}</option>
@@ -243,7 +243,7 @@
                                 <input type="hidden" id="modal_id_salle" name="id_salle">
                                 <input type="hidden" id="modal_debut" name="debut">
                                 <input type="hidden" id="modal_fin" name="fin">
-                                <button class="mt-3 ti-btn ti-btn-success-full" type="submit">Reserver</button>
+                                <button class="ti-btn ti-btn-success-full" type="submit">Reserver</button>
                             </form>
                         </div>
 					</div>

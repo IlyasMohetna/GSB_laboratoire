@@ -52,58 +52,66 @@
 	<!--End::row-1 --> 
 </div>
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
-	    var calendarEl = document.getElementById('calendar');
-        
-	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	        locale: 'fr',
-            headerToolbar: {
-	            left: 'prev,next today',
-	            center: 'title',
-	            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-	        },
-	        initialView: 'timeGridDay',
-	        defaultView: 'month',
-	        events: {
-	            url: '/salle/planning/events',
-	            method: 'GET',
-                extraParams: function() {
-                    return {
-                        id_agence: $('#agences').val(),
-                        id_batiment: $('#batiments').val()
-                    };
-                },
-                failure: function () {
-	                alert('There was an error while fetching events!');
-	            },
-	            success: function (events) {
-	                events.forEach(function (event) {
-	                    event.color = getRandomColor();
-	                });
-	                calendar.render();
-	            }
-	        }
-	    });
-        
-       $('#agences,#batiments').on('change', function(){
-            calendar.refetchEvents();
-	   });
-	
-	    function getRandomColor() {
-	        var letters = '0123456789ABCDEF';
-	        var color = '#';
-	        for (var i = 0; i < 6; i++) {
-	            color += letters[Math.floor(Math.random() * 16)];
-	        }
-	        return color;
-	    }
-	});
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var eventColors = {}; // Store colors for each event id and resource id combination
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'fr',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
+        initialView: 'timeGridDay',
+        defaultView: 'month',
+        events: {
+            url: '/salle/planning/events',
+            method: 'GET',
+            extraParams: function() {
+                return {
+                    id_agence: $('#agences').val(),
+                    id_batiment: $('#batiments').val()
+                };
+            },
+            failure: function () {
+                alert('There was an error while fetching events!');
+            },
+            success: function (events) {
+                events.forEach(function (event) {
+					console.log(event);
+                    var eventId = event.id + '-' + (event.resourceId || ''); // Combine event ID and resource ID
+                    event.color = eventColors[eventId] || getRandomColor();
+                    eventColors[eventId] = event.color;
+                });
+                calendar.render();
+            }
+        }
+    });
+
+    $('#agences, #batiments').on('change', function(){
+        calendar.refetchEvents();
+    });
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    calendar.render();
+});
+
 </script>
 <script>
 	$(document).ready(function() {
 	$('#agences').select2({
 	    placeholder: "Tout les agences",
-	    allowClear: true,
+	    allowClear: false,
 	    height:'44px',
 	    ajax: {
 	        url: '/agences',
@@ -121,7 +129,7 @@
 	        },
 	    }
 	});
-	
+
 	$('#batiments').select2({
 	    placeholder: "Tout les batiments",
 	    allowClear: true,
