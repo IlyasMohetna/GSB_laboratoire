@@ -155,13 +155,17 @@ class FraisController extends Controller
     {
         $isforfait = is_numeric(request()->frais_nature);
         if($isforfait){
-            if(!in_array(request()->frais_nature, [6,7])){
-                $nature = Nature::find(request()->frais_nature);
-                if(request()->montant_reel > $nature->montant_forfait){
-                    request()->montant_reel = $nature->montant_forfait;
+            if(request()->frais_nature !== "6"){
+                if(!in_array(request()->frais_nature, [7])){
+                    $nature = Nature::find(request()->frais_nature);
+                    if(request()->montant_reel > $nature->montant_forfait){
+                        request()->montant_reel = $nature->montant_forfait;
+                    }
                 }
+                $montant_total = request()->forfait_quantite * request()->montant_reel;
+            }else{
+                $montant_total = request()->forfait_quantite * Nature::find(request()->frais_nature)->montant_forfait;
             }
-            $montant_total = request()->forfait_quantite * request()->montant_reel;
         }else{
             $montant_total = request()->montant_reel * 1;
         }
@@ -173,8 +177,8 @@ class FraisController extends Controller
             'horsforfait_libelle' => request()->horsforfait_label ?? NULL,
             'forfait_quantite' => request()->forfait_quantite,
             'commentaire' => request()->frais_commentaire,
-            'appartenance_mois' => 12,
-            'appartenance_annee' => 2023,
+            'appartenance_mois' => 01,
+            'appartenance_annee' => 2024,
             'id_nature' => $isforfait ? request()->frais_nature : NULL,
             'code_situation' => 1,
             'id_visite' => request()->id_visite

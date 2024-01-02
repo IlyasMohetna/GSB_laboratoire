@@ -63,7 +63,7 @@ use Illuminate\Support\Number;
                         <td class="text-center">{{ $frais->date_frais->format('d/m/Y') }}</td>
                         <td class="text-center">{{ Number::currency($frais->montant_total, 'EUR') }}</td>
                         <td class="text-center">{{ $frais->forfait_quantite }}</td>
-                        <td>
+                        <td style="font-size:16px">
 							@if($frais->code_situation == 1)
 							<span class="badge bg-primary/10 text-primary">{{ $frais->situation->libelle_situation }}</span>
 							@elseif($frais->code_situation == 2)
@@ -78,7 +78,7 @@ use Illuminate\Support\Number;
                         </td>
 						<td>{{ $frais->created_at }}</td>
                         <td>
-                           <a href="{{ route('visite.visite_show', ['id_visite' => $frais->id_visite]) }}">
+                           <a href="{{ route('visite.visite_show', ['id_visite' => $frais->id_visite]) }}#frais">
                            <button type="button" aria-label="button"  class="ti-btn ti-btn-icon ti-btn-facebook ti-btn-wave">
                            <i class="las la-eye text-xl"></i>
                            </button>
