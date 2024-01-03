@@ -37,6 +37,7 @@
 			<i class="las la-download"></i>
 			Ordre de mission
 			</a>
+			@role('visiteur')
 			@if(empty($visite->date_fin_visite))
 				<a href="#" title="Visite non cloturer" disabled class="cursor-not-allowed opacity-3 hs-dropdown-toggle ti-btn !gap-0 !py-1 !px-2 !text-[0.9rem] !font-medium bg-secondary text-white flex items-center justify-center" data-hs-overlay="#todo-compose2">
 					<i class="ri-add-circle-line align-middle !me-1"></i>
@@ -48,6 +49,7 @@
 					Déclarer un frais
 				</a>
 			@endif
+			@endrole
 		</div>
 	</div>
 	<script>
