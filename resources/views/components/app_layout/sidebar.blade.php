@@ -109,6 +109,8 @@
                            </a> 
                            <ul class="slide-menu child1">
                               <li class="slide"> <a href="{{ route('parametrage.vehicule_service_show') }}" id="sidebar-parametrage-vehicule-service" class="side-menu__item">Véhicule de services</a> </li>
+                              <li class="slide"> <a href="{{ route('parametrage.users_show') }}" id="sidebar-parametrage-utilisateurs" class="side-menu__item">Utilisateurs</a> </li>
+                              <li class="slide"> <a href="{{ route('parametrage.vehicule_service_show') }}" id="sidebar-parametrage-vehicule-service" class="side-menu__item">Structure</a> </li>
                            </ul>
                         </li>
                         @endrole

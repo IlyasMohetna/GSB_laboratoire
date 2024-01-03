@@ -15,6 +15,7 @@ class User extends Authenticatable
     protected $table = 'employe__employe';
     protected $primaryKey = 'code_employe';
     public $timestamps = true;
+    protected $guarded = [];
 
     public function getAuthPassword(){  
         return $this->mot_de_passe;

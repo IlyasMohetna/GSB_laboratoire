@@ -6,6 +6,12 @@ use App\Models\PARAMETRAGE\Ville;
 use App\Models\PARAMETRAGE\Departement;
 use App\Models\PARAMETRAGE\Region;
 use App\Models\COVOITURAGE\Vehicule;
+use App\Models\SALLE\Agence;
+use App\Models\User;
+use App\Models\EMPLOYE\Fonction;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class ParametrageController extends Controller{
 
@@ -35,6 +41,60 @@ class ParametrageController extends Controller{
         ]);
 
         return redirect()->route('parametrage.vehicule_service_show');
+    }
+
+    public function users_show()
+    {
+        $users = User::with('agence.ville','fonction')->latest()->get();
+        return view('parametrage.users', [
+            'users' => $users
+        ]);
+    }
+
+    public function user_create_show()
+    {
+        $fonctions = Fonction::all();
+        return view('parametrage.user_create', ['fonctions' => $fonctions]);
+    }
+
+    public function user_create()
+    {
+        $user = User::create([
+            'prenom' => request()->prenom,
+            'nom' => request()->nom,
+            'utilisateur' => request()->utilisateur,
+            'mot_de_passe' => Hash::make(request()->password),
+            'email' => request()->email,
+            'date_naissance' => request()->dob,
+            'date_embauche' => request()->de,
+            'id_agence' => request()->agence,
+            'code_fonction' => request()->fonction
+        ]);
+
+        $role = Role::find(request()->fonction);
+        $user->assignRole($role);
+
+        return redirect()->route('parametrage.users_show');
+    }
+
+    public function agences_show()
+    {
+        return view('parametrage.agences');
+    }
+
+    public function agences_yajra()
+    {
+        $query = Agence::query();
+        $query->with('ville')->get();
+        
+        return DataTables::of($query)
+        ->addColumn('nom', function ($agence) {
+            return $agence->nom_agence;
+        })
+        ->editColumn('ville', function ($agence) {
+            return ucfirst($agence->ville->nom);
+        })
+        ->make(true);
     }
 
     public function ville_lookup()
