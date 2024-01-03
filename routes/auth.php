@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', function () {return view('login');})->name('auth.login.show');
-    Route::get('/', function () {return view('login');})->name('auth.login.show');
+    Route::get('/', function () {return view('login');})->name('auth.login.redirect.show');
     Route::post('/login', [LoginController::class , 'authenticate'])->name('auth.authenticate');
 });
 

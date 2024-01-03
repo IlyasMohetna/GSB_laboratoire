@@ -14,6 +14,10 @@ use App\Http\Controllers\ImportController;
 |
 */
 
+Route::get('/documentation/db', function(){
+    return view('documentation');
+})->name('documentation');
+
 Route::get('/accueil', function(){
     return view('accueil');
 })->middleware('auth')->name('accueil.show');

@@ -18,6 +18,7 @@
         "maatwebsite/excel": "^3.1",
         "orangehill/iseed": "^3.0",
         "psr/simple-cache": "1.0",
+        "rakutentech/laravel-request-docs": "^2.27",
         "spatie/laravel-permission": "^6.1",
         "thiagoalessio/tesseract_ocr": "^2.13",
         "yajra/laravel-datatables-oracle": "^10.11"

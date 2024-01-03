@@ -57,12 +57,17 @@
 										</div>
 										<div class="xl:col-span-12 col-span-12 grid mt-2">
 											<button type="submit" class="ti-btn ti-btn-primary !bg-primary !text-white !font-medium">
-											Connexion
+												Connexion
 											</button>
 										</div>
 									</div>
 								</form>
 							</div>
+						</div>
+						<div class="block" style="background-color:yellow;padding:4%;font-weight:bold">
+							<a href="{{ route('documentation') }}" target="_blank">Lien : Documentation de la base de donnée</a><br>
+							<a href="/request-docs" target="_blank">Lien : Documentation technique des classes</a><br>
+							<a href="/uml" target="_blank">Lien : Diagramme UML des classes</a>
 						</div>
 					</div>
 					<div class="xxl:col-span-4 xl:col-span-4 lg:col-span-4 md:col-span-3 sm:col-span-2"></div>
