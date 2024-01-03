@@ -178,6 +178,6 @@
             });
         });
     </script>
-    <script>$('#sidebar-parametrage-vehicule-service').addClass('active');</script>
+    <script>$('#sidebar-parametrage-utilisateurs').addClass('active');</script>
 </div>
 @stop
