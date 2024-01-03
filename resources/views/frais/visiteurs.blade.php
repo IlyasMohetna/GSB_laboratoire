@@ -4,7 +4,7 @@
 	<!-- Page Header --> 
 	<div class="block justify-between page-header md:flex">
 		<div>
-			<h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">Les visiteurs</h3>
+			<h3 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">Les visiteurs de l'agence <b>{{ auth()->user()->agence->nom_agence }} :</b></h3>
 		</div>
 	</div>
 	<!-- End::row-3--> <!-- Start::row-4 --> 
@@ -22,11 +22,18 @@
 					<div class="font-semibold text-[1rem] mt-2">{{ $visiteur->prenom.' '.$visiteur->nom }}</div>
 					<p class="text-[#8c9097] dark:text-white/50 text-[.6875rem]">Fonction : <b>{{ $visiteur->fonction->nom_fonction }}</b></p>
                     <p class="mb-4 text-[#8c9097] dark:text-white/50 text-[.6875rem]">Agence : <b>{{ $visiteur->agence->nom_agence }}</b></p>
-					<div > 
-                        <a href="{{ route('frais.recap_show', ['id_visiteur' => $visiteur->code_employe]) }}">
-                            <button type="button" class="ti-btn  ti-btn-info-full ti-btn-hover ti-btn-hover-animate rounded-full">Consulter</button>
-                        </a>
-                    </div>
+					<div class="grid grid-cols-2 gap-4">
+						<div>
+							<a href="{{ route('visite.visites_show', ['id_visiteur' => $visiteur->code_employe]) }}">
+								<button type="button" class="ti-btn  ti-btn-primary-full ti-btn-hover ti-btn-hover-animate rounded-full">Visites</button>
+							</a>
+						</div>
+						<div>
+							<a href="{{ route('frais.recap_show', ['id_visiteur' => $visiteur->code_employe]) }}">
+								<button type="button" class="ti-btn  ti-btn-info-full ti-btn-hover ti-btn-hover-animate rounded-full">Frais</button>
+							</a>
+						</div>
+					</div>	
 				</div>
 			</div>
 		</div>

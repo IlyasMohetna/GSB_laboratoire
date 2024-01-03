@@ -22,7 +22,7 @@ class FraisController extends Controller
 {
     public function visiteurs_show()
     {
-        $visiteurs = User::where('code_fonction', 2)->get();
+        $visiteurs = User::where('code_fonction', 2)->where('id_agence', auth()->user()->id_agence)->get();
         return view('frais.visiteurs', ['visiteurs' => $visiteurs]);
     }
 

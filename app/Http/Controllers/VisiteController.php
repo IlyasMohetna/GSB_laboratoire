@@ -60,9 +60,10 @@ class VisiteController extends Controller
         return $pdf->download('ORDRE_MISSION_'.$visite->created_at->format('d-m-Y').'.pdf');
     }
 
-    public function visites_show()
+    public function visites_show($id_visiteur = null)
     {
-        $visites = Visite::where('code_employe', auth()->user()->code_employe)->with('praticien')->get();
+        $id_visiteur = $id_visiteur ?? auth()->user()->code_employe;
+        $visites = Visite::where('code_employe', $id_visiteur)->with('praticien')->get();
         return view('visite.visites', ['visites' => $visites]);
     }
 

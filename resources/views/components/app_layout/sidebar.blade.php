@@ -24,6 +24,17 @@
                            </a> 
                         </li>
 
+                        @role('responsable')
+                        <li class="slide">
+                           <a href="{{ route('frais.visiteurs_show') }}" class="side-menu__item"> 
+                              <i class="bx bx-stats side-menu__icon"></i> 
+                              <span class="side-menu__label">
+                                 Mon équipe
+                              </span> 
+                           </a> 
+                        </li>
+                        @endrole
+                        
                         <li class="slide has-sub open">
                            <a href="javascript:void(0);" class="side-menu__item"> 
                               <i class="bx bx-car side-menu__icon"></i> 
@@ -70,7 +81,7 @@
                               <i class="fe fe-chevron-right side-menu__angle"></i> 
                            </a> 
                            <ul class="slide-menu child1">
-                              @role('comptable')
+                              @role(['comptable'])
                               <li class="slide"> <a href="{{ route('frais.visiteurs_show') }}" class="side-menu__item">Gestion des frais</a> </li>
                               @endrole
                               @role('visiteur')
