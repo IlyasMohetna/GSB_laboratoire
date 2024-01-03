@@ -81,6 +81,7 @@
                            </ul>
                         </li>
                         @endrole
+                        
 
                         <li class="slide has-sub open">
                            <a href="javascript:void(0);" class="side-menu__item"> 
@@ -96,6 +97,21 @@
                               <li class="slide"> <a href="{{ route('salle.planning_show') }}" id="sidebar-planning-salle" class="side-menu__item">Planning des salles</a> </li>
                            </ul>
                         </li>
+
+                        @role('admin')
+                        <li class="slide has-sub open">
+                           <a href="javascript:void(0);" class="side-menu__item"> 
+                              <i class="bx bx-money side-menu__icon"></i> 
+                              <span class="side-menu__label">
+                                 Paramétrage
+                              </span> 
+                              <i class="fe fe-chevron-right side-menu__angle"></i> 
+                           </a> 
+                           <ul class="slide-menu child1">
+                              <li class="slide"> <a href="{{ route('parametrage.vehicule_service_show') }}" id="sidebar-parametrage-vehicule-service" class="side-menu__item">Véhicule de services</a> </li>
+                           </ul>
+                        </li>
+                        @endrole
                      </ul>
                      <div class="slide-right" id="slide-right">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">

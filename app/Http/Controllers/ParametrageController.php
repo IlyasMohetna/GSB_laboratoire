@@ -5,8 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\PARAMETRAGE\Ville;
 use App\Models\PARAMETRAGE\Departement;
 use App\Models\PARAMETRAGE\Region;
+use App\Models\COVOITURAGE\Vehicule;
 
 class ParametrageController extends Controller{
+
+    public function vehicule_service_show()
+    {
+        $vehicules_service = Vehicule::with('agence.ville')->where('type_vehicule', 'service')->latest()->get();
+        return view('parametrage.vehicule_service', [
+            'vehicules_service' => $vehicules_service
+        ]);
+    }
+
+    public function vehicule_service_create_show()
+    {
+        return view('parametrage.vehicule_service_create');
+    }
+
+    public function vehicule_service_create()
+    {
+        $create = Vehicule::create([
+            'immatriculation' => request()->immatriculation,
+            'marque' => request()->marque,
+            'model' => request()->model,
+            'annee_model' => request()->annee_model,
+            'type_vehicule' => 'service',
+            'photo' => request()->photo,
+            'id_agence' => request()->agence
+        ]);
+
+        return redirect()->route('parametrage.vehicule_service_show');
+    }
 
     public function ville_lookup()
     {

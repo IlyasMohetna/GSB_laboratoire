@@ -14,4 +14,9 @@ class Vehicule extends Model
     {
         return $this->hasMany(Trajet::class, 'id_vehicule', 'id_vehicule');
     }
+
+    public function agence()
+    {
+        return $this->hasOne(\App\Models\SALLE\Agence::class, 'id_agence', 'id_agence');
+    }
 }

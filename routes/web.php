@@ -30,3 +30,4 @@ include __DIR__.'/visite.php';
 include __DIR__.'/frais.php';
 include __DIR__.'/salle.php';
 include __DIR__.'/document.php';
+include __DIR__.'/parametrage.php';
