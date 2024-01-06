@@ -112,8 +112,8 @@ class FraisController extends Controller
             Storage::delete($imagePath);
             // dd($text);
 
-            // $scan = ReceiptScanner::scan($text,asArray: true);
-            $scan = false;
+            $scan = ReceiptScanner::scan($text,asArray: true);
+            // $scan = false;
             // $scan = [
             //     "orderRef" => "R1301425407841 100323",
             //     "date" => "2021-03-23",

@@ -147,7 +147,6 @@ class SalleController extends Controller
             array_push($query_material, explode('_', $material_key)[1]);
         }
 
-        // dd($debut,$fin);
         $search = Salle::
             with('batiment.agence.ville', 'materielTypes')
             ->when($id_agence, function ($query) use ($id_agence) {

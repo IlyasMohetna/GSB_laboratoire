@@ -65,7 +65,7 @@
 							<td class="!text-end">
                                 <a href="{{ route('frais.frais_list_show', [
                                         'id_visiteur' => $visiteur->code_employe,
-                                        'year' => 2023,
+                                        'year' => $requested_year,
                                         'month' => $month->date->month
                                     ]) }}">
                                     <button class="badge bg-primary text-white" style="font-size:13px"><i class="las la-eye pr-2"></i> Voir</button>
