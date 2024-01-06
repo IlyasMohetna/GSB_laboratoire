@@ -221,7 +221,7 @@ class FraisController extends Controller
             $frais->update([
                 'code_situation' => 4
             ]);
-            Mail::to('ilyas.mohetna.1@gmail.com')->send(new FraisAcceptedMail($frais));
+            Mail::to('collaborateur@gsblaboratoire.fr')->send(new FraisAcceptedMail($frais));
             return redirect()->to(route('visite.visite_show', ['id_visite' => $frais->id_visite]) . '#frais'); 
         }else{
             die(505);
@@ -235,7 +235,7 @@ class FraisController extends Controller
             $frais->update([
                 'code_situation' => 3
             ]);
-            Mail::to('ilyas.mohetna.1@gmail.com')->send(new FraisRefusedMail($frais));
+            Mail::to('collaborateur@gsblaboratoire.fr')->send(new FraisRefusedMail($frais));
             return redirect()->to(route('visite.visite_show', ['id_visite' => $frais->id_visite]) . '#frais'); 
         }else{
             die(505);

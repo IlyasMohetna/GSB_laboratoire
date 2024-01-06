@@ -41,7 +41,7 @@ class VisiteController extends Controller
 
         $visite = Visite::where('id_visite', $visite->id_visite)->with('visiteur.fonction','praticien.ville','visiteur.agence.ville','medicaments.medicament')->first();
         $pdf = PDF::loadView('pdf.ordre_de_mission', $visite->toArray());
-        Mail::to('ilyas.mohetna.1@gmail.com')
+        Mail::to('collaborateur@gsblaboratoire.fr')
             ->send(new VisiteCreatedMail($visite));
         return view('visite.search', ['visite' => $visite]);
     }

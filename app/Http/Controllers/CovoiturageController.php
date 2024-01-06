@@ -213,7 +213,7 @@ class CovoiturageController extends Controller
 
             $reservation = Reservation::where('id_reservation', $reservation_create->id_reservation)->with('covoitureur')->first();
 
-            Mail::to('ilyas.mohetna.1@gmail.com')->send(new CovoiturageConfirmedMail($reservation));
+            Mail::to('collaborateur@gsblaboratoire.fr')->send(new CovoiturageConfirmedMail($reservation));
 
             if(isset(request()->id_visite)){
                 return redirect()->route('visite.create_confirmed', ['id_visite' => request()->id_visite]);
