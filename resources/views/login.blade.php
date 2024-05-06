@@ -26,7 +26,7 @@
 						</div>
 						<div class="box">
 							<div class="box-body !p-[3rem]">
-								<p class="h5 font-semibold mb-2 text-center">Se connecter</p>
+								<p class="h5 font-semibold mb-2 text-center">Se connecterr</p>
 								<form action="/login" method="POST">
 									@csrf
 									<div class="grid grid-cols-12 gap-y-4">
